@@ -5,11 +5,11 @@
 
 **Kaikkien käytäjien toiminnot:**
 
-+Uusi peli
-  +onnistuu jos peli ei ole käynissä
-+Lopeta peli
-  +onnistuu jos peli on käynissä
-+Lisää kortti
-  +onnistuu jos peli on käynissä ja korttien summa ei ole yli 21
-+Jää
-  +onnistuu jos peli on käynissä ja korttien summa ei ole yli 21
+*Uusi peli
+  * onnistuu jos peli ei ole käynissä
+*Lopeta peli
+  + onnistuu jos peli on käynissä
+*Lisää kortti
+  * onnistuu jos peli on käynissä ja korttien summa ei ole yli 21
+*Jää
+  * onnistuu jos peli on käynissä ja korttien summa ei ole yli 21
