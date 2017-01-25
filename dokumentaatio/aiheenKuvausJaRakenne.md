@@ -1,11 +1,14 @@
-**Aihe:** ilmoittautumisjärjestelmä Toteutetaan järjestelmä, jonka avulla ylläpidetään tietojenkäsittelylaitoksen kurssitietoja sekä tietoja kursseille ilmoittautuneista opiskelijoista... 
+﻿**Aihe:** Toteutetaan peli jonka tarkoitus on auttaa alakoululaisia laskemaan. Pelin inspiraatio on blackjack mutta tässä pelissä puttuu kaikki mitä littyy rahaan. Tässä pelissä ei myöskään ole vastaapelaaja vaan pelaaja pelaa ainostaan itsensä vasten. 
 
-**Käyttäjät:** Opiskelija ja Opetushallinto
+**Käyttäjä** pelaaja
 
-**Kaikkien käyttäjien toiminnot:**
+**Kaikkien käytäjien toiminnot:**
 
-    järjestelmään kirjautuminen
-        onnistuu jos salasana ja käyttäjätunnus oikein
-    kaikkien kurssien listaus
-    ...
-
+*Uusi peli
+	* onnistuu jos peli ei ole käynissä
+*Lopeta peli
+	* onnistuu jos peli on käynissä
+*Lisää kortti
+	* onnistuu jos peli on käynissä ja korttien summa ei ole yli 21
+*Jää
+	* onnistuu jos peli on käynissä ja korttien summa ei ole yli 21
