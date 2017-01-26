@@ -29,11 +29,19 @@
             </configuration>
             <version>3.3</version>
         </plugin>
-        <plugin>
-            <groupId>org.pitest</groupId>
-            <artifactId>pitest-maven</artifactId>
-            <version>1.1.8</version>
-        </plugin>
+<plugin>
+    <groupId>org.pitest</groupId>
+    <artifactId>pitest-maven</artifactId>
+    <version>1.1.8</version>
+    <configuration>
+        <targetClasses>
+            <param>count21.logiikka.*</param>    
+        </targetClasses>
+        <targetTests>
+            <param>count21.logiikka.*</param>
+        </targetTests>
+    </configuration>
+</plugin>
     </plugins>
 </build>
 </project>

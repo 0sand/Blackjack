@@ -9,6 +9,9 @@ package logiikka;
  *
  * @author osand
  */
-public class kortit {
-    
+public enum Suits {
+    SPADES,
+    HEARTS,
+    DIAMONDS,
+    CLUBS;
 }
