@@ -1,17 +1,19 @@
 package logiikka;
 
+import java.util.Arrays;
+
 public class Deck {
 
-    private Card[] deck;
+    private Card[] deckArray;
     private int cardsUsed;
 
     public Deck() {
 
-        deck = new Card[52];
-        int cardCt = 0; // How many cards have been created so far.
-        for ( Suits suit : Suits.values()) {
-            for ( int value = 1; value <= 13; value++ ) {
-                deck[cardCt] = new Card(suit,value);
+        deckArray = new Card[52];
+        int cardCt = 0;
+        for (Suits suit : Suits.values()) {
+            for (int value = 1; value <= 13; value++) {
+                deckArray[cardCt] = new Card(suit, value);
                 cardCt++;
             }
         }
@@ -20,28 +22,41 @@ public class Deck {
     }
 
     public void shuffle() {
-        for ( int i = deck.length-1; i > 0; i-- ) {
-            int rand = (int)(Math.random()*(i+1));
-            Card temp = deck[i];
-            deck[i] = deck[rand];
-            deck[rand] = temp;
+        for (int i = deckArray.length - 1; i > 0; i--) {
+            int rand = (int) (Math.random() * (i + 1));
+            Card temp = deckArray[i];
+            deckArray[i] = deckArray[rand];
+            deckArray[rand] = temp;
         }
         cardsUsed = 0;
     }
 
     public int cardsLeft() {
-        return deck.length - cardsUsed;
+        return deckArray.length - cardsUsed;
     }
 
     public Card dealCard() {
-        if (cardsUsed == deck.length)
+        if (cardsUsed == deckArray.length) {
             throw new IllegalStateException("No cards are left in the deck.");
+        }
         cardsUsed++;
-        return deck[cardsUsed - 1];
+        return deckArray[cardsUsed - 1];
 
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (other == null) {
+            return false;
+        }
+        if (getClass() != other.getClass()) {
+            return false;
+        }
+        Deck deck = (Deck) other;
+        return(Arrays.equals(deck.deckArray,this.deckArray));
+    }
 
-
-} 
-
+}
