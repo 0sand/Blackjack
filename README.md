@@ -1,4 +1,4 @@
-# opetuspeli21
+﻿# Blackjack
 
-Ohjelma on variatio blackjack pelistä ja ohjelman kohderyhmä on alakoululaiset
+Ohjelma on perinteinen Blackjack. Ohjelma on tehty niin että siitä pystyy helposti laajentamaan myös muihin perinteisin korttipeleihin.
 
