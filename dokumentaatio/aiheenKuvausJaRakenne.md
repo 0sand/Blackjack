@@ -1,6 +1,9 @@
 ﻿**Aihe:** 
    Toteutetaan Blackjackpeli. Peliä toteutetaan niin että luokat pystyy helposti käyttämään erilaisiin muihin korttipeleihin. Mahdollisesti voidaan peli sitten laajentaa niin että on olemassa myös muita korttipelejä mukana. Alussa ei toteuteta erikoisäänöt kun splittaus ja ei myöskään ole mahdollista panostaa. Näitä toimintoja lisätään sitten tulevaisuudessa.
 
+**Luokkakaaviot**
+![Määrittelyvaiheen luokkakaavio](luokkakaavio.jpg)
+
 **Käyttäjä** pelaaja
 
 **Kaikkien käytäjien toiminnot:**
