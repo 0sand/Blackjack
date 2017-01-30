@@ -1,4 +1,4 @@
-package logiikka;
+package com.sand.count21.logiikka;
 
 import java.util.Arrays;
 
@@ -56,7 +56,7 @@ public class Deck {
             return false;
         }
         Deck deck = (Deck) other;
-        return(Arrays.equals(deck.deckArray,this.deckArray));
+        return (Arrays.equals(deck.deckArray, this.deckArray));
     }
 
 }

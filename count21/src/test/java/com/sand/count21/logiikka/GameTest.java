@@ -5,7 +5,6 @@
  */
 package com.sand.count21.logiikka;
 
-import static com.sand.count21.logiikka.Suits.*;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author osand
  */
-public class CardTest {
+public class GameTest {
 
-    public CardTest() {
+    public GameTest() {
     }
 
     @BeforeClass
@@ -39,18 +38,25 @@ public class CardTest {
     }
 
     @Test
-    public void twoIdenticalCardsAreEqual() {
-        Card card1 = new Card(HEARTS, 1);
-        Card card2 = new Card(HEARTS, 1);
-        assertEquals(card1, card2);
-
+    public void canDealCards() {
+        Game game = new Game();
+        Player player1 = game.getPlayer(1);
+        game.dealToPlayer(player1, 20);
+        assertTrue(20 == player1.cardInHand());
     }
 
     @Test
-    public void twoCardsWithSameValueButDiffrentSuitNotEqual() {
-        Card card1 = new Card(SPADES, 1);
-        Card card2 = new Card(HEARTS, 1);
-        assertNotEquals(card1, card2);
-        
+    public void gameWillAutomaticlyShuffleWhenNeeded() {
+        Game game = new Game();
+        Player player1 = game.getPlayer(1);
+        game.dealToPlayer(player1, 200);
+        assertTrue(200 == player1.cardInHand());
     }
+
+    /*
+    @Test
+    public void gameShufflesDeckWhenNeeded() {
+    
+    }
+     */
 }

@@ -5,10 +5,11 @@
  */
 package com.sand.count21.logiikka;
 
-import logiikka.*;
-import static logiikka.Suits.*;
+import static com.sand.count21.logiikka.Suits.*;
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -46,17 +47,29 @@ public class PlayerTest {
         Card card2 = new Card(SPADES, 13);
         player.reciveCard(card2);
         player.reciveCard(card1);
-        assertTrue(player.TotalValueOfCards() == 14);
+        assertTrue(player.totalValueOfCards() == 14);
     }
 
     @Test
-    public void PlayerKnowsHowManyCardsInHand() {
+    public void playerKnowsHowManyCardsInHand() {
         Player player = new Player();
         Card card1 = new Card(SPADES, 1);
         Card card2 = new Card(SPADES, 13);
         player.reciveCard(card2);
         player.reciveCard(card1);
         assertTrue(player.cardInHand() == 2);
+    }
+
+    @Test
+    public void playerCanShowCards() {
+        Player player = new Player();
+        Card card1 = new Card(SPADES, 1);
+        Card card2 = new Card(SPADES, 13);
+        player.reciveCard(card2);
+        player.reciveCard(card1);
+        ArrayList<Card> kortit = player.getCards();
+        Assert.assertNotNull(kortit);
+        
     }
 
 }

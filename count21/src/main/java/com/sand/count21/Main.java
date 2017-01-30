@@ -1,7 +1,7 @@
 package com.sand.count21;
 
-import logiikka.Card;
-import logiikka.Deck;
+import com.sand.count21.logiikka.Card;
+import com.sand.count21.logiikka.Deck;
 
 public class Main {
 

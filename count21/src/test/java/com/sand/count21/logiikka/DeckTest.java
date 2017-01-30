@@ -5,8 +5,6 @@
  */
 package com.sand.count21.logiikka;
 
-import logiikka.Card;
-import logiikka.Deck;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;

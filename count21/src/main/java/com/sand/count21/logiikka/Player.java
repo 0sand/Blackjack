@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logiikka;
+package com.sand.count21.logiikka;
 import java.util.ArrayList;
 
 /**
@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author osand
  */
 public class Player {
-    private ArrayList<Card> playerHand;
+    private ArrayList<Card> playerHand = new ArrayList();
     
     public Player() {
         
@@ -24,12 +24,15 @@ public class Player {
     public int cardInHand() {
         return playerHand.size();
     }
-    public int TotalValueOfCards() {
+    public int totalValueOfCards() {
         int sum = 0;
-        for(Card card:playerHand) {
-            sum +=card.getValue();
+        for (Card card:playerHand) {
+            sum += card.getValue();
         }
         return sum;
+    }
+    public ArrayList<Card> getCards() {
+        return this.playerHand;
     }
     
     

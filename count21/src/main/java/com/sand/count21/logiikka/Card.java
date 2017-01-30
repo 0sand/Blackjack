@@ -1,4 +1,4 @@
-package logiikka;
+package com.sand.count21.logiikka;
 
 public class Card {
 
