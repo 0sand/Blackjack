@@ -71,5 +71,21 @@ public class PlayerTest {
         Assert.assertNotNull(kortit);
         
     }
+    
+    @Test
+    public void playerCanSortCardsFromSmallValueToLarge() {
+        Player player = new Player();
+        player.reciveCard(new Card(HEARTS, 13));
+        player.reciveCard(new Card(SPADES, 10));
+        player.reciveCard(new Card(CLUBS, 7));
+        player.reciveCard(new Card(HEARTS, 1));
+        player.sortPlayerCardsSmallToLarge();
+        ArrayList<Card> cards =player.getCards();
+        assertEquals(cards.get(0).getValue(), 1);
+        assertEquals(cards.get(1).getValue(), 7);
+        assertEquals(cards.get(2).getValue(), 10);
+        assertEquals(cards.get(3).getValue(), 13);
+        
+    }
 
 }

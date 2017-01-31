@@ -1,6 +1,6 @@
 package com.sand.count21.logiikka;
 
-public class Card {
+public class Card implements Comparable<Card> {
 
     private Suits suit;
     private int value;
@@ -33,5 +33,15 @@ public class Card {
         return (this.suit == card.getSuit() && this.value == card.getValue());
     }
 
-}
+    @Override
+    public int compareTo(Card card) {
+        if (this.value == card.getValue()) {
+            return 0;
+        } else if (this.value > card.getValue()) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
 
+}
