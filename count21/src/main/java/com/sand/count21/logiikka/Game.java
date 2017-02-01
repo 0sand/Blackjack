@@ -5,6 +5,8 @@
  */
 package com.sand.count21.logiikka;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author osand
@@ -30,13 +32,13 @@ public class Game {
         }
         return false;
     }
-    
+
     public void shuffleDeck() {
         deck.shuffle();
     }
 
     public void dealToPlayer(Player player, int n) {
-        
+
         for (int i = 0; i < n; i++) {
             if (shouldIshuffleDeck()) {
                 shuffleDeck();
@@ -49,11 +51,25 @@ public class Game {
 
     public Player getPlayer() {
         return this.player1;
-        }
+    }
+
     public Player getComputer() {
         return this.computer;
     }
-    
+
+    public boolean checkIfComputerMustHit(Player computer) {
+        if (this.checkIfPlayerIsBust(computer)) {
+            return false;
+        }
+        if (this.checkIfPlayerHas21(player1)) {
+            return false;
+        }
+        if (computer.totalValueOfCardsAceHigh() >= 17) {
+            return false;
+        }
+        return true;
+    }
+
     public boolean checkForBlackjack(Player player) {
         if (player.cardInHand() > 2) {
             return false;
@@ -69,4 +85,29 @@ public class Game {
         }
         return false;
     }
+
+    public boolean checkIfPlayerIsBust(Player player) {
+        if (player.totalValueOfCardsAceLow() > 21) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkIfPlayerHas21(Player player) {
+        if (player.totalValueOfCardsAceLow() == 21 || player.totalValueOfCardsAceHigh() == 21) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkIfPlayerCanSplit(Player player) {
+        if (player.cardInHand() == 2) {
+            ArrayList<Card> cards = player.getCards();
+            if (cards.get(0).getValue() == cards.get(1).getValue()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

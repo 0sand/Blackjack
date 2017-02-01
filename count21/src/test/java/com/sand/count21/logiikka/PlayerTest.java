@@ -47,7 +47,7 @@ public class PlayerTest {
         Card card2 = new Card(SPADES, 13);
         player.reciveCard(card2);
         player.reciveCard(card1);
-        assertTrue(player.totalValueOfCards() == 14);
+        assertTrue(player.totalValueOfCardsAceLow() == 14);
     }
 
     @Test

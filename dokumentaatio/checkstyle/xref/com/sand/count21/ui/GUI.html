@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en_US" lang="en_US">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>GUI xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../apidocs/com/sand/count21/ui/GUI.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> com.sand.count21.ui;
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> javax.swing.*;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> java.awt.*;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> java.awt.event.*;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> java.util.*;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/sand/count21/ui/GUI.html">GUI</a> <strong class="jxr_keyword">extends</strong> JPanel {
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>      JPanel dealerPanel = <strong class="jxr_keyword">new</strong> JPanel();
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>      JPanel playerPanel = <strong class="jxr_keyword">new</strong> JPanel();
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>      JPanel bottomPanel = <strong class="jxr_keyword">new</strong> JPanel();
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>      JButton hitbutton = <strong class="jxr_keyword">new</strong> JButton();
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>      JButton staybutton = <strong class="jxr_keyword">new</strong> JButton();
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>      JButton playagainbutton = <strong class="jxr_keyword">new</strong> JButton();
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../com/sand/count21/ui/GUI.html">GUI</a>() {
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>          dealerPanel.setBackground(<strong class="jxr_keyword">new</strong> Color(12, 112, 12));
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>          playerPanel.setBackground(<strong class="jxr_keyword">new</strong> Color(12, 112, 12));
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>          bottomPanel.setBackground(<strong class="jxr_keyword">new</strong> Color(12, 112, 12));
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>          bottomPanel.setLayout(<strong class="jxr_keyword">new</strong> FlowLayout());
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>          hitbutton.setText(<span class="jxr_string">"Hit"</span>);
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>          hitbutton.setEnabled(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>          staybutton.setText(<span class="jxr_string">"Stay"</span>);
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>          playagainbutton.setEnabled(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>          playagainbutton.setText(<span class="jxr_string">"Again"</span>);
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>          staybutton.setEnabled(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>          bottomPanel.add(hitbutton);
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>          bottomPanel.add(staybutton);
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>          bottomPanel.add(playagainbutton);
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>          setLayout(<strong class="jxr_keyword">new</strong> BorderLayout());
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>          add(dealerPanel, BorderLayout.NORTH);
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>          add(playerPanel, BorderLayout.CENTER);
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>          add(bottomPanel, BorderLayout.SOUTH);
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>      }
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> display() {
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>          JFrame myFrame = <strong class="jxr_keyword">new</strong> JFrame(<span class="jxr_string">"Blackjack"</span>);
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>          myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>          myFrame.setContentPane(<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>          myFrame.setPreferredSize(<strong class="jxr_keyword">new</strong> Dimension(1000, 700));
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>          myFrame.pack();
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>          myFrame.setVisible(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      }
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  }
+</pre>
+<hr/>
+<div id="footer">Copyright &#169; 2017. All rights reserved.</div>
+</body>
+</html>

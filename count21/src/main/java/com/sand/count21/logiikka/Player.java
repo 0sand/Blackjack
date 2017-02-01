@@ -14,6 +14,9 @@ import java.util.Collections;
  */
 public class Player {
 
+    private int gamesPlayed = 0;
+    private int gamesLost = 0;
+    private int gamesWon = 0;
     private int money;
     private ArrayList<Card> playerHand = new ArrayList();
 
@@ -25,6 +28,16 @@ public class Player {
         this.money = money;
     }
 
+    public void playerWon() {
+        this.gamesWon++;
+        this.gamesPlayed++;
+    }
+
+    public void playerLost() {
+        this.gamesLost++;
+        this.gamesPlayed++;
+    }
+
     public void deductMoney(int money) {
         if (this.money - money >= 0) {
             this.money -= money;
@@ -34,7 +47,7 @@ public class Player {
     public void reciveMoney(int money) {
         this.money += money;
     }
-    
+
     public int getMoney() {
         return this.money;
     }
@@ -47,10 +60,22 @@ public class Player {
         return playerHand.size();
     }
 
-    public int totalValueOfCards() {
+    public int totalValueOfCardsAceLow() {
         int sum = 0;
         for (Card card : playerHand) {
             sum += card.getValue();
+        }
+        return sum;
+    }
+
+    public int totalValueOfCardsAceHigh() {
+        int sum = 0;
+        for (Card card : playerHand) {
+            if (card.getValue() == 1) {
+                sum += 11;
+            } else {
+                sum += card.getValue();
+            }
         }
         return sum;
     }
