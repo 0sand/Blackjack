@@ -15,15 +15,15 @@ public class Game {
 
     private Deck deck = new Deck();
     private Player player1 = new Player();
-    private Player computer = new Player();
+    private Player dealer = new Player();
 
     public Game() {
         deck.shuffle();
     }
 
-    public void start() {
-        dealToPlayer(player1, 2);
-        dealToPlayer(computer, 2);
+    public void firstCardsInRound() {
+        dealTo(player1, 2);
+        dealTo(dealer, 2);
     }
 
     public boolean shouldIshuffleDeck() {
@@ -37,7 +37,7 @@ public class Game {
         deck.shuffle();
     }
 
-    public void dealToPlayer(Player player, int n) {
+    public void dealTo(Player player, int n) {
 
         for (int i = 0; i < n; i++) {
             if (shouldIshuffleDeck()) {
@@ -54,14 +54,14 @@ public class Game {
     }
 
     public Player getComputer() {
-        return this.computer;
+        return this.dealer;
     }
 
-    public boolean checkIfComputerMustHit(Player computer) {
+    public boolean checkIfDealerMustHit(Player computer) {
         if (this.checkIfPlayerIsBust(computer)) {
             return false;
         }
-        if (this.checkIfPlayerHas21(player1)) {
+        if (this.checkIfPlayerHas21(computer)) {
             return false;
         }
         if (computer.totalValueOfCardsAceHigh() >= 17) {
@@ -109,5 +109,15 @@ public class Game {
         }
         return false;
     }
+
+    public void dealerPlays(Player dealer) {
+        while (this.checkIfDealerMustHit(dealer)) {
+            this.dealTo(dealer, 1);
+        }
+    }
+    
+   
+    
+
 
 }

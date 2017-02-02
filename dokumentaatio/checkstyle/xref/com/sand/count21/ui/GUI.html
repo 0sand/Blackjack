@@ -21,39 +21,54 @@
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>      JButton hitbutton = <strong class="jxr_keyword">new</strong> JButton();
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>      JButton staybutton = <strong class="jxr_keyword">new</strong> JButton();
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>      JButton playagainbutton = <strong class="jxr_keyword">new</strong> JButton();
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../com/sand/count21/ui/GUI.html">GUI</a>() {
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>      JLabel dealerlabel = <strong class="jxr_keyword">new</strong> JLabel();
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>      JLabel playerlabel = <strong class="jxr_keyword">new</strong> JLabel();
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>          dealerPanel.setBackground(<strong class="jxr_keyword">new</strong> Color(12, 112, 12));
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>          playerPanel.setBackground(<strong class="jxr_keyword">new</strong> Color(12, 112, 12));
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>          bottomPanel.setBackground(<strong class="jxr_keyword">new</strong> Color(12, 112, 12));
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>          bottomPanel.setLayout(<strong class="jxr_keyword">new</strong> FlowLayout());
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>          hitbutton.setText(<span class="jxr_string">"Hit"</span>);
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>          hitbutton.setEnabled(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>          staybutton.setText(<span class="jxr_string">"Stay"</span>);
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>          playagainbutton.setEnabled(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>          playagainbutton.setText(<span class="jxr_string">"Again"</span>);
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>          staybutton.setEnabled(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>          bottomPanel.add(hitbutton);
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>          bottomPanel.add(staybutton);
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>          bottomPanel.add(playagainbutton);
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>          setLayout(<strong class="jxr_keyword">new</strong> BorderLayout());
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>          add(dealerPanel, BorderLayout.NORTH);
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>          add(playerPanel, BorderLayout.CENTER);
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>          add(bottomPanel, BorderLayout.SOUTH);
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>      }
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> display() {
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>          JFrame myFrame = <strong class="jxr_keyword">new</strong> JFrame(<span class="jxr_string">"Blackjack"</span>);
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>          myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>          myFrame.setContentPane(<strong class="jxr_keyword">this</strong>);
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>          myFrame.setPreferredSize(<strong class="jxr_keyword">new</strong> Dimension(1000, 700));
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>          myFrame.pack();
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>          myFrame.setVisible(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>      }
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>  }
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>      JLabel dealercard0;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>      JLabel dealercard1;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../com/sand/count21/ui/GUI.html">GUI</a>() {
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>          dealerPanel.setBackground(<strong class="jxr_keyword">new</strong> Color(12, 112, 12));
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>          playerPanel.setBackground(<strong class="jxr_keyword">new</strong> Color(12, 112, 12));
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>          bottomPanel.setBackground(<strong class="jxr_keyword">new</strong> Color(12, 112, 12));
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>          bottomPanel.setLayout(<strong class="jxr_keyword">new</strong> FlowLayout());
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>          hitbutton.setText(<span class="jxr_string">"Hit"</span>);
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>          hitbutton.setEnabled(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>          staybutton.setText(<span class="jxr_string">"Stay"</span>);
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>          playagainbutton.setEnabled(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>          playagainbutton.setText(<span class="jxr_string">"Again"</span>);
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>          staybutton.setEnabled(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>          bottomPanel.add(hitbutton);
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>          bottomPanel.add(staybutton);
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>          bottomPanel.add(playagainbutton);
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>          dealerlabel.setText(<span class="jxr_string">"  Dealer:  "</span>);
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>          playerlabel.setText(<span class="jxr_string">"  Player:  "</span>);
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>          dealercard0 = <strong class="jxr_keyword">new</strong> JLabel(<strong class="jxr_keyword">new</strong> ImageIcon(<span class="jxr_string">"01S.jpg"</span>));
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>          dealercard1 = <strong class="jxr_keyword">new</strong> JLabel(<strong class="jxr_keyword">new</strong> ImageIcon(<span class="jxr_string">"01S.jpg"</span>));
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>          dealerPanel.add(dealercard0);
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>          dealerPanel.add(dealercard1);
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>          setLayout(<strong class="jxr_keyword">new</strong> BorderLayout());
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>          add(dealerPanel, BorderLayout.NORTH);
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>          add(playerPanel, BorderLayout.CENTER);
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>          add(bottomPanel, BorderLayout.SOUTH);
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      }
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>  
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> display() {
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>          JFrame myFrame = <strong class="jxr_keyword">new</strong> JFrame(<span class="jxr_string">"Blackjack"</span>);
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>          myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>          myFrame.setContentPane(<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>          myFrame.setPreferredSize(<strong class="jxr_keyword">new</strong> Dimension(1000, 700));
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>  
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>          myFrame.pack();
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>          myFrame.setVisible(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      }
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2017. All rights reserved.</div>

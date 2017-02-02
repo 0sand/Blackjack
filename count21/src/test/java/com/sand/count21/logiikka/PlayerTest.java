@@ -69,9 +69,20 @@ public class PlayerTest {
         player.reciveCard(card1);
         ArrayList<Card> kortit = player.getCards();
         Assert.assertNotNull(kortit);
-        
+
     }
-    
+
+    @Test
+    public void playerCanFoldHandCorrectly() {
+        Player player = new Player();
+        Card card1 = new Card(SPADES, 1);
+        Card card2 = new Card(SPADES, 13);
+        player.reciveCard(card2);
+        player.reciveCard(card1);
+        player.foldHand();
+        assertTrue(player.cardInHand() == 0);
+    }
+
     @Test
     public void playerCanSortCardsFromSmallValueToLarge() {
         Player player = new Player();
@@ -80,12 +91,12 @@ public class PlayerTest {
         player.reciveCard(new Card(CLUBS, 7));
         player.reciveCard(new Card(HEARTS, 1));
         player.sortPlayerCardsSmallToLarge();
-        ArrayList<Card> cards =player.getCards();
+        ArrayList<Card> cards = player.getCards();
         assertEquals(cards.get(0).getValue(), 1);
         assertEquals(cards.get(1).getValue(), 7);
         assertEquals(cards.get(2).getValue(), 10);
         assertEquals(cards.get(3).getValue(), 13);
-        
+
     }
 
 }

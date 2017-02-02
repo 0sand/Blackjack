@@ -13,6 +13,11 @@ public class GUI extends JPanel {
     JButton hitbutton = new JButton();
     JButton staybutton = new JButton();
     JButton playagainbutton = new JButton();
+    JLabel dealerlabel = new JLabel();
+    JLabel playerlabel = new JLabel();
+
+    JLabel dealercard0;
+    JLabel dealercard1;
 
     public GUI() {
 
@@ -29,6 +34,15 @@ public class GUI extends JPanel {
         bottomPanel.add(hitbutton);
         bottomPanel.add(staybutton);
         bottomPanel.add(playagainbutton);
+        dealerlabel.setText("  Dealer:  ");
+        playerlabel.setText("  Player:  ");
+
+        dealercard0 = new JLabel(new ImageIcon("01S.jpg"));
+        dealercard1 = new JLabel(new ImageIcon("01S.jpg"));
+
+        dealerPanel.add(dealercard0);
+        dealerPanel.add(dealercard1);
+
         setLayout(new BorderLayout());
         add(dealerPanel, BorderLayout.NORTH);
         add(playerPanel, BorderLayout.CENTER);
@@ -41,6 +55,7 @@ public class GUI extends JPanel {
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.setContentPane(this);
         myFrame.setPreferredSize(new Dimension(1000, 700));
+
         myFrame.pack();
         myFrame.setVisible(true);
 

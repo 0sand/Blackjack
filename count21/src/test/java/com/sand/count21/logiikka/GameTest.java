@@ -42,7 +42,7 @@ public class GameTest {
     public void canDealCards() {
         Game game = new Game();
         Player player1 = game.getPlayer();
-        game.dealToPlayer(player1, 20);
+        game.dealTo(player1, 20);
         assertTrue(20 == player1.cardInHand());
     }
 
@@ -50,7 +50,7 @@ public class GameTest {
     public void gameWillAutomaticlyShuffleWhenNeeded() {
         Game game = new Game();
         Player player1 = game.getPlayer();
-        game.dealToPlayer(player1, 200);
+        game.dealTo(player1, 200);
         assertTrue(200 == player1.cardInHand());
     }
 
@@ -223,6 +223,6 @@ public class GameTest {
         Player player1 = game.getComputer();
         player1.reciveCard(card1);
         player1.reciveCard(card2);
-        assertTrue(game.checkIfComputerMustHit(player1));
+        assertTrue(game.checkIfDealerMustHit(player1));
     }
 }

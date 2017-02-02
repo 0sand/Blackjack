@@ -87,5 +87,9 @@ public class Player {
     public void sortPlayerCardsSmallToLarge() {
         Collections.sort(this.playerHand);
     }
+    
+    public void foldHand() {
+        this.playerHand.clear();
+    }
 
 }
