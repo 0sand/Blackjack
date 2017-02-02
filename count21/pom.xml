@@ -39,8 +39,8 @@
                         
                     </targetClasses>
                     <targetTests>
-                        <param>superohjelma.logiikka.*</param>
-                        <param>superohjelma.tekoaly.*</param>
+                        <param>com.sand.count21.logiikka.*</param>
+                        
                     </targetTests>
                 </configuration>
             </plugin>
