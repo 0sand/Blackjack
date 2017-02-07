@@ -99,4 +99,14 @@ public class PlayerTest {
 
     }
 
+    @Test
+    public void playerGivesLastCardCorrectly() {
+        Player player = new Player();
+        player.reciveCard(new Card(HEARTS, 13));
+        player.reciveCard(new Card(SPADES, 10));
+        player.reciveCard(new Card(CLUBS, 7));
+        player.reciveCard(new Card(HEARTS, 1));
+        assertEquals(player.getLastCard(),(new Card(HEARTS, 1)));
+    }
+
 }

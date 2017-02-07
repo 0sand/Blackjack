@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Game {
 
     private Deck deck = new Deck();
-    private Player player1 = new Player();
+    private Player player = new Player();
     private Player dealer = new Player();
 
     public Game() {
@@ -22,10 +22,15 @@ public class Game {
     }
 
     public void firstCardsInRound() {
-        dealTo(player1, 2);
+        dealTo(player, 2);
         dealTo(dealer, 2);
     }
 
+    /**
+     * The method checks that there is still cards in the deck.
+     * 
+     * @return true if there is no card left in deck, otherwise false
+     */
     public boolean shouldIshuffleDeck() {
         if (deck.cardsLeft() == 0) {
             return true;
@@ -33,10 +38,18 @@ public class Game {
         return false;
     }
 
+    /**
+     * The method shuffles the deck in the game.
+     */
     public void shuffleDeck() {
         deck.shuffle();
     }
 
+    /**
+     * The method deals cards to the player provided to the method.
+     * @param player The player that will recive cards from deck
+     * @param n how many cards will the player recive
+     */
     public void dealTo(Player player, int n) {
 
         for (int i = 0; i < n; i++) {
@@ -50,13 +63,19 @@ public class Game {
     }
 
     public Player getPlayer() {
-        return this.player1;
+        return this.player;
     }
 
     public Player getComputer() {
         return this.dealer;
     }
 
+    /**
+     * The dealer will need to hit if the sum of the cards are less than 17 (Ace value = 1). 
+     * To avoid potential problems the code also checks if the player is not bust
+     * @param computer 
+     * @return 
+     */
     public boolean checkIfDealerMustHit(Player computer) {
         if (this.checkIfPlayerIsBust(computer)) {
             return false;
@@ -101,6 +120,7 @@ public class Game {
     }
 
     public boolean checkIfPlayerCanSplit(Player player) {
+        
         if (player.cardInHand() == 2) {
             ArrayList<Card> cards = player.getCards();
             if (cards.get(0).getValue() == cards.get(1).getValue()) {
@@ -116,7 +136,12 @@ public class Game {
         }
     }
     
-   
+
+    
+   public void everyOneFolds() {
+       dealer.foldHand();
+       player.foldHand();
+   }
     
 
 

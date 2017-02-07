@@ -10,8 +10,19 @@ package com.sand.count21.logiikka;
  * @author osand
  */
 public enum Suits {
-    SPADES,
-    HEARTS,
-    DIAMONDS,
-    CLUBS;
+    SPADES("S"),
+    HEARTS("H"),
+    DIAMONDS("D"),
+    CLUBS("C");
+
+    private final String name;
+
+    private Suits(String s) {
+        this.name = s;
+    }
+    
+    @Override
+    public String toString() {
+       return this.name; 
+    }
 }

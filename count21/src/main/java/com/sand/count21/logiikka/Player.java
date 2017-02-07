@@ -84,10 +84,18 @@ public class Player {
         return this.playerHand;
     }
 
+    public Card getLastCard() {
+        if (playerHand != null && !playerHand.isEmpty()) {
+            Card card = playerHand.get(playerHand.size() - 1);
+            return card;
+        }
+        return null;
+    }
+
     public void sortPlayerCardsSmallToLarge() {
         Collections.sort(this.playerHand);
     }
-    
+
     public void foldHand() {
         this.playerHand.clear();
     }

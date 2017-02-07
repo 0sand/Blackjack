@@ -1,14 +1,14 @@
 package com.sand.count21;
 
-import com.sand.count21.logiikka.Card;
-import com.sand.count21.logiikka.Deck;
+
+import com.sand.count21.logiikka.Game;
 import com.sand.count21.ui.GUI;
 
 public class Main {
 
     public static void main(String[] args) {
-
-        GUI gui = new GUI();
+        Game game = new Game();
+        GUI gui = new GUI(game);
         gui.display();
 
     }

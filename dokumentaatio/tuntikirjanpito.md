@@ -7,3 +7,5 @@ Päivä | Tunnit | Kuvaus
 30.01.2016 | 3h | PIT toimii nyt, Lisää logiikka ja testejä
 31.01.2016 | 6h | Lisää luokkia ja testejä logiikkaan. GUI aloitus
 01.02.2016 | 3h | Viilausta
+06.02.2016 | 4h | GUIn parantaminen
+07.02.2016 | 6h | Lisää GUIn tekoa. Ensimmäinen toimiva versio

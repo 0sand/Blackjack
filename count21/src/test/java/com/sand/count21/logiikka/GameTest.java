@@ -47,6 +47,14 @@ public class GameTest {
     }
 
     @Test
+    public void firstCardsWorks() {
+        Game game = new Game();
+        game.firstCardsInRound();
+        Player player = game.getPlayer();
+        assertTrue(2 == player.cardInHand());
+    }
+
+    @Test
     public void gameWillAutomaticlyShuffleWhenNeeded() {
         Game game = new Game();
         Player player1 = game.getPlayer();
@@ -120,6 +128,17 @@ public class GameTest {
         Game game = new Game();
         Card card1 = new Card(SPADES, 10);
         Card card2 = new Card(HEARTS, 10);
+        Player player1 = game.getPlayer();
+        player1.reciveCard(card1);
+        player1.reciveCard(card2);
+        assertFalse(game.checkIfPlayerIsBust(player1));
+    }
+
+    @Test
+    public void checkIfPlayerGoesBust3() {
+        Game game = new Game();
+        Card card1 = new Card(SPADES, 10);
+        Card card2 = new Card(HEARTS, 1);
         Player player1 = game.getPlayer();
         player1.reciveCard(card1);
         player1.reciveCard(card2);

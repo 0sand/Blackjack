@@ -17,6 +17,13 @@ public class Card implements Comparable<Card> {
     public int getValue() {
         return this.value;
     }
+    
+    public String getFileName() {
+        String number = Integer.toString(this.value);
+        String name = this.suit.toString();
+        
+        return "images/" + number + name + ".png";
+    }
 
     @Override
     public boolean equals(Object other) {

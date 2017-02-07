@@ -53,4 +53,10 @@ public class CardTest {
         assertNotEquals(card1, card2);
         
     }
+    
+    @Test
+    public void cardGivesCorrectFileName() {
+        Card card1 = new Card(SPADES,13);
+        assertEquals(card1.getFileName(),"images/13S.png");
+    }
 }
