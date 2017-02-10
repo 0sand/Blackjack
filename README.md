@@ -1,6 +1,8 @@
 ﻿# Blackjack
 
 Ohjelma on perinteinen Blackjack korttipeli. Ohjelma on tehty niin että siitä pystyy helposti laajentamaan myös muihin perinteisin korttipeleihin.
+Tällä hetkellä peli toimi mutta siinä on vielä puutteita. Seuraavaksi on tarkoitus saada
+toimimaan laskuri voitoista grafiseen käyttöliitymään.  
 
 ## Dokumentaatio
 [aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md)  

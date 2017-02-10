@@ -146,6 +146,19 @@ public class GameTest {
     }
 
     @Test
+    public void checkIfPlayerGoesBust4() {
+        Game game = new Game();
+        Card card1 = new Card(SPADES, 10);
+        Card card2 = new Card(HEARTS, 10);
+        Card card3 = new Card(HEARTS, 2);
+        Player player1 = game.getPlayer();
+        player1.reciveCard(card1);
+        player1.reciveCard(card2);
+        player1.reciveCard(card3);
+        assertTrue(game.checkIfPlayerIsBust(player1));
+    }
+
+    @Test
     public void checkIfPlayerHas21isTrue() {
         Game game = new Game();
         Card card1 = new Card(SPADES, 1);
@@ -166,6 +179,19 @@ public class GameTest {
         Card card1 = new Card(SPADES, 1);
         Card card2 = new Card(HEARTS, 5);
         Card card3 = new Card(CLUBS, 5);
+        Player player1 = game.getPlayer();
+        player1.reciveCard(card1);
+        player1.reciveCard(card2);
+        player1.reciveCard(card3);
+        assertTrue(game.checkIfPlayerHas21(player1));
+    }
+
+    @Test
+    public void checkIfPlayerHas21isTrue3() {
+        Game game = new Game();
+        Card card1 = new Card(SPADES, 3);
+        Card card2 = new Card(HEARTS, 8);
+        Card card3 = new Card(CLUBS, 13);
         Player player1 = game.getPlayer();
         player1.reciveCard(card1);
         player1.reciveCard(card2);
@@ -222,26 +248,182 @@ public class GameTest {
     }
 
     @Test
+    public void checkIfComputerShouldHitShouldBeTrue() {
+        Game game = new Game();
+        Card card1 = new Card(SPADES, 10);
+        Card card2 = new Card(CLUBS, 6);
+
+        Player player1 = game.getDealer();
+        player1.reciveCard(card1);
+        player1.reciveCard(card2);
+        assertTrue(game.checkIfDealerMustHit(player1));
+    }
+
+    @Test
+    public void checkIfComputerShouldHitShouldBeTrue2() {
+        Game game = new Game();
+        Card card1 = new Card(SPADES, 1);
+        Card card2 = new Card(CLUBS, 1);
+
+        Player player1 = game.getDealer();
+        player1.reciveCard(card1);
+        player1.reciveCard(card2);
+        assertTrue(game.checkIfDealerMustHit(player1));
+    }
+
+    @Test
+    public void checkIfComputerShouldHitShouldBeTrue3() {
+        Game game = new Game();
+        Card card1 = new Card(SPADES, 1);
+        Card card2 = new Card(CLUBS, 6);
+        Card card3 = new Card(CLUBS, 9);
+
+        Player player1 = game.getDealer();
+        player1.reciveCard(card1);
+        player1.reciveCard(card2);
+        player1.reciveCard(card3);
+        assertTrue(game.checkIfDealerMustHit(player1));
+    }
+
+    @Test
     public void checkIfComputerShouldHitShouldBeFalse() {
         Game game = new Game();
         Card card1 = new Card(SPADES, 10);
         Card card2 = new Card(CLUBS, 7);
 
-        Player player1 = game.getComputer();
+        Player player1 = game.getDealer();
         player1.reciveCard(card1);
         player1.reciveCard(card2);
         assertFalse(game.checkIfPlayerCanSplit(player1));
     }
 
     @Test
-    public void checkIfComputerShouldHitShouldBeTrue() {
+    public void checkIfComputerShouldHitShouldBeFalse2() {
         Game game = new Game();
-        Card card1 = new Card(SPADES, 10);
+        Card card1 = new Card(SPADES, 11);
         Card card2 = new Card(CLUBS, 6);
+        Card card3 = new Card(CLUBS, 1);
 
-        Player player1 = game.getComputer();
+        Player player1 = game.getDealer();
         player1.reciveCard(card1);
         player1.reciveCard(card2);
-        assertTrue(game.checkIfDealerMustHit(player1));
+        player1.reciveCard(card3);
+        assertFalse(game.checkIfDealerMustHit(player1));
+    }
+
+    @Test
+    public void checkIfComputerShouldHitShouldBeFalse3() {
+        Game game = new Game();
+        Card card1 = new Card(SPADES, 1);
+        Card card2 = new Card(CLUBS, 7);
+        Card card3 = new Card(CLUBS, 9);
+
+        Player player1 = game.getDealer();
+        player1.reciveCard(card1);
+        player1.reciveCard(card2);
+        player1.reciveCard(card3);
+        assertFalse(game.checkIfDealerMustHit(player1));
+    }
+
+    @Test
+    public void checkIfComputerShouldHitShouldBeFalse4() {
+        Game game = new Game();
+        Card card1 = new Card(SPADES, 3);
+        Card card2 = new Card(CLUBS, 13);
+        Card card3 = new Card(CLUBS, 5);
+
+        Player player1 = game.getDealer();
+        player1.reciveCard(card1);
+        player1.reciveCard(card2);
+        player1.reciveCard(card3);
+        assertFalse(game.checkIfDealerMustHit(player1));
+    }
+
+    @Test
+    public void checkIfComputerShouldHitShouldBeFalse5() {
+        Game game = new Game();
+        Card card1 = new Card(SPADES, 12);
+        Card card2 = new Card(CLUBS, 1);
+        Player player1 = game.getDealer();
+        player1.reciveCard(card1);
+        player1.reciveCard(card2);
+        assertFalse(game.checkIfDealerMustHit(player1));
+    }
+
+    @Test
+    public void checkIfComputerShouldHitShouldBeFalse6() {
+        Game game = new Game();
+        Card card1 = new Card(SPADES, 3);
+        Card card2 = new Card(CLUBS, 9);
+        Card card3 = new Card(CLUBS, 1);
+        Card card4 = new Card(CLUBS, 6);
+
+        Player player1 = game.getDealer();
+        player1.reciveCard(card1);
+        player1.reciveCard(card2);
+        player1.reciveCard(card3);
+        player1.reciveCard(card4);
+        assertFalse(game.checkIfDealerMustHit(player1));
+    }
+
+    @Test
+    public void checkIfComputerShouldHitShouldBeFalse7() {
+        Game game = new Game();
+        Card card1 = new Card(SPADES, 3);
+        Card card2 = new Card(CLUBS, 9);
+        Card card3 = new Card(CLUBS, 1);
+        Card card4 = new Card(CLUBS, 6);
+
+        Player player1 = game.getDealer();
+        player1.reciveCard(card1);
+        player1.reciveCard(card2);
+        player1.reciveCard(card3);
+        player1.reciveCard(card4);
+        assertFalse(game.checkIfDealerMustHit(player1));
+    }
+
+    @Test
+    public void checkIfComputerShouldHitShouldBeFalse8() {
+        Game game = new Game();
+        Card card1 = new Card(SPADES, 5);
+        Card card2 = new Card(CLUBS, 1);
+        Card card3 = new Card(HEARTS, 1);
+        Card card4 = new Card(CLUBS, 2);
+        Card card5 = new Card(CLUBS, 9);
+
+        Player player1 = game.getDealer();
+        player1.reciveCard(card1);
+        player1.reciveCard(card2);
+        player1.reciveCard(card3);
+        player1.reciveCard(card4);
+        player1.reciveCard(card5);
+        assertFalse(game.checkIfDealerMustHit(player1));
+    }
+
+    @Test
+    public void checkIfComputerShouldHitShouldBeFalse9() {
+        Game game = new Game();
+        Card card1 = new Card(SPADES, 2);
+        Card card2 = new Card(CLUBS, 4);
+        Card card3 = new Card(CLUBS, 9);
+        Card card4 = new Card(CLUBS, 2);
+
+        Player player1 = game.getDealer();
+        player1.reciveCard(card1);
+        player1.reciveCard(card2);
+        player1.reciveCard(card3);
+        player1.reciveCard(card4);
+        assertFalse(game.checkIfDealerMustHit(player1));
+    }
+    
+    @Test
+    public void checkIfEveryOneFoldsReallyFolds(){
+        Game game = new Game();
+        game.firstCardsInRound();
+        game.everyOneFolds();
+        Player player = game.getPlayer();
+        assertEquals(player.cardInHand(), 0);
+        Player dealer = game.getDealer();
+        assertEquals(dealer.cardInHand(), 0);
     }
 }

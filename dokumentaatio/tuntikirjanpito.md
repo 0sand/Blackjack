@@ -9,3 +9,6 @@ Päivä | Tunnit | Kuvaus
 01.02.2016 | 3h | Viilausta
 06.02.2016 | 4h | GUIn parantaminen
 07.02.2016 | 6h | Lisää GUIn tekoa. Ensimmäinen toimiva versio
+08.02.2016 | 4h | Poistettu bugeja ja lisää testejä. Nyt jakaaja toimii oikein
+09.02.2016 | 3h | JavaDocseja ja pientä säätöä logikkaan
+10.02.2016 | 5h | Dokumentaatio ajantasalle, refractorointia ja säätöä GUI:hin

@@ -80,19 +80,30 @@ public class DeckTest {
     }
 
     @Test
-    public void shuffleDeckChangesOrder() {
+    public void FirstshuffleDeckChangesOrder() {
         Deck deck = new Deck();
         Deck deck2 = new Deck();
         deck.shuffle();
-        assertNotEquals(deck2,deck);
+        assertNotEquals(deck2, deck);
     }
+
+    @Test
+    public void twoNewDecksShuffledAreNotEqual() {
+        Deck deck1 = new Deck();
+        Deck deck2 = new Deck();
+        deck1.shuffle();
+        deck2.shuffle();
+        assertNotEquals(deck1, deck2);
+    }
+
     @Test
     public void whenCardIsDealtItIsUsedFromDeck() {
         Deck deck = new Deck();
         Card card = deck.dealCard();
         assertTrue(deck.cardsLeft() == 51);
-        
+
     }
+
     @Test
     public void when52CardsIsDealtNoCardIsLeftInDeck() {
         Deck deck = new Deck();

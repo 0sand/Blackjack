@@ -6,7 +6,7 @@
 package com.sand.count21.logiikka;
 
 /**
- *
+ * The enum Suits are used for the cards in the game.
  * @author osand
  */
 public enum Suits {
@@ -20,9 +20,9 @@ public enum Suits {
     private Suits(String s) {
         this.name = s;
     }
-    
+
     @Override
     public String toString() {
-       return this.name; 
+        return this.name;
     }
 }

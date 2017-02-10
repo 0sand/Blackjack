@@ -1,21 +1,24 @@
 package com.sand.count21.ui;
 
+import com.sand.count21.logiikka.ImageGetter;
 import com.sand.count21.logiikka.Card;
 import com.sand.count21.logiikka.Game;
 import com.sand.count21.logiikka.Player;
-import static com.sand.count21.logiikka.Suits.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
+
+/**
+ * Grafic Interface for the blackjack game. At the moment quit ugly code and
+ * needs a lot of work. But hey. The game works.
+ * @author osand
+ */
 public class GUI extends JPanel {
+
+    Timer timer;
 
     Game game;
     ImageGetter imageGetter = new ImageGetter();
@@ -38,17 +41,21 @@ public class GUI extends JPanel {
 
     public GUI(Game game) {
         this.game = game;
+        timer = new Timer(100, new MyTimerActionListener());
 
         dealerPanel.setBackground(new Color(12, 112, 12));
         playerPanel.setBackground(new Color(12, 112, 12));
         bottomPanel.setBackground(new Color(12, 112, 12));
         bottomPanel.setLayout(new FlowLayout());
         hitButton.setText("Hit");
+        hitButton.setPreferredSize(new Dimension(120, 80));
         hitButton.setEnabled(false);
         stayButton.setText("Stay");
         againButton.setEnabled(true);
+        againButton.setPreferredSize(new Dimension(120, 80));
         againButton.setText("Deal");
         stayButton.setEnabled(false);
+        stayButton.setPreferredSize(new Dimension(120, 80));
         bottomPanel.add(hitButton);
 
         hitButton.addActionListener(new HitButton());
@@ -76,7 +83,7 @@ public class GUI extends JPanel {
         myFrame.setVisible(true);
 
     }
-    
+
     public class HitButton implements ActionListener {
 
         @Override
@@ -97,10 +104,12 @@ public class GUI extends JPanel {
 
         }
     }
+
     public class AgainButton implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            againButton.setEnabled(false);
             stayButton.setEnabled(true);
             hitButton.setEnabled(true);
             game.everyOneFolds();
@@ -123,9 +132,9 @@ public class GUI extends JPanel {
             playerPanel.add(playerCard0);
             playerPanel.add(playerCard1);
 
-            cards = game.getComputer().getCards();
+            cards = game.getDealer().getCards();
             card1 = cards.get(0);
-            image1 = imageGetter.getCardImage(card1);
+            image1 = imageGetter.getImageFromString("images/backcard.png");
             card2 = cards.get(1);
             image2 = imageGetter.getCardImage(card2);
 
@@ -144,26 +153,53 @@ public class GUI extends JPanel {
 
         }
     }
+
     public class StayButton implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Player dealer = game.getComputer();
+            timer.start();
+
+        }
+    }
+
+    class MyTimerActionListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            dealerPanel.removeAll();
+            ArrayList<Card> cards = game.getDealer().getCards();
+            Card card1 = cards.get(0);
+            Card card2 = cards.get(1);     
+            Image image1 = imageGetter.getCardImage(card1);
+            Image image2 = imageGetter.getCardImage(card2);
+            
+            
+            dealerCard1 = new JLabel(new ImageIcon(image1));
+            dealerCard2 = new JLabel(new ImageIcon(image2));
+            dealerPanel.add(dealerCard1);
+            dealerPanel.add(dealerCard2);
+            dealerPanel.revalidate();
+
+
+            Player dealer = game.getDealer();
+
             while (game.checkIfDealerMustHit(dealer)) {
+
                 game.dealTo(dealer, 1);
                 Card card = dealer.getLastCard();
                 Image image = imageGetter.getCardImage(card);
                 dealerCardHit = new JLabel(new ImageIcon(image));
                 dealerPanel.add(dealerCardHit);
                 dealerPanel.revalidate();
-                dealerPanel.repaint();
-                
+
             }
-            
+            againButton.setEnabled(true);
             hitButton.setEnabled(false);
             stayButton.setEnabled(false);
+            timer.stop();
         }
 
     }
-
 }
