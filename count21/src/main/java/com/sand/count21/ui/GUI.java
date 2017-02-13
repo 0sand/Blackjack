@@ -9,16 +9,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
+import javax.swing.plaf.FontUIResource;
 
 /**
  * Grafic Interface for the blackjack game. At the moment quit ugly code and
  * needs a lot of work. But hey. The game works.
+ *
  * @author osand
  */
 public class GUI extends JPanel {
-
-    Timer timer;
 
     Game game;
     ImageGetter imageGetter = new ImageGetter();
@@ -29,9 +28,13 @@ public class GUI extends JPanel {
     JButton hitButton = new JButton();
     JButton stayButton = new JButton();
     JButton againButton = new JButton();
+    JButton betButton = new JButton();
+    JTextPane numberOfWins = new JTextPane();
+    JTextPane currentBetField = new JTextPane();
+    JTextPane playerMoneyField = new JTextPane();
+
     JLabel dealerlabel = new JLabel();
     JLabel playerlabel = new JLabel();
-
     JLabel dealerCard2;
     JLabel dealerCard1;
     JLabel dealerCardHit;
@@ -39,31 +42,67 @@ public class GUI extends JPanel {
     JLabel playerCard1;
     JLabel playerCardHit;
 
+    float fontsize = 20;
+
     public GUI(Game game) {
         this.game = game;
-        timer = new Timer(100, new MyTimerActionListener());
+        Font font = UIManager.getFont("Button.font").deriveFont(fontsize);
 
+        //label.setFont(label.getFont().deriveFont(newSize));
         dealerPanel.setBackground(new Color(12, 112, 12));
         playerPanel.setBackground(new Color(12, 112, 12));
         bottomPanel.setBackground(new Color(12, 112, 12));
         bottomPanel.setLayout(new FlowLayout());
+
         hitButton.setText("Hit");
         hitButton.setPreferredSize(new Dimension(120, 80));
         hitButton.setEnabled(false);
-        stayButton.setText("Stay");
+        hitButton.setFont(font);
+
         againButton.setEnabled(true);
         againButton.setPreferredSize(new Dimension(120, 80));
         againButton.setText("Deal");
+        againButton.setFont(font);
+
+        stayButton.setText("Stay");
         stayButton.setEnabled(false);
         stayButton.setPreferredSize(new Dimension(120, 80));
-        bottomPanel.add(hitButton);
+        stayButton.setFont(font);
+        betButton.setFont(font);
+        betButton.setText("Bet");
+
+        betButton.setEnabled(true);
+        betButton.setPreferredSize(new Dimension(120, 80));
+        betButton.addActionListener(new BetButton());
+
+        numberOfWins.setText("Player Wins  0");
+        numberOfWins.setFont(font);
+        numberOfWins.setBackground(new Color(12, 112, 12));
+
+        numberOfWins.setEnabled(false);
+
+        currentBetField.setText("Current bet  0");
+        currentBetField.setBackground(new Color(12, 112, 12));
+        currentBetField.setEnabled(false);
+        currentBetField.setFont(font);
+
+        playerMoneyField.setText("Money " + game.getPlayer().getMoney());
+        playerMoneyField.setBackground(new Color(12, 112, 12));
+        playerMoneyField.setEnabled(false);
+        playerMoneyField.setFont(font);
 
         hitButton.addActionListener(new HitButton());
         againButton.addActionListener(new AgainButton());
         stayButton.addActionListener(new StayButton());
 
+        bottomPanel.add(hitButton);
         bottomPanel.add(stayButton);
         bottomPanel.add(againButton);
+        bottomPanel.add(betButton);
+        bottomPanel.add(numberOfWins);
+        bottomPanel.add(currentBetField);
+        bottomPanel.add(playerMoneyField);
+
         dealerlabel.setText("  Dealer:  ");
         playerlabel.setText("  Player:  ");
 
@@ -99,7 +138,14 @@ public class GUI extends JPanel {
             }
 
             if (game.checkIfPlayerIsBust(player)) {
+
                 hitButton.setEnabled(false);
+                for (ActionListener a : stayButton.getActionListeners()) {
+                    a.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null) {
+                        //Nothing need go here, the actionPerformed method (with the
+                        //above arguments) will trigger the respective listener
+                    });
+                }
             }
 
         }
@@ -109,6 +155,7 @@ public class GUI extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            betButton.setEnabled(false);
             againButton.setEnabled(false);
             stayButton.setEnabled(true);
             hitButton.setEnabled(true);
@@ -158,30 +205,19 @@ public class GUI extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            timer.start();
-
-        }
-    }
-
-    class MyTimerActionListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
 
             dealerPanel.removeAll();
             ArrayList<Card> cards = game.getDealer().getCards();
             Card card1 = cards.get(0);
-            Card card2 = cards.get(1);     
+            Card card2 = cards.get(1);
             Image image1 = imageGetter.getCardImage(card1);
             Image image2 = imageGetter.getCardImage(card2);
-            
-            
+
             dealerCard1 = new JLabel(new ImageIcon(image1));
             dealerCard2 = new JLabel(new ImageIcon(image2));
             dealerPanel.add(dealerCard1);
             dealerPanel.add(dealerCard2);
             dealerPanel.revalidate();
-
 
             Player dealer = game.getDealer();
 
@@ -198,7 +234,30 @@ public class GUI extends JPanel {
             againButton.setEnabled(true);
             hitButton.setEnabled(false);
             stayButton.setEnabled(false);
-            timer.stop();
+            betButton.setEnabled(true);
+            game.blackjackRoundDone();
+
+            int playerWins = game.getPlayer().getGamesWon();
+            numberOfWins.setText("Player Wins  " + playerWins);
+            currentBetField.setText("Current bet " + (game.getBet()));
+            playerMoneyField.setText("Money " + game.getPlayer().getMoney());
+            currentBetField.repaint();
+            playerMoneyField.repaint();
+
+        }
+
+    }
+
+    class BetButton implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            game.increseBet(10);
+            currentBetField.setText("Current bet " + (game.getBet()));
+            playerMoneyField.setText("Money " + game.getPlayer().getMoney());
+            currentBetField.repaint();
+
         }
 
     }

@@ -10,8 +10,9 @@ import java.util.ArrayList;
 public class Game {
 
     private Deck deck;
-    private Player player = new Player();
-    private Player dealer = new Player();
+    private Player player;
+    private Player dealer;
+    private int bet;
 
     /**
      * Constructor for the game. It initializes a deck and shuffles it.
@@ -19,6 +20,8 @@ public class Game {
     public Game() {
         deck = new Deck();
         deck.shuffle();
+        player = new Player();
+        dealer = new Player();
     }
 
     /**
@@ -69,7 +72,7 @@ public class Game {
 
     /**
      * Getter for the player playing the game.
-     * 
+     *
      * @return The player in the game
      */
     public Player getPlayer() {
@@ -78,7 +81,7 @@ public class Game {
 
     /**
      * This method is gets the dealer for the game.
-     * 
+     *
      * @return The dealer
      */
     public Player getDealer() {
@@ -87,21 +90,18 @@ public class Game {
 
     /**
      * The dealer will need to hit if the sum of the cards are less than 17 (Ace
-     * value = 1). To avoid potential problems the code also checks if the
-     * player is not bust
+     * value = 1). The dealer will hit if value of hand with ace 11 is higher than 21 
+     * but the value with ace = 1 is lower than 17. The dealer will stop if 
+     *
+     *
      * @param dealer The dealer checked
      * @return True if dealer must hit
      */
     public boolean checkIfDealerMustHit(Player dealer) {
-        if (this.checkForBlackjack(dealer)) {
-            return false;
-        } else if (this.checkIfPlayerHas21(dealer)) {
-            return false;
-        } else if (dealer.totalValueOfCardsAceLow() < 17 && dealer.totalValueOfCardsAceHigh() > 21) {
+        if (dealer.totalValueOfCardsAceLow() < 17 && dealer.totalValueOfCardsAceHigh() > 21) {
             return true;
-        } else if (dealer.totalValueOfCardsAceHigh() >= 17 && dealer.totalValueOfCardsAceLow() != 2) {
-            return false;
-        } else if (this.checkIfPlayerIsBust(dealer)) {
+            
+        } else if (dealer.totalValueOfCardsAceHigh() >= 17) {
             return false;
         }
 
@@ -178,14 +178,104 @@ public class Game {
         return false;
     }
 
-   /**
-    * This method folds the cards of the player and dealer so they
-    * are ready for the next round.
-    */
-
+    /**
+     * This method folds the cards of the player and dealer so they are ready
+     * for the next round.
+     */
     public void everyOneFolds() {
         dealer.foldHand();
         player.foldHand();
+    }
+
+    /**
+     * This method gives the sum of the values in the players hand.
+     *
+     * @param player player hand evaluated
+     * @return sum of cards blackjack rules
+     */
+    private int sumOfCardHandBlackjackRules(Player player) {
+        int AceLow = player.totalValueOfCardsAceLow();
+        int AceHigh = player.totalValueOfCardsAceHigh();
+        if (AceLow <= 21 && AceHigh > 21) {
+            return AceLow;
+        }
+        return AceHigh;
+    }
+
+    /**
+     * This method checks if the player won.
+     *
+     * @return true if player won
+     */
+    public boolean didPlayerWin() {
+        if (this.checkIfPlayerIsBust(this.dealer) && !this.checkIfPlayerIsBust(this.player)) {
+            return true;
+        }
+        if (this.sumOfCardHandBlackjackRules(this.player) > this.sumOfCardHandBlackjackRules(dealer) && !this.checkIfPlayerIsBust(player)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * This method is used when the round is done. It uses the private method
+     * didPlayerWin() and adds to the players game count.
+     */
+    public void blackjackRoundDone() {
+        if (this.didPlayerWin()) {
+            this.player.addToPlayerWon();
+            this.payBetToPlayer();
+
+        }
+        this.player.addToPlayerGamesPlayed();
+        this.zeroBet();
+
+    }
+
+    /**
+     * This method is used to set the current bet.
+     *
+     * @param bet increase the current bet
+     */
+    public void increseBet(int bet) {
+        if (this.player.getMoney() - bet >= 0) {
+            this.bet = this.bet + bet;
+            this.player.deductMoney(bet);
+
+        }
+
+    }
+
+    /**
+     * This method zeros the current bet.
+     */
+    public void zeroBet() {
+        this.bet = 0;
+    }
+
+    /**
+     * This method gets the current bet;
+     *
+     * @return the current bet.
+     */
+    public int getBet() {
+        return this.bet;
+    }
+
+    /**
+     * This method pays the bet to the player if he won and zeros the current
+     * bet.
+     */
+    public void payBetToPlayer() {
+        if (this.checkForBlackjack(player) && !this.checkForBlackjack(dealer)) {
+            player.reciveMoney(bet);
+        }
+        if (this.checkForBlackjack(player)) {
+            this.player.reciveMoney(bet * 3);
+        } else if (this.didPlayerWin()) {
+            this.player.reciveMoney(bet * 2);
+        }
+
     }
 
 }

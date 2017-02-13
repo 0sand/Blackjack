@@ -1,6 +1,8 @@
 package com.sand.count21;
 import com.sand.count21.logiikka.Game;
 import com.sand.count21.ui.GUI;
+import java.awt.Font;
+import javax.swing.UIManager;
 
 /**
  * The main class of the Blackjack game.
@@ -13,6 +15,7 @@ public class Main {
      * @param args Main args
      */
     public static void main(String[] args) {
+      
         Game game = new Game();
         GUI gui = new GUI(game);
         gui.display();

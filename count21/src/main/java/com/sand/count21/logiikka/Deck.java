@@ -1,6 +1,8 @@
 package com.sand.count21.logiikka;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * This class is a Deck mainly used for the Blackjack game. It contains a deck
@@ -12,23 +14,49 @@ public class Deck {
 
     private Card[] deckArray;
     private int cardsUsed;
+    
+ 
 
     /**
-     * Constructor for the deck. Constructs a new deck with 52 cards and for 
+     * Constructor for the deck. Constructs a new deck with 52 cards and for
      * different suits. The cards are not shuffled.
      */
     public Deck() {
+        
+        deckArray = createDeck();
+        cardsUsed = 0;
+    }
 
-        deckArray = new Card[52];
+    /**
+     * This method creates a new deck with 52 cards and returns it.
+     * @return deck created
+     */
+    
+    public Card[] createDeck() {
+        Card[] newDeck = new Card[52];
         int cardCt = 0;
         for (Suits suit : Suits.values()) {
             for (int value = 1; value <= 13; value++) {
-                deckArray[cardCt] = new Card(suit, value);
+                newDeck[cardCt] = new Card(suit, value);
                 cardCt++;
             }
         }
 
         cardsUsed = 0;
+        return newDeck;
+    }
+    
+
+    /**
+     * This method adds another deck with 52 cards to the deck
+     */
+    public void addAnotherDeck() {
+        Card[] newDeck = this.createDeck();
+        ArrayList<Card> comboDeck = new ArrayList<Card>(newDeck.length + this.deckArray.length);
+        Collections.addAll(comboDeck , deckArray);
+        Collections.addAll(comboDeck, newDeck);
+        deckArray = comboDeck.toArray(new Card[comboDeck.size()]);
+        this.shuffle();
     }
 
     /**
@@ -46,6 +74,7 @@ public class Deck {
 
     /**
      * Getter for how many cards can still be used.
+     *
      * @return amount of cards that can be dealt
      */
     public int cardsLeft() {
@@ -53,9 +82,10 @@ public class Deck {
     }
 
     /**
-     * Deals a card from the deck. The first card is from the beginning
-     * of the array. No card is ever removed from the deck. The cardUsed variable
-     * is just growing.
+     * Deals a card from the deck. The first card is from the beginning of the
+     * array. No card is ever removed from the deck. The cardUsed variable is
+     * just growing.
+     *
      * @return Next card in deck
      */
     public Card dealCard() {
