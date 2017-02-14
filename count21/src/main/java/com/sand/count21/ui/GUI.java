@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.plaf.FontUIResource;
 
 /**
  * Grafic Interface for the blackjack game. At the moment quit ugly code and
@@ -48,7 +47,7 @@ public class GUI extends JPanel {
         this.game = game;
         Font font = UIManager.getFont("Button.font").deriveFont(fontsize);
 
-        //label.setFont(label.getFont().deriveFont(newSize));
+       
         dealerPanel.setBackground(new Color(12, 112, 12));
         playerPanel.setBackground(new Color(12, 112, 12));
         bottomPanel.setBackground(new Color(12, 112, 12));
@@ -73,7 +72,6 @@ public class GUI extends JPanel {
 
         betButton.setEnabled(true);
         betButton.setPreferredSize(new Dimension(120, 80));
-        betButton.addActionListener(new BetButton());
 
         numberOfWins.setText("Player Wins  0");
         numberOfWins.setFont(font);
@@ -91,9 +89,10 @@ public class GUI extends JPanel {
         playerMoneyField.setEnabled(false);
         playerMoneyField.setFont(font);
 
-        hitButton.addActionListener(new HitButton());
-        againButton.addActionListener(new AgainButton());
-        stayButton.addActionListener(new StayButton());
+        hitButton.addActionListener(new HitButtonListener(game, this, imageGetter));
+        againButton.addActionListener(new AgainButtonListener(game, this, imageGetter));
+        stayButton.addActionListener(new StayButtonListener(game, imageGetter, this));
+        betButton.addActionListener(new BetButtonListener(game, this));
 
         bottomPanel.add(hitButton);
         bottomPanel.add(stayButton);
@@ -123,142 +122,75 @@ public class GUI extends JPanel {
 
     }
 
-    public class HitButton implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Player player = game.getPlayer();
-            if (!game.checkIfPlayerIsBust(player)) {
-                game.dealTo(player, 1);
-                Card card = player.getLastCard();
-                Image image = imageGetter.getCardImage(card);
-                playerCardHit = new JLabel(new ImageIcon(image));
-                playerPanel.add(playerCardHit);
-                playerPanel.revalidate();
-            }
-
-            if (game.checkIfPlayerIsBust(player)) {
-
-                hitButton.setEnabled(false);
-                for (ActionListener a : stayButton.getActionListeners()) {
-                    a.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null) {
-                        //Nothing need go here, the actionPerformed method (with the
-                        //above arguments) will trigger the respective listener
-                    });
-                }
-            }
-
-        }
+    public JPanel getDealerPanel() {
+        return dealerPanel;
     }
 
-    public class AgainButton implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            betButton.setEnabled(false);
-            againButton.setEnabled(false);
-            stayButton.setEnabled(true);
-            hitButton.setEnabled(true);
-            game.everyOneFolds();
-
-            playerPanel.removeAll();
-            playerPanel.repaint();
-
-            dealerPanel.removeAll();
-            dealerPanel.repaint();
-
-            game.firstCardsInRound();
-            ArrayList<Card> cards = game.getPlayer().getCards();
-            Card card1 = cards.get(0);
-            Image image1 = imageGetter.getCardImage(card1);
-            Card card2 = cards.get(1);
-            Image image2 = imageGetter.getCardImage(card2);
-
-            playerCard0 = new JLabel(new ImageIcon(image1));
-            playerCard1 = new JLabel(new ImageIcon(image2));
-            playerPanel.add(playerCard0);
-            playerPanel.add(playerCard1);
-
-            cards = game.getDealer().getCards();
-            card1 = cards.get(0);
-            image1 = imageGetter.getImageFromString("images/backcard.png");
-            card2 = cards.get(1);
-            image2 = imageGetter.getCardImage(card2);
-
-            dealerCard1 = new JLabel(new ImageIcon(image1));
-            dealerCard2 = new JLabel(new ImageIcon(image2));
-            dealerPanel.add(dealerCard1);
-            dealerPanel.add(dealerCard2);
-
-            playerPanel.revalidate();
-            dealerPanel.revalidate();
-
-            Player player = game.getPlayer();
-            if (game.checkIfPlayerHas21(player)) {
-                hitButton.setEnabled(false);
-            }
-
-        }
+    public JPanel getPlayerPanel() {
+        return playerPanel;
     }
 
-    public class StayButton implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-            dealerPanel.removeAll();
-            ArrayList<Card> cards = game.getDealer().getCards();
-            Card card1 = cards.get(0);
-            Card card2 = cards.get(1);
-            Image image1 = imageGetter.getCardImage(card1);
-            Image image2 = imageGetter.getCardImage(card2);
-
-            dealerCard1 = new JLabel(new ImageIcon(image1));
-            dealerCard2 = new JLabel(new ImageIcon(image2));
-            dealerPanel.add(dealerCard1);
-            dealerPanel.add(dealerCard2);
-            dealerPanel.revalidate();
-
-            Player dealer = game.getDealer();
-
-            while (game.checkIfDealerMustHit(dealer)) {
-
-                game.dealTo(dealer, 1);
-                Card card = dealer.getLastCard();
-                Image image = imageGetter.getCardImage(card);
-                dealerCardHit = new JLabel(new ImageIcon(image));
-                dealerPanel.add(dealerCardHit);
-                dealerPanel.revalidate();
-
-            }
-            againButton.setEnabled(true);
-            hitButton.setEnabled(false);
-            stayButton.setEnabled(false);
-            betButton.setEnabled(true);
-            game.blackjackRoundDone();
-
-            int playerWins = game.getPlayer().getGamesWon();
-            numberOfWins.setText("Player Wins  " + playerWins);
-            currentBetField.setText("Current bet " + (game.getBet()));
-            playerMoneyField.setText("Money " + game.getPlayer().getMoney());
-            currentBetField.repaint();
-            playerMoneyField.repaint();
-
-        }
-
+    public JPanel getBottomPanel() {
+        return bottomPanel;
     }
 
-    class BetButton implements ActionListener {
+    public JButton getHitButton() {
+        return hitButton;
+    }
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    public JButton getStayButton() {
+        return stayButton;
+    }
 
-            game.increseBet(10);
-            currentBetField.setText("Current bet " + (game.getBet()));
-            playerMoneyField.setText("Money " + game.getPlayer().getMoney());
-            currentBetField.repaint();
+    public JButton getAgainButton() {
+        return againButton;
+    }
 
-        }
+    public JButton getBetButton() {
+        return betButton;
+    }
 
+    public JTextPane getNumberOfWins() {
+        return numberOfWins;
+    }
+
+    public JTextPane getCurrentBetField() {
+        return currentBetField;
+    }
+
+    public JTextPane getPlayerMoneyField() {
+        return playerMoneyField;
+    }
+
+    public JLabel getDealerlabel() {
+        return dealerlabel;
+    }
+
+    public JLabel getPlayerlabel() {
+        return playerlabel;
+    }
+
+    public JLabel getDealerCard2() {
+        return dealerCard2;
+    }
+
+    public JLabel getDealerCard1() {
+        return dealerCard1;
+    }
+
+    public JLabel getDealerCardHit() {
+        return dealerCardHit;
+    }
+
+    public JLabel getPlayerCard0() {
+        return playerCard0;
+    }
+
+    public JLabel getPlayerCard1() {
+        return playerCard1;
+    }
+
+    public JLabel getPlayerCardHit() {
+        return playerCardHit;
     }
 }

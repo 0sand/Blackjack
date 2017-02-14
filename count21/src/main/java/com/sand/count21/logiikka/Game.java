@@ -12,16 +12,17 @@ public class Game {
     private Deck deck;
     private Player player;
     private Player dealer;
-    private int bet;
+    private BetManager betManager;
 
     /**
      * Constructor for the game. It initializes a deck and shuffles it.
      */
     public Game() {
-        deck = new Deck();
-        deck.shuffle();
-        player = new Player();
-        dealer = new Player();
+        this.deck = new Deck();
+        this.deck.shuffle();
+        this.player = new Player();
+        this.dealer = new Player();
+        this.betManager = new BetManager(this);
     }
 
     /**
@@ -61,12 +62,28 @@ public class Game {
     public void dealTo(Player player, int n) {
 
         for (int i = 0; i < n; i++) {
+
             if (shouldIshuffleDeck()) {
                 shuffleDeck();
             }
             Card card = deck.dealCard();
             player.reciveCard(card);
         }
+
+    }
+
+    public void dealOneTo(Player player) {
+
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+        if (shouldIshuffleDeck()) {
+            shuffleDeck();
+        }
+        Card card = deck.dealCard();
+        player.reciveCard(card);
 
     }
 
@@ -88,10 +105,15 @@ public class Game {
         return this.dealer;
     }
 
+    public BetManager getBetManager() {
+        return this.betManager;
+    }
+
     /**
      * The dealer will need to hit if the sum of the cards are less than 17 (Ace
-     * value = 1). The dealer will hit if value of hand with ace 11 is higher than 21 
-     * but the value with ace = 1 is lower than 17. The dealer will stop if 
+     * value = 1). The dealer will hit if value of hand with ace 11 is higher
+     * than 21 but the value with ace = 1 is lower than 17. The dealer will stop
+     * if
      *
      *
      * @param dealer The dealer checked
@@ -100,7 +122,7 @@ public class Game {
     public boolean checkIfDealerMustHit(Player dealer) {
         if (dealer.totalValueOfCardsAceLow() < 17 && dealer.totalValueOfCardsAceHigh() > 21) {
             return true;
-            
+
         } else if (dealer.totalValueOfCardsAceHigh() >= 17) {
             return false;
         }
@@ -124,10 +146,7 @@ public class Game {
         if (card1.getValue() != 1) {
             return false;
         }
-        if (card2.getValue() >= 10) {
-            return true;
-        }
-        return false;
+        return card2.getValue() >= 10;
     }
 
     /**
@@ -138,10 +157,7 @@ public class Game {
      * @return true if the value is over 21
      */
     public boolean checkIfPlayerIsBust(Player player) {
-        if (player.totalValueOfCardsAceLow() > 21) {
-            return true;
-        }
-        return false;
+        return player.totalValueOfCardsAceLow() > 21;
     }
 
     /**
@@ -151,10 +167,7 @@ public class Game {
      * @return true if the value is 21
      */
     public boolean checkIfPlayerHas21(Player player) {
-        if (player.totalValueOfCardsAceLow() == 21 || player.totalValueOfCardsAceHigh() == 21) {
-            return true;
-        }
-        return false;
+        return player.totalValueOfCardsAceLow() == 21 || player.totalValueOfCardsAceHigh() == 21;
     }
 
     /**
@@ -224,58 +237,13 @@ public class Game {
     public void blackjackRoundDone() {
         if (this.didPlayerWin()) {
             this.player.addToPlayerWon();
-            this.payBetToPlayer();
+            //this.payBetToPlayer();
+            this.betManager.payBetToPlayer();
 
         }
         this.player.addToPlayerGamesPlayed();
-        this.zeroBet();
+        //this.zeroBet();
+        this.betManager.zeroBet();
 
     }
-
-    /**
-     * This method is used to set the current bet.
-     *
-     * @param bet increase the current bet
-     */
-    public void increseBet(int bet) {
-        if (this.player.getMoney() - bet >= 0) {
-            this.bet = this.bet + bet;
-            this.player.deductMoney(bet);
-
-        }
-
-    }
-
-    /**
-     * This method zeros the current bet.
-     */
-    public void zeroBet() {
-        this.bet = 0;
-    }
-
-    /**
-     * This method gets the current bet;
-     *
-     * @return the current bet.
-     */
-    public int getBet() {
-        return this.bet;
-    }
-
-    /**
-     * This method pays the bet to the player if he won and zeros the current
-     * bet.
-     */
-    public void payBetToPlayer() {
-        if (this.checkForBlackjack(player) && !this.checkForBlackjack(dealer)) {
-            player.reciveMoney(bet);
-        }
-        if (this.checkForBlackjack(player)) {
-            this.player.reciveMoney(bet * 3);
-        } else if (this.didPlayerWin()) {
-            this.player.reciveMoney(bet * 2);
-        }
-
-    }
-
 }
