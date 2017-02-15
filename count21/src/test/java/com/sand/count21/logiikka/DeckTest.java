@@ -112,4 +112,25 @@ public class DeckTest {
         }
         assertTrue(deck.cardsLeft() == 0);
     }
+
+    @Test
+    public void possibleToAddAnotherDeckOfCardsToTheDeck() {
+        Deck deck = new Deck();
+        deck.addAnotherDeck();
+        assertTrue(deck.cardsLeft() == 104);
+    }
+    
+    @Test
+    public void theTotalValueOfAllCardsInDeckIsCorrectForA52CardDeck() {
+        int value = 0;
+        int expectedSum = 364;
+        Deck deck = new Deck();
+        
+        
+        for (int i = 0; i < 52; i++) {
+            value = value + deck.dealCard().getValue();
+        }
+        assertEquals(expectedSum, value);
+        
+    }
 }

@@ -47,11 +47,20 @@ public class GameTest {
     }
 
     @Test
-    public void firstCardsWorks() {
+    public void dealOneCardWorks() {
+        Game game = new Game();
+        Player player1 = game.getPlayer();
+        game.dealOneTo(player1);
+        assertTrue(1 == player1.cardInHand());
+    }
+
+    @Test
+    public void firstCardsInRoundDeals2DealerAndPlayer() {
         Game game = new Game();
         game.firstCardsInRound();
         Player player = game.getPlayer();
         assertTrue(2 == player.cardInHand());
+        assertTrue(2 == game.getDealer().cardInHand());
     }
 
     @Test
@@ -60,6 +69,18 @@ public class GameTest {
         Player player1 = game.getPlayer();
         game.dealTo(player1, 200);
         assertTrue(200 == player1.cardInHand());
+    }
+
+    @Test
+    public void newGameShufflesTheDeckAutomaticly() {
+        Game game1 = new Game();
+        Player player1 = new Player();
+        Game game2 = new Game();
+        Player player2 = new Player();
+        game1.dealTo(player1, 1);
+        game2.dealTo(player2, 1);
+
+        assertNotEquals(player1.getCards().get(0), player2.getCards().get(0));
     }
 
     @Test
@@ -103,7 +124,7 @@ public class GameTest {
     public void testCheckForBlackjack4() {
         Game game = new Game();
         Card card1 = new Card(SPADES, 9);
-        Card card2 = new Card(HEARTS, 1);
+        Card card2 = new Card(HEARTS, 2);
         Player player1 = game.getPlayer();
         player1.reciveCard(card1);
         player1.reciveCard(card2);
@@ -115,7 +136,7 @@ public class GameTest {
         Game game = new Game();
         Card card1 = new Card(SPADES, 10);
         Card card2 = new Card(HEARTS, 10);
-        Card card3 = new Card(CLUBS, 10);
+        Card card3 = new Card(CLUBS, 2);
         Player player1 = game.getPlayer();
         player1.reciveCard(card1);
         player1.reciveCard(card2);
@@ -138,10 +159,12 @@ public class GameTest {
     public void checkIfPlayerGoesBust3() {
         Game game = new Game();
         Card card1 = new Card(SPADES, 10);
-        Card card2 = new Card(HEARTS, 1);
+        Card card2 = new Card(HEARTS, 5);
         Player player1 = game.getPlayer();
         player1.reciveCard(card1);
         player1.reciveCard(card2);
+        player1.reciveCard(new Card(HEARTS, 4));
+        player1.reciveCard(new Card(HEARTS, 2));
         assertFalse(game.checkIfPlayerIsBust(player1));
     }
 
@@ -217,6 +240,17 @@ public class GameTest {
         Game game = new Game();
         Card card1 = new Card(SPADES, 10);
         Card card2 = new Card(CLUBS, 10);
+        Player player1 = game.getPlayer();
+        player1.reciveCard(card1);
+        player1.reciveCard(card2);
+        assertTrue(game.checkIfPlayerCanSplit(player1));
+    }
+
+    @Test
+    public void checkIfPlayerCanSplitShouldBeTrue2() {
+        Game game = new Game();
+        Card card1 = new Card(SPADES, 11);
+        Card card2 = new Card(CLUBS, 12);
         Player player1 = game.getPlayer();
         player1.reciveCard(card1);
         player1.reciveCard(card2);
@@ -415,9 +449,9 @@ public class GameTest {
         player1.reciveCard(card4);
         assertFalse(game.checkIfDealerMustHit(player1));
     }
-    
+
     @Test
-    public void checkIfEveryOneFoldsReallyFolds(){
+    public void checkIfEveryOneFoldsReallyFolds() {
         Game game = new Game();
         game.firstCardsInRound();
         game.everyOneFolds();
@@ -425,5 +459,79 @@ public class GameTest {
         assertEquals(player.cardInHand(), 0);
         Player dealer = game.getDealer();
         assertEquals(dealer.cardInHand(), 0);
+    }
+
+    @Test
+    public void shouldIShuffleDeckMethodTest() {
+        Game game = new Game();
+        game.dealTo(game.getPlayer(), 52);
+        assertTrue(game.shouldIshuffleDeck());
+    }
+
+    @Test
+    public void shouldIShuffleDeckMethodTest2() {
+        Game game = new Game();
+        game.dealTo(game.getPlayer(), 53);
+        assertFalse(game.shouldIshuffleDeck());
+    }
+
+    @Test
+    public void didPlayerWinTestShouldBeTrue1() {
+        Game game = new Game();
+        game.getPlayer().reciveCard(new Card(HEARTS, 10));
+        game.getPlayer().reciveCard(new Card(HEARTS, 8));
+        game.getDealer().reciveCard(new Card(HEARTS, 1));
+        game.getDealer().reciveCard(new Card(HEARTS, 5));
+        game.getDealer().reciveCard(new Card(HEARTS, 6));
+        assertTrue(game.didPlayerWin());
+    }
+
+    @Test
+    public void didPlayerWinTestShouldBeTrue2() {
+        Game game = new Game();
+        game.getPlayer().reciveCard(new Card(HEARTS, 10));
+        game.getPlayer().reciveCard(new Card(HEARTS, 8));
+        game.getPlayer().reciveCard(new Card(HEARTS, 3));
+
+        game.getDealer().reciveCard(new Card(HEARTS, 1));
+        game.getDealer().reciveCard(new Card(HEARTS, 5));
+        game.getDealer().reciveCard(new Card(HEARTS, 4));
+        assertTrue(game.didPlayerWin());
+    }
+
+    @Test
+    public void didPlayerWinTestShouldBeTrue3() {
+        Game game = new Game();
+        game.getPlayer().reciveCard(new Card(HEARTS, 10));
+        game.getPlayer().reciveCard(new Card(HEARTS, 8));
+        game.getPlayer().reciveCard(new Card(HEARTS, 3));
+
+        game.getDealer().reciveCard(new Card(HEARTS, 9));
+        game.getDealer().reciveCard(new Card(HEARTS, 5));
+        game.getDealer().reciveCard(new Card(HEARTS, 8));
+        assertTrue(game.didPlayerWin());
+    }
+
+    @Test
+    public void didPlayerWinTestShouldBeFalse() {
+        Game game = new Game();
+        game.getPlayer().reciveCard(new Card(HEARTS, 10));
+        game.getPlayer().reciveCard(new Card(HEARTS, 10));
+        game.getPlayer().reciveCard(new Card(HEARTS, 10));
+        game.getPlayer().reciveCard(new Card(HEARTS, 3));
+        game.getDealer().reciveCard(new Card(HEARTS, 9));
+        game.getDealer().reciveCard(new Card(HEARTS, 5));
+        game.getDealer().reciveCard(new Card(HEARTS, 9));
+        assertFalse(game.didPlayerWin());
+    }
+
+    @Test
+    public void didPlayerWinTestShouldBeFalse2() {
+        Game game = new Game();
+        game.getPlayer().reciveCard(new Card(HEARTS, 11));
+        game.getPlayer().reciveCard(new Card(HEARTS, 11));
+        game.getDealer().reciveCard(new Card(HEARTS, 10));
+        game.getDealer().reciveCard(new Card(HEARTS, 10));
+        assertFalse(game.didPlayerWin());
     }
 }

@@ -19,14 +19,14 @@ under the License.
 -->
 <rss version="0.91">
   <channel>
-    <title>count21 - Checkstyle report</title>
+    <title>BlackJack - Checkstyle report</title>
     <link>${project.url}</link>
-    <description>count21 - Checkstyle report</description>
+    <description>BlackJack - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2017</copyright>
     <item>
-      <title>File: 8,
-             Errors: 0,
+      <title>File: 13,
+             Errors: 1,
              Warnings: 0,
              Infos: 0
       </title>
@@ -46,7 +46,21 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.sand.count21.logiikka.Suits.java">com/sand/count21/logiikka/Suits.java</a>
+                  <a href="${project.url}/checkstyle.html#com.sand.count21.ui.AgainButtonListener.java">com/sand/count21/ui/AgainButtonListener.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.sand.count21.ui.BetButtonListener.java">com/sand/count21/ui/BetButtonListener.java</a>
                 </td>
                 <td>
                   0
@@ -61,20 +75,6 @@ under the License.
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#com.sand.count21.logiikka.Card.java">com/sand/count21/logiikka/Card.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#com.sand.count21.logiikka.Deck.java">com/sand/count21/logiikka/Deck.java</a>
                 </td>
                 <td>
                   0
@@ -116,7 +116,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.sand.count21.logiikka.Game.java">com/sand/count21/logiikka/Game.java</a>
+                  <a href="${project.url}/checkstyle.html#com.sand.count21.logiikka.ImageGetter.java">com/sand/count21/logiikka/ImageGetter.java</a>
                 </td>
                 <td>
                   0
@@ -130,7 +130,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.sand.count21.logiikka.ImageGetter.java">com/sand/count21/logiikka/ImageGetter.java</a>
+                  <a href="${project.url}/checkstyle.html#com.sand.count21.ui.HitButtonListener.java">com/sand/count21/ui/HitButtonListener.java</a>
                 </td>
                 <td>
                   0
@@ -140,6 +140,76 @@ under the License.
                 </td>
                 <td>
                   0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.sand.count21.logiikka.Suits.java">com/sand/count21/logiikka/Suits.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.sand.count21.logiikka.Deck.java">com/sand/count21/logiikka/Deck.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.sand.count21.ui.StayButtonListener.java">com/sand/count21/ui/StayButtonListener.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.sand.count21.logiikka.BetManager.java">com/sand/count21/logiikka/BetManager.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.sand.count21.logiikka.Game.java">com/sand/count21/logiikka/Game.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
                 </td>
               </tr>
                           <tr>

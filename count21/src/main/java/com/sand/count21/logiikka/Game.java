@@ -1,14 +1,11 @@
 package com.sand.count21.logiikka;
-
 import java.util.ArrayList;
-
 /**
  * This class provides the main logic to the blackjack game. The class owns a
  * player, dealer and a deck.
  *
  */
 public class Game {
-
     private Deck deck;
     private Player player;
     private Player dealer;
@@ -24,7 +21,6 @@ public class Game {
         this.dealer = new Player();
         this.betManager = new BetManager(this);
     }
-
     /**
      * This method is used in the beginning of every blackjack round. It deals
      * two cards to player and dealer.
@@ -69,16 +65,13 @@ public class Game {
             Card card = deck.dealCard();
             player.reciveCard(card);
         }
-
     }
-
+/**
+ * Deal one card to the player provided to the method.
+ * @param player Player that recives card
+ */
     public void dealOneTo(Player player) {
-
-        try {
-            Thread.sleep(1);
-        } catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
+        
         if (shouldIshuffleDeck()) {
             shuffleDeck();
         }
@@ -207,12 +200,12 @@ public class Game {
      * @return sum of cards blackjack rules
      */
     private int sumOfCardHandBlackjackRules(Player player) {
-        int AceLow = player.totalValueOfCardsAceLow();
-        int AceHigh = player.totalValueOfCardsAceHigh();
-        if (AceLow <= 21 && AceHigh > 21) {
-            return AceLow;
+        int aceLow = player.totalValueOfCardsAceLow();
+        int aceHigh = player.totalValueOfCardsAceHigh();
+        if (aceLow <= 21 && aceHigh > 21) {
+            return aceLow;
         }
-        return AceHigh;
+        return aceHigh;
     }
 
     /**
@@ -229,7 +222,6 @@ public class Game {
         }
         return false;
     }
-
     /**
      * This method is used when the round is done. It uses the private method
      * didPlayerWin() and adds to the players game count.
@@ -237,13 +229,10 @@ public class Game {
     public void blackjackRoundDone() {
         if (this.didPlayerWin()) {
             this.player.addToPlayerWon();
-            //this.payBetToPlayer();
             this.betManager.payBetToPlayer();
 
         }
         this.player.addToPlayerGamesPlayed();
-        //this.zeroBet();
         this.betManager.zeroBet();
-
     }
 }

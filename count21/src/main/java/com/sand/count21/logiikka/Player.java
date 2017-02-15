@@ -1,5 +1,4 @@
 package com.sand.count21.logiikka;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -36,8 +35,21 @@ public class Player {
      * This method adds one to the counter that tracks how many games the player
      * lost.
      */
-    public void addToPlayerGamesPlayed() {
+    
+    /**
+     * Setter for the amount of money the player has. Makes is possible to cheat in the
+     * game. That means the player can get more money without creating a new player.
+     * @param money new value for player money
+     */
+    public void setMoney(int money) {
 
+        this.money = money;
+    }
+
+    /**
+     * Add one to the counter that keeps track how many games the player played.
+     */
+    public void addToPlayerGamesPlayed() {
         this.gamesPlayed++;
     }
 
@@ -47,7 +59,6 @@ public class Player {
      */
     public void addToPlayerWon() {
         this.gamesWon++;
-
     }
 
     /**
@@ -134,7 +145,6 @@ public class Player {
         }
         return sum;
     }
-
     /**
      * This method gets the cards in the players hand.
      *
@@ -172,7 +182,6 @@ public class Player {
     public int getGamesWon() {
         return this.gamesWon;
     }
-
     /**
      * This method sorts the players hand from small to large. Not used in
      * Blackjack but can be handy in other games.
@@ -180,12 +189,10 @@ public class Player {
     public void sortPlayerCardsSmallToLarge() {
         Collections.sort(this.playerHand);
     }
-
     /**
      * This method clears the cards in the players hand.
      */
     public void foldHand() {
         this.playerHand.clear();
     }
-
 }

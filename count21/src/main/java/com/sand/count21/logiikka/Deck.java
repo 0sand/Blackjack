@@ -48,7 +48,7 @@ public class Deck {
     
 
     /**
-     * This method adds another deck with 52 cards to the deck
+     * This method adds another deck with 52 cards to the deck.
      */
     public void addAnotherDeck() {
         Card[] newDeck = this.createDeck();

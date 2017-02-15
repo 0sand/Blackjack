@@ -16,9 +16,17 @@ public class Main {
      */
     public static void main(String[] args) {
       
+        
         Game game = new Game();
+        
         GUI gui = new GUI(game);
+        
         gui.display();
+        /*
+        double deci = 1.5;
+        int bet = 100;
+        System.out.println(Math.round(deci*bet));
+         */       
 
     }
 

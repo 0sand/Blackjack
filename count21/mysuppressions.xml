@@ -6,5 +6,8 @@
 
 <suppressions>
     <suppress files="GUI.java" checks="[a-zA-Z0-9]*"/>
-    <suppress files="TextUI.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="AgainButtonListener.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="BetButtonListener.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="HitButtonListener.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="StayButtonListener.java" checks="[a-zA-Z0-9]*"/>
 </suppressions>
