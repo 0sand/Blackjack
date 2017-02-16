@@ -27,10 +27,13 @@ public class GUI extends JPanel {
     JButton hitButton = new JButton();
     JButton stayButton = new JButton();
     JButton againButton = new JButton();
-    JButton betButton = new JButton();
+    JButton increaseBetButton = new JButton();
+    JButton decreaseBetButton = new JButton();
+
     JTextPane numberOfWins = new JTextPane();
     JTextPane currentBetField = new JTextPane();
     JTextPane playerMoneyField = new JTextPane();
+    JTextPane infoField = new JTextPane();
 
     JLabel dealerlabel = new JLabel();
     JLabel playerlabel = new JLabel();
@@ -47,7 +50,6 @@ public class GUI extends JPanel {
         this.game = game;
         Font font = UIManager.getFont("Button.font").deriveFont(fontsize);
 
-       
         dealerPanel.setBackground(new Color(12, 112, 12));
         playerPanel.setBackground(new Color(12, 112, 12));
         bottomPanel.setBackground(new Color(12, 112, 12));
@@ -67,11 +69,16 @@ public class GUI extends JPanel {
         stayButton.setEnabled(false);
         stayButton.setPreferredSize(new Dimension(120, 80));
         stayButton.setFont(font);
-        betButton.setFont(font);
-        betButton.setText("Bet");
 
-        betButton.setEnabled(true);
-        betButton.setPreferredSize(new Dimension(120, 80));
+        decreaseBetButton.setFont(font);
+        decreaseBetButton.setText("-");
+        decreaseBetButton.setEnabled(true);
+        decreaseBetButton.setPreferredSize(new Dimension(60, 80));
+
+        increaseBetButton.setFont(font);
+        increaseBetButton.setText("+");
+        increaseBetButton.setEnabled(true);
+        increaseBetButton.setPreferredSize(new Dimension(60, 80));
 
         numberOfWins.setText("Player Wins  0");
         numberOfWins.setFont(font);
@@ -79,7 +86,7 @@ public class GUI extends JPanel {
 
         numberOfWins.setEnabled(false);
 
-        currentBetField.setText("Current bet  0");
+        currentBetField.setText("bet " + game.getBetManager().getBet());
         currentBetField.setBackground(new Color(12, 112, 12));
         currentBetField.setEnabled(false);
         currentBetField.setFont(font);
@@ -89,18 +96,27 @@ public class GUI extends JPanel {
         playerMoneyField.setEnabled(false);
         playerMoneyField.setFont(font);
 
+        infoField.setFont(font);
+        infoField.setBackground(new Color(12, 112, 12));
+        
+
+        infoField.setEnabled(false);
+
         hitButton.addActionListener(new HitButtonListener(game, this, imageGetter));
-        againButton.addActionListener(new AgainButtonListener(game, this, imageGetter));
+        againButton.addActionListener(new DealButtonListener(game, this, imageGetter));
         stayButton.addActionListener(new StayButtonListener(game, imageGetter, this));
-        betButton.addActionListener(new BetButtonListener(game, this));
+        increaseBetButton.addActionListener(new BetButtonListener(game, this));
+        decreaseBetButton.addActionListener(new BetButtonListener(game, this));
 
         bottomPanel.add(hitButton);
         bottomPanel.add(stayButton);
         bottomPanel.add(againButton);
-        bottomPanel.add(betButton);
+        bottomPanel.add(decreaseBetButton);
+        bottomPanel.add(increaseBetButton);
         bottomPanel.add(numberOfWins);
         bottomPanel.add(currentBetField);
         bottomPanel.add(playerMoneyField);
+        bottomPanel.add(infoField);
 
         dealerlabel.setText("  Dealer:  ");
         playerlabel.setText("  Player:  ");
@@ -110,6 +126,18 @@ public class GUI extends JPanel {
         add(playerPanel, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
 
+    }
+
+    public JButton getIncreaseBetButton() {
+        return increaseBetButton;
+    }
+
+    public JTextPane getInfoField() {
+        return infoField;
+    }
+
+    public JButton getDecreaseBetButton() {
+        return decreaseBetButton;
     }
 
     public void display() {
@@ -147,7 +175,7 @@ public class GUI extends JPanel {
     }
 
     public JButton getBetButton() {
-        return betButton;
+        return increaseBetButton;
     }
 
     public JTextPane getNumberOfWins() {

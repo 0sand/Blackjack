@@ -1,11 +1,14 @@
 package com.sand.count21.logiikka;
+
 import java.util.ArrayList;
+
 /**
  * This class provides the main logic to the blackjack game. The class owns a
  * player, dealer and a deck.
  *
  */
 public class Game {
+
     private Deck deck;
     private Player player;
     private Player dealer;
@@ -21,6 +24,7 @@ public class Game {
         this.dealer = new Player();
         this.betManager = new BetManager(this);
     }
+
     /**
      * This method is used in the beginning of every blackjack round. It deals
      * two cards to player and dealer.
@@ -66,12 +70,14 @@ public class Game {
             player.reciveCard(card);
         }
     }
-/**
- * Deal one card to the player provided to the method.
- * @param player Player that recives card
- */
+
+    /**
+     * Deal one card to the player provided to the method.
+     *
+     * @param player Player that recives card
+     */
     public void dealOneTo(Player player) {
-        
+
         if (shouldIshuffleDeck()) {
             shuffleDeck();
         }
@@ -222,6 +228,7 @@ public class Game {
         }
         return false;
     }
+
     /**
      * This method is used when the round is done. It uses the private method
      * didPlayerWin() and adds to the players game count.
@@ -229,10 +236,17 @@ public class Game {
     public void blackjackRoundDone() {
         if (this.didPlayerWin()) {
             this.player.addToPlayerWon();
+            System.out.println(this.betManager.getBet());
+            System.out.println(this.getPlayer().getMoney());
             this.betManager.payBetToPlayer();
+            System.out.println(this.betManager.getBet());
+            System.out.println(this.getPlayer().getMoney());
+            System.out.println("");
 
         }
+        System.out.println(this.getPlayer().getMoney());
+        System.out.println("");
         this.player.addToPlayerGamesPlayed();
-        this.betManager.zeroBet();
+        //this.betManager.zeroBet();
     }
 }

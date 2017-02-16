@@ -9,6 +9,7 @@ import com.sand.count21.logiikka.Card;
 import com.sand.count21.logiikka.Game;
 import com.sand.count21.logiikka.ImageGetter;
 import com.sand.count21.logiikka.Player;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -19,13 +20,13 @@ import javax.swing.JLabel;
  *
  * @author osand
  */
-public class AgainButtonListener implements java.awt.event.ActionListener {
+public class DealButtonListener implements java.awt.event.ActionListener {
 
     Game game;
     GUI gui;
     ImageGetter imageGetter;
 
-    public AgainButtonListener(Game game, GUI gui, ImageGetter imageGetter) {
+    public DealButtonListener(Game game, GUI gui, ImageGetter imageGetter) {
         this.game = game;
         this.gui = gui;
         this.imageGetter = imageGetter;
@@ -33,6 +34,10 @@ public class AgainButtonListener implements java.awt.event.ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        game.getBetManager().deductBetFromPlayer();
+        gui.getPlayerMoneyField().setText("Money " + game.getPlayer().getMoney());
+
+        gui.getDecreaseBetButton().setEnabled(false);
         gui.getBetButton().setEnabled(false);
         gui.getAgainButton().setEnabled(false);
         gui.getStayButton().setEnabled(true);
@@ -58,7 +63,7 @@ public class AgainButtonListener implements java.awt.event.ActionListener {
         gui.getPlayerPanel().add(playerCard1);
 
         cards = game.getDealer().getCards();
-        //card1 = cards.get(0);
+
         image1 = imageGetter.getImageFromString("images/backcard.png");
         card2 = cards.get(1);
         image2 = imageGetter.getCardImage(card2);
@@ -68,16 +73,15 @@ public class AgainButtonListener implements java.awt.event.ActionListener {
         gui.getDealerPanel().add(dealerCard1);
         gui.getDealerPanel().add(dealerCard2);
 
-        
         gui.getPlayerPanel().revalidate();
         gui.getDealerPanel().revalidate();
+        gui.getBottomPanel().revalidate();
 
         Player player = game.getPlayer();
         if (game.checkIfPlayerHas21(player)) {
             gui.getHitButton().setEnabled(false);
         }
-
+        gui.getInfoField().setText("");
+       
     }
 }
-
-

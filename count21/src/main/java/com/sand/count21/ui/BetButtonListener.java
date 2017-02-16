@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
  * @author osand
  */
 public class BetButtonListener implements ActionListener {
+
     private Game game;
     private GUI gui;
 
@@ -21,16 +22,19 @@ public class BetButtonListener implements ActionListener {
         this.game = game;
         this.gui = gui;
     }
-    
 
     @Override
-            public void actionPerformed(ActionEvent e) {
-
-            game.getBetManager().increseBet(10);
-            gui.getCurrentBetField().setText("Current bet " + (game.getBetManager().getBet()));
-            gui.getPlayerMoneyField().setText("Money " + game.getPlayer().getMoney());
-            gui.getCurrentBetField().repaint();
-
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == gui.getDecreaseBetButton()) {
+            game.getBetManager().decreseBet();
+        } else {
+            game.getBetManager().increseBet();
         }
-    
+        
+        gui.getCurrentBetField().setText("bet " + (game.getBetManager().getBet()));
+        gui.getPlayerMoneyField().setText("Money " + game.getPlayer().getMoney());
+        gui.getCurrentBetField().repaint();
+
+    }
+
 }
