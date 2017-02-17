@@ -19,8 +19,11 @@
   * onnistuu jos peli on käynissä ja on kaksi samanlaista korttia
 
 **Luokkakaaviot**
+  
 ![luokkakaavio](luokkakaavio.png)
 
 **Sekvenssikaaviot**
+  
 ![Panos Nostetaan](plusButtonPressed.png)
+  
 ![Pelaaja jää](stayButton.png)
