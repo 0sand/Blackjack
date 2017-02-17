@@ -51,7 +51,7 @@ public class BetManager {
         this.bet = bet;
     }
 
-    private int amountToIncreaseBet() {
+    private int amountToIncrease() {
         if (this.bet < 100) {
             return 10;
         } else if (this.bet < 500) {
@@ -68,7 +68,7 @@ public class BetManager {
      * @param bet increase the current bet
      */
     public void increseBet() {
-        int increaseBet = this.amountToIncreaseBet();
+        int increaseBet = this.amountToIncrease();
         if ((this.player.getMoney() - (this.bet + increaseBet)) >= 0) {
             this.bet = this.bet + increaseBet;
 
@@ -76,7 +76,7 @@ public class BetManager {
     }
 
     public void decreseBet() {
-        int decreseBet = this.amountToIncreaseBet();
+        int decreseBet = this.amountToIncrease();
         if ((this.bet - decreseBet) >= 0) {
             this.bet = this.bet - decreseBet;
 

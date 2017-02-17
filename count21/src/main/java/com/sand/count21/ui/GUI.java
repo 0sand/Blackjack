@@ -43,6 +43,12 @@ public class GUI extends JPanel {
 
     JLabel dealerlabel = new JLabel();
     JLabel playerlabel = new JLabel();
+    
+
+    
+
+
+    
     JLabel dealerCard2;
     JLabel dealerCard1;
     JLabel dealerCardHit;
@@ -139,13 +145,9 @@ public class GUI extends JPanel {
         add(infoPanel, BorderLayout.NORTH);
         add(kortit, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
+        
 
-        /*
-        setLayout(new BorderLayout());
-        add(dealerPanel, BorderLayout.NORTH);
-        add(playerPanel, BorderLayout.CENTER);
-        add(bottomPanel, BorderLayout.SOUTH);
-         */
+ 
     }
 
     public JButton getIncreaseBetButton() {

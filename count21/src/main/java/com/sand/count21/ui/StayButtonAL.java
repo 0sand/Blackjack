@@ -35,14 +35,14 @@ public class StayButtonAL implements java.awt.event.ActionListener {
         this.dealerPanel = gui.getDealerPanel();
     }
 
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (game.getBetManager().getBet() > game.getPlayer().getMoney()) {
             game.getBetManager().setBet(game.getPlayer().getMoney());
         }
-        
-        
-        
+
         dealerPanel.removeAll();
         ArrayList<Card> cards = game.getDealer().getCards();
         Card card1 = cards.get(0);
@@ -55,6 +55,7 @@ public class StayButtonAL implements java.awt.event.ActionListener {
         dealerPanel.add(dealerCard1);
         dealerPanel.add(dealerCard2);
         dealerPanel.revalidate();
+        
 
         Player dealer = game.getDealer();
 
@@ -65,6 +66,8 @@ public class StayButtonAL implements java.awt.event.ActionListener {
             Image image = imageGetter.getCardImage(card);
             JLabel dealerCardHit = new JLabel(new ImageIcon(image));
             dealerPanel.add(dealerCardHit);
+
+            dealerPanel.repaint();
             dealerPanel.revalidate();
 
         }
@@ -74,18 +77,17 @@ public class StayButtonAL implements java.awt.event.ActionListener {
         gui.getStayButton().setEnabled(false);
         gui.getBetButton().setEnabled(true);
         gui.getDecreaseBetButton().setEnabled(true);
-        
+
         //pays but do not zero bet
         game.blackjackRoundDone();
         if (game.didPlayerWin()) {
             gui.getInfoField().setText("Player won");
-            
-        } else{
+
+        } else {
             gui.getInfoField().setText("Player lost");
         }
         gui.getInfoField().setForeground(Color.red);
 
-        
         int playerWins = game.getPlayer().getGamesWon();
         gui.getNumberOfWins().setText("Player Wins  " + playerWins);
         gui.getCurrentBetField().setText("bet " + (game.getBetManager().getBet()));
