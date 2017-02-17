@@ -82,7 +82,7 @@ public class PlayerTest {
         Card card2 = new Card(SPADES, 13);
         player.reciveCard(card2);
         player.reciveCard(card1);
-        assertTrue(player.cardInHand() == 2);
+        assertTrue(player.cardsInHand() == 2);
     }
 
     @Test
@@ -105,7 +105,7 @@ public class PlayerTest {
         player.reciveCard(card2);
         player.reciveCard(card1);
         player.foldHand();
-        assertTrue(player.cardInHand() == 0);
+        assertTrue(player.cardsInHand() == 0);
     }
 
     @Test

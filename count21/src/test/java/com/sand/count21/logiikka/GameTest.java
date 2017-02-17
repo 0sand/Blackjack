@@ -43,7 +43,7 @@ public class GameTest {
         Game game = new Game();
         Player player1 = game.getPlayer();
         game.dealTo(player1, 20);
-        assertTrue(20 == player1.cardInHand());
+        assertTrue(20 == player1.cardsInHand());
     }
 
     @Test
@@ -51,7 +51,7 @@ public class GameTest {
         Game game = new Game();
         Player player1 = game.getPlayer();
         game.dealOneTo(player1);
-        assertTrue(1 == player1.cardInHand());
+        assertTrue(1 == player1.cardsInHand());
     }
 
     @Test
@@ -59,8 +59,8 @@ public class GameTest {
         Game game = new Game();
         game.firstCardsInRound();
         Player player = game.getPlayer();
-        assertTrue(2 == player.cardInHand());
-        assertTrue(2 == game.getDealer().cardInHand());
+        assertTrue(2 == player.cardsInHand());
+        assertTrue(2 == game.getDealer().cardsInHand());
     }
 
     @Test
@@ -68,7 +68,7 @@ public class GameTest {
         Game game = new Game();
         Player player1 = game.getPlayer();
         game.dealTo(player1, 200);
-        assertTrue(200 == player1.cardInHand());
+        assertTrue(200 == player1.cardsInHand());
     }
 
     @Test
@@ -456,9 +456,9 @@ public class GameTest {
         game.firstCardsInRound();
         game.everyOneFolds();
         Player player = game.getPlayer();
-        assertEquals(player.cardInHand(), 0);
+        assertEquals(player.cardsInHand(), 0);
         Player dealer = game.getDealer();
-        assertEquals(dealer.cardInHand(), 0);
+        assertEquals(dealer.cardsInHand(), 0);
     }
 
     @Test

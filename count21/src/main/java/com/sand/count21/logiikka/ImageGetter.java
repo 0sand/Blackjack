@@ -40,7 +40,7 @@ public class ImageGetter {
     public Image getCardImage(Card card) {
         
         String file = card.getFileName();
-        Image image = this.getImageFromString(file);
+        Image image = this.getImage(file);
         return image;
     }
 
@@ -49,7 +49,7 @@ public class ImageGetter {
      * @param filename filename for the image wanted
      * @return The image from the filename
      */
-    public Image getImageFromString(String filename) {
+    public Image getImage(String filename) {
         Image image = null;
         InputStream is = this.getClass().getClassLoader().getResourceAsStream(filename);
         try {

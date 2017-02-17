@@ -21,14 +21,14 @@ import javax.swing.JPanel;
  *
  * @author osand
  */
-public class StayButtonListener implements java.awt.event.ActionListener {
+public class StayButtonAL implements java.awt.event.ActionListener {
 
     private Game game;
     private ImageGetter imageGetter;
     private JPanel dealerPanel;
     private GUI gui;
 
-    public StayButtonListener(Game game, ImageGetter imageGetter, GUI gui) {
+    public StayButtonAL(Game game, ImageGetter imageGetter, GUI gui) {
         this.gui = gui;
         this.game = game;
         this.imageGetter = imageGetter;

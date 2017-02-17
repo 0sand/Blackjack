@@ -46,7 +46,7 @@ public class ImageGetterTest {
         boolean thrown = false;
 
         try {
-            imagegetter.getImageFromString("dfksjdfk");
+            imagegetter.getImage("dfksjdfk");
         } catch (RuntimeException ex) {
             thrown = true;
         }

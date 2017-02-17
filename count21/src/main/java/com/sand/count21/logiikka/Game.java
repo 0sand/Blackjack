@@ -136,7 +136,7 @@ public class Game {
      * @return true if the player has blackjack
      */
     public boolean checkForBlackjack(Player player) {
-        if (player.cardInHand() > 2) {
+        if (player.cardsInHand() > 2) {
             return false;
         }
         player.sortPlayerCardsSmallToLarge();
@@ -179,7 +179,7 @@ public class Game {
      */
     public boolean checkIfPlayerCanSplit(Player player) {
         ArrayList<Card> cards = player.getCards();
-        if (player.cardInHand() == 2) {
+        if (player.cardsInHand() == 2) {
 
             if (cards.get(0).getValue() == cards.get(1).getValue()) {
                 return true;

@@ -21,9 +21,15 @@ public class GUI extends JPanel {
     Game game;
     ImageGetter imageGetter = new ImageGetter();
 
-    JPanel dealerPanel = new JPanel();
-    JPanel playerPanel = new JPanel();
-    JPanel bottomPanel = new JPanel();
+    JPanel kortit = new JPanel(new BorderLayout());
+
+    JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
+    
+    
+    JPanel dealerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 10));
+    JPanel playerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 10));
+    JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+   
     JButton hitButton = new JButton();
     JButton stayButton = new JButton();
     JButton againButton = new JButton();
@@ -44,16 +50,20 @@ public class GUI extends JPanel {
     JLabel playerCard1;
     JLabel playerCardHit;
 
-    float fontsize = 20;
+    float fontsize = 30;
 
     public GUI(Game game) {
+
         this.game = game;
         Font font = UIManager.getFont("Button.font").deriveFont(fontsize);
 
         dealerPanel.setBackground(new Color(12, 112, 12));
         playerPanel.setBackground(new Color(12, 112, 12));
         bottomPanel.setBackground(new Color(12, 112, 12));
-        bottomPanel.setLayout(new FlowLayout());
+        infoPanel.setBackground(new Color(12, 112, 12));
+        
+        
+        bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0,10));
 
         hitButton.setText("Hit");
         hitButton.setPreferredSize(new Dimension(120, 80));
@@ -98,34 +108,44 @@ public class GUI extends JPanel {
 
         infoField.setFont(font);
         infoField.setBackground(new Color(12, 112, 12));
-        
 
         infoField.setEnabled(false);
 
-        hitButton.addActionListener(new HitButtonListener(game, this, imageGetter));
-        againButton.addActionListener(new DealButtonListener(game, this, imageGetter));
-        stayButton.addActionListener(new StayButtonListener(game, imageGetter, this));
-        increaseBetButton.addActionListener(new BetButtonListener(game, this));
-        decreaseBetButton.addActionListener(new BetButtonListener(game, this));
+        hitButton.addActionListener(new HitButtonAL(game, this, imageGetter));
+        againButton.addActionListener(new DealButtonAL(game, this, imageGetter));
+        stayButton.addActionListener(new StayButtonAL(game, imageGetter, this));
+        increaseBetButton.addActionListener(new BetButtonAL(game, this));
+        decreaseBetButton.addActionListener(new BetButtonAL(game, this));
 
         bottomPanel.add(hitButton);
         bottomPanel.add(stayButton);
         bottomPanel.add(againButton);
         bottomPanel.add(decreaseBetButton);
         bottomPanel.add(increaseBetButton);
-        bottomPanel.add(numberOfWins);
-        bottomPanel.add(currentBetField);
-        bottomPanel.add(playerMoneyField);
-        bottomPanel.add(infoField);
+
+        infoPanel.add(numberOfWins);
+        infoPanel.add(currentBetField);
+        infoPanel.add(playerMoneyField);
+        infoPanel.add(infoField);
 
         dealerlabel.setText("  Dealer:  ");
         playerlabel.setText("  Player:  ");
 
+        kortit.add(dealerPanel, BorderLayout.NORTH);
+        kortit.add(playerPanel, BorderLayout.CENTER);
+        
+        
+        setLayout(new BorderLayout());
+        add(infoPanel, BorderLayout.NORTH);
+        add(kortit, BorderLayout.CENTER);
+        add(bottomPanel, BorderLayout.SOUTH);
+
+        /*
         setLayout(new BorderLayout());
         add(dealerPanel, BorderLayout.NORTH);
         add(playerPanel, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
-
+         */
     }
 
     public JButton getIncreaseBetButton() {
@@ -144,7 +164,7 @@ public class GUI extends JPanel {
         JFrame myFrame = new JFrame("Blackjack");
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.setContentPane(this);
-        myFrame.setPreferredSize(new Dimension(1700, 1000));
+        myFrame.setPreferredSize(new Dimension(1500, 1000));
         myFrame.pack();
         myFrame.setVisible(true);
 

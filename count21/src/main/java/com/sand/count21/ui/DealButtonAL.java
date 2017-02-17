@@ -20,13 +20,13 @@ import javax.swing.JLabel;
  *
  * @author osand
  */
-public class DealButtonListener implements java.awt.event.ActionListener {
+public class DealButtonAL implements java.awt.event.ActionListener {
 
     Game game;
     GUI gui;
     ImageGetter imageGetter;
 
-    public DealButtonListener(Game game, GUI gui, ImageGetter imageGetter) {
+    public DealButtonAL(Game game, GUI gui, ImageGetter imageGetter) {
         this.game = game;
         this.gui = gui;
         this.imageGetter = imageGetter;
@@ -64,7 +64,7 @@ public class DealButtonListener implements java.awt.event.ActionListener {
 
         cards = game.getDealer().getCards();
 
-        image1 = imageGetter.getImageFromString("images/backcard.png");
+        image1 = imageGetter.getImage("images/backcard.png");
         card2 = cards.get(1);
         image2 = imageGetter.getCardImage(card2);
 

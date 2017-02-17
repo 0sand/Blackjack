@@ -104,7 +104,7 @@ public class Player {
      *
      * @return the amount of cards in the players hand
      */
-    public int cardInHand() {
+    public int cardsInHand() {
         return playerHand.size();
     }
 

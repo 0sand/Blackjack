@@ -38,14 +38,11 @@ public class BetManagerTest {
     public void tearDown() {
     }
 
-
- 
-
     @Test
     public void betManagerZerosTheBetCorrectly() {
         Game game = new Game();
         BetManager betManager = game.getBetManager();
-        
+
         int playerMoney = game.getPlayer().getMoney();
         betManager.increseBet();
         betManager.zeroBet();
@@ -59,7 +56,7 @@ public class BetManagerTest {
         int money = 10;
         int bet = game.getBetManager().getBet();
         game.getPlayer().setMoney(money);
-        
+
         game.getPlayer().reciveCard(new Card(HEARTS, 1));
         game.getPlayer().reciveCard(new Card(HEARTS, 10));
         game.getDealer().reciveCard(new Card(HEARTS, 11));
@@ -75,7 +72,7 @@ public class BetManagerTest {
         int money = 0;
         game.getPlayer().setMoney(0);
         int playerMoneyBeforeBet = game.getPlayer().getMoney();
-        
+
         game.getPlayer().reciveCard(new Card(HEARTS, 1));
         game.getPlayer().reciveCard(new Card(HEARTS, 10));
         game.getDealer().reciveCard(new Card(HEARTS, 11));
@@ -87,11 +84,49 @@ public class BetManagerTest {
     }
 
     @Test
+    public void betManagerPaysCorrectlyWhenTheDealerIsBust() {
+        Game game = new Game();
+        int money = 0;
+        game.getPlayer().setMoney(0);
+        int playerMoneyBeforeBet = game.getPlayer().getMoney();
+
+        game.getPlayer().reciveCard(new Card(HEARTS, 5));
+        game.getPlayer().reciveCard(new Card(HEARTS, 10));
+        game.getDealer().reciveCard(new Card(HEARTS, 10));
+        game.getDealer().reciveCard(new Card(HEARTS, 6));
+        game.getDealer().reciveCard(new Card(HEARTS, 10));
+        game.getBetManager().payBetToPlayer();
+        int playerMoneyAfterBetManagerPay = game.getPlayer().getMoney();
+
+        assertEquals(20, playerMoneyAfterBetManagerPay);
+    }
+
+    @Test
+    public void betManagerPaysCorrectlyWhenTheDealerIsBust2() {
+        Game game = new Game();
+        int money = 100;
+        game.getPlayer().setMoney(100);
+        game.getBetManager().setBet(100);
+        int playerMoneyBeforeBet = game.getPlayer().getMoney();
+
+        game.getPlayer().reciveCard(new Card(HEARTS, 5));
+        game.getPlayer().reciveCard(new Card(HEARTS, 10));
+        game.getDealer().reciveCard(new Card(HEARTS, 10));
+        game.getDealer().reciveCard(new Card(HEARTS, 6));
+        game.getDealer().reciveCard(new Card(HEARTS, 10));
+        game.getBetManager().payBetToPlayer();
+        int playerMoneyAfterBetManagerPay = game.getPlayer().getMoney();
+
+        assertEquals(300
+                , playerMoneyAfterBetManagerPay);
+    }
+
+    @Test
     public void betManagerPaysCorrectlyToPlayerWhenPlayerHandIsGreaterThanDealer() {
         Game game = new Game();
         int bet = game.getBetManager().getBet();
         int playerMoneyBeforeBet = game.getPlayer().getMoney();
-        
+
         game.getPlayer().reciveCard(new Card(HEARTS, 8));
         game.getPlayer().reciveCard(new Card(HEARTS, 10));
         game.getDealer().reciveCard(new Card(HEARTS, 10));
@@ -105,10 +140,7 @@ public class BetManagerTest {
     public void playerReceivesNothingWhenSumOfHandIsSameAsDealer() {
         Game game = new Game();
         int playerMoneyBefore = game.getPlayer().getMoney();
-        
-        
-        
-       
+
         game.getPlayer().reciveCard(new Card(HEARTS, 8));
         game.getPlayer().reciveCard(new Card(HEARTS, 10));
         game.getDealer().reciveCard(new Card(HEARTS, 10));
@@ -121,9 +153,9 @@ public class BetManagerTest {
     @Test
     public void betManagerBetIsSameZeroAfterPayout() {
         Game game = new Game();
-        
+
         int playerMoneyBeforeBet = game.getPlayer().getMoney();
-       
+
         game.getPlayer().reciveCard(new Card(HEARTS, 8));
         game.getPlayer().reciveCard(new Card(HEARTS, 10));
         game.getDealer().reciveCard(new Card(HEARTS, 10));
@@ -132,7 +164,7 @@ public class BetManagerTest {
         int playerMoneyAfterBetManagerPay = game.getPlayer().getMoney();
         assertEquals(10, game.getBetManager().getBet());
     }
-    
+
     @Test
     public void betManagerDoesNotTakeToMuchMoneyFromPlayer() {
         Game game = new Game();
@@ -141,8 +173,8 @@ public class BetManagerTest {
         game.getBetManager().deductBetFromPlayer();
         assertEquals(playerMoney, game.getPlayer().getMoney());
     }
-    
-        @Test
+
+    @Test
     public void deductBetFromPlayerTaxesAllMoneyCorrectly() {
         Game game = new Game();
         int playerMoney = game.getPlayer().getMoney();

@@ -13,12 +13,12 @@ import java.awt.event.ActionListener;
  *
  * @author osand
  */
-public class BetButtonListener implements ActionListener {
+public class BetButtonAL implements ActionListener {
 
     private Game game;
     private GUI gui;
 
-    public BetButtonListener(Game game, GUI gui) {
+    public BetButtonAL(Game game, GUI gui) {
         this.game = game;
         this.gui = gui;
     }

@@ -19,12 +19,12 @@ import javax.swing.JLabel;
  *
  * @author osand
  */
-public class HitButtonListener implements ActionListener{
+public class HitButtonAL implements ActionListener{
     private Game game;
     private GUI gui;
     private ImageGetter imageGetter;
 
-    public HitButtonListener(Game game, GUI gui, ImageGetter imageGetter) {
+    public HitButtonAL(Game game, GUI gui, ImageGetter imageGetter) {
         this.game = game;
         this.gui = gui;
         this.imageGetter = imageGetter;
