@@ -236,16 +236,11 @@ public class Game {
     public void blackjackRoundDone() {
         if (this.didPlayerWin()) {
             this.player.addToPlayerWon();
-            System.out.println(this.betManager.getBet());
-            System.out.println(this.getPlayer().getMoney());
+          
             this.betManager.payBetToPlayer();
-            System.out.println(this.betManager.getBet());
-            System.out.println(this.getPlayer().getMoney());
-            System.out.println("");
-
+            
         }
-        System.out.println(this.getPlayer().getMoney());
-        System.out.println("");
+    
         this.player.addToPlayerGamesPlayed();
         //this.betManager.zeroBet();
     }

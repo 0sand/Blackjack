@@ -63,9 +63,8 @@ public class BetManager {
     }
 
     /**
-     * This method is used to set the current bet.
+     * This method is used to increase the bet.
      *
-     * @param bet increase the current bet
      */
     public void increseBet() {
         int increaseBet = this.amountToIncrease();
@@ -75,6 +74,9 @@ public class BetManager {
         }
     }
 
+    /**
+     * This method is used to decrease the bet.
+     */
     public void decreseBet() {
         int decreseBet = this.amountToIncrease();
         if ((this.bet - decreseBet) >= 0) {

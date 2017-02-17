@@ -19,7 +19,8 @@ import javax.swing.JLabel;
  *
  * @author osand
  */
-public class HitButtonAL implements ActionListener{
+public class HitButtonAL implements ActionListener {
+
     private Game game;
     private GUI gui;
     private ImageGetter imageGetter;
@@ -30,29 +31,29 @@ public class HitButtonAL implements ActionListener{
         this.imageGetter = imageGetter;
     }
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Player player = game.getPlayer();
-            if (!game.checkIfPlayerIsBust(player)) {
-                game.dealTo(player, 1);
-                Card card = player.getLastCard();
-                Image image = imageGetter.getCardImage(card);
-                JLabel playerCardHit = new JLabel(new ImageIcon(image));
-                gui.getPlayerPanel().add(playerCardHit);
-                gui.getPlayerPanel().revalidate();
-            }
-
-            if (game.checkIfPlayerIsBust(player)) {
-
-                gui.getHitButton().setEnabled(false);
-                for (ActionListener a : gui.getStayButton().getActionListeners()) {
-                    a.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null) {
-                        //Nothing need go here, the actionPerformed method (with the
-                        //above arguments) will trigger the respective listener
-                    });
-                }
-            }
-
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Player player = game.getPlayer();
+        if (!game.checkIfPlayerIsBust(player)) {
+            game.dealTo(player, 1);
+            Card card = player.getLastCard();
+            Image image = imageGetter.getCardImage(card);
+            JLabel playerCardHit = new JLabel(new ImageIcon(image));
+            gui.getPlayerPanel().add(playerCardHit);
+            gui.getPlayerPanel().revalidate();
         }
-    
+
+        if (game.checkIfPlayerIsBust(player)) {
+
+            gui.getHitButton().setEnabled(false);
+            for (ActionListener a : gui.getStayButton().getActionListeners()) {
+                a.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null) {
+                    //Nothing need go here, the actionPerformed method (with the
+                    //above arguments) will trigger the respective listener
+                });
+            }
+        }
+
+    }
+
 }
