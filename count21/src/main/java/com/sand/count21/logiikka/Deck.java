@@ -15,8 +15,6 @@ public class Deck {
     private Card[] deckArray;
     private int cardsUsed;
     
- 
-
     /**
      * Constructor for the deck. Constructs a new deck with 52 cards and for
      * different suits. The cards are not shuffled.
@@ -46,7 +44,6 @@ public class Deck {
         return newDeck;
     }
     
-
     /**
      * This method adds another deck with 52 cards to the deck.
      */
@@ -94,7 +91,6 @@ public class Deck {
         }
         cardsUsed++;
         return deckArray[cardsUsed - 1];
-
     }
 
     @Override
@@ -111,5 +107,4 @@ public class Deck {
         Deck deck = (Deck) other;
         return (Arrays.equals(deck.deckArray, this.deckArray));
     }
-
 }

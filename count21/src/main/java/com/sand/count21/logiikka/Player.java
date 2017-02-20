@@ -7,7 +7,7 @@ import java.util.Collections;
  * count the values of the cards using Blackjack rules.
  *
  */
-public class Player {
+public class Player implements Participant{
 
     private int gamesPlayed = 0;
     private int gamesWon = 0;
@@ -18,7 +18,7 @@ public class Player {
      * Default constructor for the player. The player has 100 set in money.
      */
     public Player() {
-        this.money = 100;
+        this.money = 1000;
     }
 
     /**
@@ -30,19 +30,14 @@ public class Player {
     public Player(int money) {
         this.money = money;
     }
-
-    /**
-     * This method adds one to the counter that tracks how many games the player
-     * lost.
-     */
     
     /**
      * Setter for the amount of money the player has. Makes is possible to cheat in the
-     * game. That means the player can get more money without creating a new player.
+     * game. That means the player can get more money without creating a new player. Actually used for
+     * testing only.
      * @param money new value for player money
      */
     public void setMoney(int money) {
-
         this.money = money;
     }
 

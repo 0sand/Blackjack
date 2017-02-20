@@ -18,3 +18,5 @@ Päivä | Tunnit | Kuvaus
 15.02.2016 | 4h | Testaus tehty niin että kunnossa. Löydetty muutama bugi betManagerissa.
 16.02.2016 | 5h | GUIn säätöä. Nyt mahdollista nosta panosta ja pienentä panosta.
 17.02.2016 | 7h | Sekvenssikaavioiden ja luokkakaavioiden piirtäminen. Lisäyksi dokumentaatiossa. 
+19.02.2016 | 2h | Kaikkien luokkien läpikäynti ja pieniä kosmettisiä muutoksia. Löydetty ja korjattu voittomaksu bugi.
+20.02.2016 | 2h | Käyttöohjen ja rankennekuvauksen tekoa. Jar paketin luonti ja testaus.

@@ -1,5 +1,4 @@
 package com.sand.count21.logiikka;
-
 import java.util.ArrayList;
 
 /**
@@ -56,13 +55,11 @@ public class Game {
     /**
      * The method deals cards to the player provided to the method.
      *
-     * @param player The player that will recive cards from deck
-     * @param n how many cards will the player recive
+     * @param player The player that will receive cards from deck
+     * @param n how many cards will the player receive
      */
     public void dealTo(Player player, int n) {
-
         for (int i = 0; i < n; i++) {
-
             if (shouldIshuffleDeck()) {
                 shuffleDeck();
             }
@@ -74,16 +71,14 @@ public class Game {
     /**
      * Deal one card to the player provided to the method.
      *
-     * @param player Player that recives card
+     * @param player Player that receives card
      */
     public void dealOneTo(Player player) {
-
         if (shouldIshuffleDeck()) {
             shuffleDeck();
         }
         Card card = deck.dealCard();
         player.reciveCard(card);
-
     }
 
     /**
@@ -121,11 +116,9 @@ public class Game {
     public boolean checkIfDealerMustHit(Player dealer) {
         if (dealer.totalValueOfCardsAceLow() < 17 && dealer.totalValueOfCardsAceHigh() > 21) {
             return true;
-
         } else if (dealer.totalValueOfCardsAceHigh() >= 17) {
             return false;
         }
-
         return true;
     }
 
@@ -235,12 +228,9 @@ public class Game {
      */
     public void blackjackRoundDone() {
         if (this.didPlayerWin()) {
-            this.player.addToPlayerWon();
-          
-            this.betManager.payBetToPlayer();
-            
+            this.player.addToPlayerWon();   
+            this.betManager.payBetToPlayer();      
         }
-    
         this.player.addToPlayerGamesPlayed();
         //this.betManager.zeroBet();
     }

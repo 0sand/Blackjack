@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.sand.count21.logiikka;
+package com.sand.count21.ui;
 
 import com.sand.count21.logiikka.Card;
-import com.sand.count21.logiikka.Card;
-import static com.sand.count21.logiikka.Suits.*;
-import com.sand.count21.ui.GUI;
 import com.sand.count21.ui.GUI;
 import java.awt.Image;
 import java.io.IOException;
@@ -23,14 +15,6 @@ import javax.imageio.ImageIO;
  * @author osand
  */
 public class ImageGetter {
-
-
-    /**
-     * Constructor for the ImageGetter. Does nothing special right now.
-     */
-    public ImageGetter() {
-        
-    }
 
     /**
      * This method gets the image of the card. 
@@ -58,7 +42,6 @@ public class ImageGetter {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         image = image.getScaledInstance(250, 363, Image.SCALE_DEFAULT);
-        
         return image;
     }
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sand.count21.logiikka;
 
 /**
@@ -52,6 +47,7 @@ public class BetManager {
     }
 
     private int amountToIncrease() {
+
         if (this.bet < 100) {
             return 10;
         } else if (this.bet < 500) {
@@ -59,7 +55,18 @@ public class BetManager {
         } else {
             return 100;
         }
+    }
 
+    private int amountToDecrease() {
+        if (this.bet == 10) {
+        } else if (this.bet <= 100) {
+            return 10;
+        } else if (this.bet <= 500) {
+            return 50;
+        } else {
+            return 100;
+        }
+        return 0;
     }
 
     /**
@@ -70,7 +77,6 @@ public class BetManager {
         int increaseBet = this.amountToIncrease();
         if ((this.player.getMoney() - (this.bet + increaseBet)) >= 0) {
             this.bet = this.bet + increaseBet;
-
         }
     }
 
@@ -78,10 +84,9 @@ public class BetManager {
      * This method is used to decrease the bet.
      */
     public void decreseBet() {
-        int decreseBet = this.amountToIncrease();
+        int decreseBet = this.amountToDecrease();
         if ((this.bet - decreseBet) >= 0) {
             this.bet = this.bet - decreseBet;
-
         }
     }
 
@@ -92,7 +97,6 @@ public class BetManager {
         if (this.player.getMoney() - this.bet >= 0) {
             this.player.deductMoney(bet);
         }
-
     }
 
     /**
@@ -108,23 +112,20 @@ public class BetManager {
      * @return the current bet.
      */
     /**
-     * This method pays the bet to the player if he won and zeros the current
-     * bet.
+     * This method pays the bet to the player if the player one. The method uses
+     * blackJackPayoutFactor and normalWinPayoutFactor to determine the winning
+     * amount
      */
     public void payBetToPlayer() {
         int payout = 0;
-
         if (this.game.checkForBlackjack(this.player) && !this.game.checkForBlackjack(game.getDealer())) {
             payout = (int) Math.round(this.blackJackPayoutFactor * this.bet);
             this.player.reciveMoney(this.bet + payout);
-
         } else if (this.game.checkForBlackjack(this.player) && this.game.checkForBlackjack(game.getDealer())) {
             this.player.reciveMoney(this.bet);
-
         } else if (this.game.didPlayerWin()) {
             payout = this.bet * this.normalWinPayoutFactor;
             this.player.reciveMoney(this.bet + payout);
         }
-
     }
 }

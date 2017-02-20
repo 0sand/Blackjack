@@ -1,17 +1,11 @@
 package com.sand.count21.ui;
 
-import com.sand.count21.logiikka.ImageGetter;
-import com.sand.count21.logiikka.Card;
 import com.sand.count21.logiikka.Game;
-import com.sand.count21.logiikka.Player;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 /**
- * Grafic Interface for the blackjack game. At the moment quit ugly code and
+ * Graphic Interface for the blackjack game. At the moment quit ugly code and
  * needs a lot of work. But hey. The game works.
  *
  * @author osand
@@ -24,8 +18,7 @@ public class GUI extends JPanel {
     JPanel kortit = new JPanel(new BorderLayout());
 
     JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
-    
-    
+   
     JPanel dealerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 10));
     JPanel playerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 10));
     JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -43,11 +36,6 @@ public class GUI extends JPanel {
 
     JLabel dealerlabel = new JLabel();
     JLabel playerlabel = new JLabel();
-    
-
-    
-
-
     
     JLabel dealerCard2;
     JLabel dealerCard1;
@@ -68,13 +56,13 @@ public class GUI extends JPanel {
         bottomPanel.setBackground(new Color(12, 112, 12));
         infoPanel.setBackground(new Color(12, 112, 12));
         
-        
         bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0,10));
 
         hitButton.setText("Hit");
         hitButton.setPreferredSize(new Dimension(120, 80));
         hitButton.setEnabled(false);
         hitButton.setFont(font);
+        hitButton.setFocusable(true);
 
         againButton.setEnabled(true);
         againButton.setPreferredSize(new Dimension(120, 80));
@@ -140,14 +128,10 @@ public class GUI extends JPanel {
         kortit.add(dealerPanel, BorderLayout.NORTH);
         kortit.add(playerPanel, BorderLayout.CENTER);
         
-        
         setLayout(new BorderLayout());
         add(infoPanel, BorderLayout.NORTH);
         add(kortit, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
-        
-
- 
     }
 
     public JButton getIncreaseBetButton() {
@@ -169,7 +153,6 @@ public class GUI extends JPanel {
         myFrame.setPreferredSize(new Dimension(1500, 1000));
         myFrame.pack();
         myFrame.setVisible(true);
-
     }
 
     public JPanel getDealerPanel() {

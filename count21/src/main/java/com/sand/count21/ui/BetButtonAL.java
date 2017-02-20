@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sand.count21.ui;
 
 import com.sand.count21.logiikka.Game;
@@ -29,12 +24,9 @@ public class BetButtonAL implements ActionListener {
             game.getBetManager().decreseBet();
         } else {
             game.getBetManager().increseBet();
-        }
-        
+        } 
         gui.getCurrentBetField().setText("bet " + (game.getBetManager().getBet()));
         gui.getPlayerMoneyField().setText("Money " + game.getPlayer().getMoney());
         gui.getCurrentBetField().repaint();
-
     }
-
 }

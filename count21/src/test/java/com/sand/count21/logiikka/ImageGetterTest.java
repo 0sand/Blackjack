@@ -5,6 +5,7 @@
  */
 package com.sand.count21.logiikka;
 
+import com.sand.count21.ui.ImageGetter;
 import static com.sand.count21.logiikka.Suits.HEARTS;
 import java.awt.Image;
 import org.junit.After;

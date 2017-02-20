@@ -32,10 +32,9 @@ public class Card implements Comparable<Card> {
      * @return "images/" + value + suitFirstLetter + ".png"
      */
     public String getFileName() {
-        String value = Integer.toString(this.value);
+        String cardValue = Integer.toString(this.value);
         String suitFirstLetter = this.suit.toString();
-        
-        return "images/" + value + suitFirstLetter + ".png";
+        return "images/" + cardValue + suitFirstLetter + ".png";
     }
 
     /**
@@ -74,5 +73,4 @@ public class Card implements Comparable<Card> {
             return -1;
         }
     }
-
 }
