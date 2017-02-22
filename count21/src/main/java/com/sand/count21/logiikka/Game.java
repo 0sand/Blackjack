@@ -1,4 +1,5 @@
 package com.sand.count21.logiikka;
+
 import java.util.ArrayList;
 
 /**
@@ -230,13 +231,16 @@ public class Game {
         if (this.didPlayerWin()) {
             this.player.addToPlayerWon();
             this.player.addToPlayerGamesPlayed();
-            this.betManager.payBetToPlayer();      
+            this.betManager.payBetToPlayer();
         }
         this.player.addToPlayerGamesPlayed();
     }
-    
+
+    /**
+     * This method zeros the counter and sets the bet and player money for a new
+     * game.
+     */
     public void startNewGame() {
-        
         this.betManager.setBet(10);
         this.player.zeroGameCounters();
         this.player.setMoney(100);

@@ -1,12 +1,12 @@
-Ôªø# Blackjack
+# Blackjack
 
-Peli on Blackjack korttipeli. Peli on tehty niin ett√§ se vastaa oikean casionon blackjackia mahdollisimman tarkasti. Peliss√§ on mallinettu korttipakka joka mahdollistaa ett√§ kehittynyt pelajaa hy√∂tyy peliss√§ jos h√§n muistaa mitk√§ kortit on jo tullut. Tulevaisuudessa on tarkoitus totetuttaa mahdollisuus pelata jopa kahdeksalla korttipakalla ja my√∂s toteuttaa toimintoja kun korttien splittaus. T√§ll√§ hetkell√§ peli toimi l√§hes niin kun pit√§√§ mutta siin√§ on viel√§ pieni√§ puutteita ja ainakin muutama bugi. Yksi tunettu bugi on ett√§ pelaajan voitot ei aina toimi oikein. Se on tarkoitus poistaa mahdollisimman pian. 
+Peli on Blackjack korttipeli. Peli on tehty niin ett‰ se vastaa oikean casionon blackjackia mahdollisimman tarkasti. Peliss‰ on mallinettu korttipakka joka mahdollistaa ett‰ kehittynyt pelajaa hyˆtyy peliss‰ jos h‰n muistaa mitk‰ kortit on jo tullut. Koodissa lˆytyy jo mahdollisuus pelata useamalla pakalla mutta valinta ei ole viel‰ toteutettu viel‰ grafiseen k‰yttˆliittym‰‰n. Peli on t‰ysin toimiva mutta siin‰ ei ole viel‰ toteutettu mahdollisuus splittaukseen eik‰ panoksen tuplamiseen.
 
 
 ## Dokumentaatio
 [aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md)  
-[tuntikirjanpito](dokumentaatio/tuntikirjanpito.md)  
-[k√§ytt√∂ohje](dokumentaatio/kayttoohje.md)  
-[k√§ytt√∂ohje](dokumentaatio/rakennekuvaus.md)  
+[rakennekuvaus](dokumentaatio/rakennekuvaus.md) 
+[k‰yttˆohje](dokumentaatio/kayttoohje.md)  
+[tuntikirjanpito](dokumentaatio/tuntikirjanpito.md) 
 [checkStyle-raportti](https://htmlpreview.github.io?https://github.com/0sand/Blackjack/blob/master/dokumentaatio/checkstyle/checkstyle.html)  
 [pit-raportti](https://htmlpreview.github.io?https://github.com/0sand/Blackjack/blob/master/dokumentaatio/pit/index.html)  
