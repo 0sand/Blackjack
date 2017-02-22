@@ -12,17 +12,18 @@ import java.awt.*;
  */
 public class GUI extends JPanel {
 
+    JFrame myFrame = new JFrame("Blackjack");
     Game game;
     ImageGetter imageGetter = new ImageGetter();
 
     JPanel kortit = new JPanel(new BorderLayout());
 
     JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
-   
+
     JPanel dealerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 10));
     JPanel playerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 10));
     JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-   
+
     JButton hitButton = new JButton();
     JButton stayButton = new JButton();
     JButton againButton = new JButton();
@@ -30,13 +31,14 @@ public class GUI extends JPanel {
     JButton decreaseBetButton = new JButton();
 
     JTextPane numberOfWins = new JTextPane();
+    JTextPane gamesPlayed = new JTextPane();
     JTextPane currentBetField = new JTextPane();
     JTextPane playerMoneyField = new JTextPane();
     JTextPane infoField = new JTextPane();
 
-    JLabel dealerlabel = new JLabel();
-    JLabel playerlabel = new JLabel();
-    
+    JLabel dealerLabel = new JLabel();
+    JLabel playerLabel = new JLabel();
+
     JLabel dealerCard2;
     JLabel dealerCard1;
     JLabel dealerCardHit;
@@ -55,8 +57,8 @@ public class GUI extends JPanel {
         playerPanel.setBackground(new Color(12, 112, 12));
         bottomPanel.setBackground(new Color(12, 112, 12));
         infoPanel.setBackground(new Color(12, 112, 12));
-        
-        bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0,10));
+
+        bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
 
         hitButton.setText("Hit");
         hitButton.setPreferredSize(new Dimension(120, 80));
@@ -84,11 +86,15 @@ public class GUI extends JPanel {
         increaseBetButton.setEnabled(true);
         increaseBetButton.setPreferredSize(new Dimension(60, 80));
 
-        numberOfWins.setText("Player Wins  0");
+        numberOfWins.setText("Total Wins " + game.getPlayer().getGamesWon());
         numberOfWins.setFont(font);
         numberOfWins.setBackground(new Color(12, 112, 12));
-
         numberOfWins.setEnabled(false);
+
+        gamesPlayed.setText("Games played " + game.getPlayer().getGamesPlayed());
+        gamesPlayed.setFont(font);
+        gamesPlayed.setBackground(new Color(12, 112, 12));
+        gamesPlayed.setEnabled(false);
 
         currentBetField.setText("bet " + game.getBetManager().getBet());
         currentBetField.setBackground(new Color(12, 112, 12));
@@ -107,7 +113,7 @@ public class GUI extends JPanel {
 
         hitButton.addActionListener(new HitButtonAL(game, this, imageGetter));
         againButton.addActionListener(new DealButtonAL(game, this, imageGetter));
-        stayButton.addActionListener(new StayButtonAL(game, imageGetter, this));
+        stayButton.addActionListener(new StayButtonAL(game, imageGetter, this, myFrame));
         increaseBetButton.addActionListener(new BetButtonAL(game, this));
         decreaseBetButton.addActionListener(new BetButtonAL(game, this));
 
@@ -118,20 +124,30 @@ public class GUI extends JPanel {
         bottomPanel.add(increaseBetButton);
 
         infoPanel.add(numberOfWins);
+        infoPanel.add(gamesPlayed);
         infoPanel.add(currentBetField);
         infoPanel.add(playerMoneyField);
         infoPanel.add(infoField);
 
-        dealerlabel.setText("  Dealer:  ");
-        playerlabel.setText("  Player:  ");
+        dealerLabel.setText("  Dealer:  ");
+        playerLabel.setText("  Player:  ");
 
         kortit.add(dealerPanel, BorderLayout.NORTH);
         kortit.add(playerPanel, BorderLayout.CENTER);
-        
+
         setLayout(new BorderLayout());
         add(infoPanel, BorderLayout.NORTH);
         add(kortit, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
+    }
+
+    public JTextPane getGamesPlayed() {
+        return gamesPlayed;
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        g.drawString("Victory!", 260, 400);
     }
 
     public JButton getIncreaseBetButton() {
@@ -147,7 +163,6 @@ public class GUI extends JPanel {
     }
 
     public void display() {
-        JFrame myFrame = new JFrame("Blackjack");
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.setContentPane(this);
         myFrame.setPreferredSize(new Dimension(1500, 1000));
@@ -196,11 +211,11 @@ public class GUI extends JPanel {
     }
 
     public JLabel getDealerlabel() {
-        return dealerlabel;
+        return dealerLabel;
     }
 
     public JLabel getPlayerlabel() {
-        return playerlabel;
+        return playerLabel;
     }
 
     public JLabel getDealerCard2() {

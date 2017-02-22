@@ -71,7 +71,7 @@ public class DealButtonAL implements java.awt.event.ActionListener {
         gui.getBottomPanel().revalidate();
 
         Player player = game.getPlayer();
-        if (game.checkIfPlayerHas21(player)) {
+        if (game.checkIfSumIs21(player)) {
             gui.getHitButton().setEnabled(false);
         }
         gui.getInfoField().setText("");  

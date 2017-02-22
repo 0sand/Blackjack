@@ -182,4 +182,23 @@ public class BetManagerTest {
         game.getBetManager().deductBetFromPlayer();
         assertEquals(0, game.getPlayer().getMoney());
     }
+    
+        @Test
+    public void paysCorrectly1() {
+        Game game = new Game();
+        
+        game.getPlayer().setMoney(0);
+        game.getBetManager().setBet(100);
+        int bet =  game.getBetManager().getBet();
+
+        game.getDealer().reciveCard(new Card(HEARTS, 10));
+        game.getDealer().reciveCard(new Card(HEARTS, 5));
+        game.getDealer().reciveCard(new Card(HEARTS, 11));
+        
+        game.getPlayer().reciveCard(new Card(HEARTS, 6));
+        game.getPlayer().reciveCard(new Card(HEARTS, 8));
+        game.getBetManager().payBetToPlayer();
+        int playerMoneyAfterBetManagerPay = game.getPlayer().getMoney();
+        assertEquals(200, playerMoneyAfterBetManagerPay);
+    }
 }

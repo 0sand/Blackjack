@@ -148,7 +148,7 @@ public class Game {
      * @param player the player that is checked
      * @return true if the value is over 21
      */
-    public boolean checkIfPlayerIsBust(Player player) {
+    public boolean checkIfBust(Player player) {
         return player.totalValueOfCardsAceLow() > 21;
     }
 
@@ -158,7 +158,7 @@ public class Game {
      * @param player the player that is checked
      * @return true if the value is 21
      */
-    public boolean checkIfPlayerHas21(Player player) {
+    public boolean checkIfSumIs21(Player player) {
         return player.totalValueOfCardsAceLow() == 21 || player.totalValueOfCardsAceHigh() == 21;
     }
 
@@ -198,7 +198,7 @@ public class Game {
      * @param player player hand evaluated
      * @return sum of cards blackjack rules
      */
-    private int sumOfCardHandBlackjackRules(Player player) {
+    private int sumOfCardInHands(Player player) {
         int aceLow = player.totalValueOfCardsAceLow();
         int aceHigh = player.totalValueOfCardsAceHigh();
         if (aceLow <= 21 && aceHigh > 21) {
@@ -213,10 +213,10 @@ public class Game {
      * @return true if player won
      */
     public boolean didPlayerWin() {
-        if (this.checkIfPlayerIsBust(this.dealer) && !this.checkIfPlayerIsBust(this.player)) {
+        if (this.checkIfBust(this.dealer) && !this.checkIfBust(this.player)) {
             return true;
         }
-        if (this.sumOfCardHandBlackjackRules(this.player) > this.sumOfCardHandBlackjackRules(dealer) && !this.checkIfPlayerIsBust(player)) {
+        if (this.sumOfCardInHands(this.player) > this.sumOfCardInHands(dealer) && !this.checkIfBust(player)) {
             return true;
         }
         return false;
@@ -228,10 +228,17 @@ public class Game {
      */
     public void blackjackRoundDone() {
         if (this.didPlayerWin()) {
-            this.player.addToPlayerWon();   
+            this.player.addToPlayerWon();
+            this.player.addToPlayerGamesPlayed();
             this.betManager.payBetToPlayer();      
         }
         this.player.addToPlayerGamesPlayed();
-        //this.betManager.zeroBet();
+    }
+    
+    public void startNewGame() {
+        
+        this.betManager.setBet(10);
+        this.player.zeroGameCounters();
+        this.player.setMoney(100);
     }
 }

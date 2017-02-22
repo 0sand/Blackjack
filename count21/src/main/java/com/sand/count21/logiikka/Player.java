@@ -5,21 +5,21 @@ import java.util.Collections;
 /**
  * This class is the player in the game. The player knows his own cards and can
  * count the values of the cards using Blackjack rules.
- *
  */
-public class Player implements Participant{
-
+public class Player {
     private int gamesPlayed = 0;
     private int gamesWon = 0;
     private int money;
     private ArrayList<Card> playerHand = new ArrayList();
+    private Card lastCardRecived = null;
 
     /**
      * Default constructor for the player. The player has 100 set in money.
      */
     public Player() {
-        this.money = 1000;
+        this.money = 100;
     }
+    
 
     /**
      * This constructor makes it possible to construct a player with more money
@@ -39,6 +39,15 @@ public class Player implements Participant{
      */
     public void setMoney(int money) {
         this.money = money;
+    }
+    
+    /**
+     * This method zeros the game played and game wins counter.
+     */
+    
+    public void zeroGameCounters() {
+        this.gamesPlayed = 0;
+        this.gamesWon = 0;
     }
 
     /**
@@ -92,6 +101,7 @@ public class Player implements Participant{
      */
     public void reciveCard(Card card) {
         this.playerHand.add(card);
+        this.lastCardRecived = card;
     }
 
     /**
@@ -123,21 +133,28 @@ public class Player implements Participant{
 
     /**
      * This method calculates the total value of the cards in the players hand.
-     * The ace has the value 11 and every face card has the value 10.
+     * The ace has the value 11 and every face card has the value 10. If there
+     * is more aces than one in the hand then only one ace is counted as 11, the other
+     * aces are counted as one.
      *
      * @return The total value of the cards in hand. Ace is 11 and Facecard 10
      */
     public int totalValueOfCardsAceHigh() {
         int sum = 0;
         for (Card card : playerHand) {
-            if (card.getValue() == 1) {
-                sum += 11;
-            } else if (card.getValue() > 10) {
+            if (card.getValue() > 10) {
                 sum += 10;
             } else {
                 sum += card.getValue();
             }
         }
+        
+        this.sortPlayerCardsSmallToLarge();
+        if (this.playerHand.get(0).getValue() == 1) {
+            sum += 10;
+        }
+        
+        
         return sum;
     }
     /**
@@ -155,25 +172,13 @@ public class Player implements Participant{
      * @return the last card added to the players hand.
      */
     public Card getLastCard() {
-        if (playerHand != null && !playerHand.isEmpty()) {
-            Card card = playerHand.get(playerHand.size() - 1);
-            return card;
-        }
-        return null;
+        return this.lastCardRecived;
     }
-    /**
-     * Getter for how many games the player has played.
-     * @return games played
-     */
     
     public int getGamesPlayed() {
         return this.gamesPlayed;
     }
     
-    /**
-     * Getter for how many gamed the player has won.
-     * @return games won
-     */
     public int getGamesWon() {
         return this.gamesWon;
     }

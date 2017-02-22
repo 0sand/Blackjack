@@ -2,13 +2,13 @@ package com.sand.count21.ui;
 
 import com.sand.count21.logiikka.Card;
 import com.sand.count21.logiikka.Game;
-import com.sand.count21.logiikka.Player;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -21,21 +21,30 @@ public class StayButtonAL implements java.awt.event.ActionListener {
     private ImageGetter imageGetter;
     private JPanel dealerPanel;
     private GUI gui;
+    private JFrame frame;
 
-    public StayButtonAL(Game game, ImageGetter imageGetter, GUI gui) {
+    public StayButtonAL(Game game, ImageGetter imageGetter, GUI gui, JFrame frame) {
         this.gui = gui;
         this.game = game;
         this.imageGetter = imageGetter;
         this.dealerPanel = gui.getDealerPanel();
+        this.frame = frame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        game.blackjackRoundDone();
         this.showDealersHiddenCard();
+
         this.showDealerHitCard();
+        game.blackjackRoundDone();
+
         this.activateTheCorrectButtons();
         this.updateTheInfoField();
+
+        if (this.game.getPlayer().getMoney() == 0) {
+            this.gameOverWindow();
+        }
+
     }
 
     private void showDealersHiddenCard() {
@@ -77,10 +86,38 @@ public class StayButtonAL implements java.awt.event.ActionListener {
         }
         gui.getInfoField().setForeground(Color.red);
         int playerWins = game.getPlayer().getGamesWon();
-        gui.getNumberOfWins().setText("Player Wins  " + playerWins);
+        gui.getNumberOfWins().setText("Total Wins  " + playerWins);
         gui.getCurrentBetField().setText("bet " + (game.getBetManager().getBet()));
         gui.getPlayerMoneyField().setText("Money " + game.getPlayer().getMoney());
+        gui.getGamesPlayed().setText("Games played " + game.getPlayer().getGamesPlayed());
         gui.getInfoField().repaint();
+    }
+
+    private void gameOverWindow() {
+        JOptionPane pane = new JOptionPane();
+        pane.setBounds(300, 100, 500, 500);
+
+        pane.setLocation(500, 500);
+        pane.setVisible(true);
+
+        String[] options = {"Yes", "No"};
+
+        int x = pane.showOptionDialog(frame, "You lost all your money. Do you wan´t to play again?",
+                "Game Over",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+        if (x == 0) {
+            this.game.startNewGame();
+            this.updateTheInfoField();
+            gui.getInfoField().setText(" ");
+            gui.getPlayerPanel().removeAll();
+            gui.getPlayerPanel().repaint();
+
+            gui.getDealerPanel().removeAll();
+            gui.getDealerPanel().repaint();
+
+        } else {
+            System.exit(0);
+        }
     }
 
 }

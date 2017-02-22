@@ -28,7 +28,7 @@ public class HitButtonAL implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Player player = game.getPlayer();
-        if (!game.checkIfPlayerIsBust(player)) {
+        if (!game.checkIfBust(player)) {
             game.dealTo(player, 1);
             Card card = player.getLastCard();
             Image image = imageGetter.getCardImage(card);
@@ -37,7 +37,7 @@ public class HitButtonAL implements ActionListener {
             gui.getPlayerPanel().revalidate();
         }
 
-        if (game.checkIfPlayerIsBust(player)) {
+        if (game.checkIfBust(player)) {
 
             gui.getHitButton().setEnabled(false);
             for (ActionListener a : gui.getStayButton().getActionListeners()) {

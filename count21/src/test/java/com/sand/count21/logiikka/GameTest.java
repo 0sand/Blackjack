@@ -141,7 +141,7 @@ public class GameTest {
         player1.reciveCard(card1);
         player1.reciveCard(card2);
         player1.reciveCard(card3);
-        assertTrue(game.checkIfPlayerIsBust(player1));
+        assertTrue(game.checkIfBust(player1));
     }
 
     @Test
@@ -152,7 +152,7 @@ public class GameTest {
         Player player1 = game.getPlayer();
         player1.reciveCard(card1);
         player1.reciveCard(card2);
-        assertFalse(game.checkIfPlayerIsBust(player1));
+        assertFalse(game.checkIfBust(player1));
     }
 
     @Test
@@ -165,7 +165,7 @@ public class GameTest {
         player1.reciveCard(card2);
         player1.reciveCard(new Card(HEARTS, 4));
         player1.reciveCard(new Card(HEARTS, 2));
-        assertFalse(game.checkIfPlayerIsBust(player1));
+        assertFalse(game.checkIfBust(player1));
     }
 
     @Test
@@ -178,7 +178,7 @@ public class GameTest {
         player1.reciveCard(card1);
         player1.reciveCard(card2);
         player1.reciveCard(card3);
-        assertTrue(game.checkIfPlayerIsBust(player1));
+        assertTrue(game.checkIfBust(player1));
     }
 
     @Test
@@ -193,7 +193,7 @@ public class GameTest {
         player1.reciveCard(card2);
         player1.reciveCard(card3);
         player1.reciveCard(card4);
-        assertTrue(game.checkIfPlayerHas21(player1));
+        assertTrue(game.checkIfSumIs21(player1));
     }
 
     @Test
@@ -206,7 +206,7 @@ public class GameTest {
         player1.reciveCard(card1);
         player1.reciveCard(card2);
         player1.reciveCard(card3);
-        assertTrue(game.checkIfPlayerHas21(player1));
+        assertTrue(game.checkIfSumIs21(player1));
     }
 
     @Test
@@ -219,7 +219,7 @@ public class GameTest {
         player1.reciveCard(card1);
         player1.reciveCard(card2);
         player1.reciveCard(card3);
-        assertTrue(game.checkIfPlayerHas21(player1));
+        assertTrue(game.checkIfSumIs21(player1));
     }
 
     @Test
@@ -232,7 +232,7 @@ public class GameTest {
         player1.reciveCard(card1);
         player1.reciveCard(card3);
         player1.reciveCard(card4);
-        assertFalse(game.checkIfPlayerHas21(player1));
+        assertFalse(game.checkIfSumIs21(player1));
     }
 
     @Test
@@ -316,6 +316,17 @@ public class GameTest {
         player1.reciveCard(card1);
         player1.reciveCard(card2);
         player1.reciveCard(card3);
+        assertTrue(game.checkIfDealerMustHit(player1));
+    }
+
+    @Test
+    public void checkIfComputerShouldHitShouldBeTrue4() {
+        Game game = new Game();
+
+        Player player1 = game.getDealer();
+        player1.reciveCard(new Card(SPADES, 1));
+        player1.reciveCard(new Card(CLUBS, 1));
+        player1.reciveCard(new Card(CLUBS, 2));
         assertTrue(game.checkIfDealerMustHit(player1));
     }
 
@@ -513,6 +524,34 @@ public class GameTest {
     }
 
     @Test
+    public void didPlayerWinTestShouldBeTrue4() {
+        Game game = new Game();
+        game.getPlayer().reciveCard(new Card(HEARTS, 2));
+        game.getPlayer().reciveCard(new Card(HEARTS, 2));
+        game.getPlayer().reciveCard(new Card(HEARTS, 1));
+        game.getPlayer().reciveCard(new Card(HEARTS, 5));
+        game.getPlayer().reciveCard(new Card(HEARTS, 1));
+
+        game.getDealer().reciveCard(new Card(HEARTS, 4));
+        game.getDealer().reciveCard(new Card(HEARTS, 3));
+        game.getDealer().reciveCard(new Card(HEARTS, 2));
+        game.getDealer().reciveCard(new Card(HEARTS, 8));
+        assertTrue(game.didPlayerWin());
+    }
+
+    @Test
+    public void didPlayerWinTestShouldBeTrue5() {
+        Game game = new Game();
+        game.getPlayer().reciveCard(new Card(HEARTS, 9));
+        game.getPlayer().reciveCard(new Card(HEARTS, 8));
+
+        game.getDealer().reciveCard(new Card(HEARTS, 1));
+        game.getDealer().reciveCard(new Card(HEARTS, 1));
+        game.getDealer().reciveCard(new Card(HEARTS, 2));
+        assertTrue(game.didPlayerWin());
+    }
+
+    @Test
     public void didPlayerWinTestShouldBeFalse() {
         Game game = new Game();
         game.getPlayer().reciveCard(new Card(HEARTS, 10));
@@ -530,8 +569,38 @@ public class GameTest {
         Game game = new Game();
         game.getPlayer().reciveCard(new Card(HEARTS, 11));
         game.getPlayer().reciveCard(new Card(HEARTS, 11));
+
         game.getDealer().reciveCard(new Card(HEARTS, 10));
         game.getDealer().reciveCard(new Card(HEARTS, 10));
         assertFalse(game.didPlayerWin());
     }
+
+    @Test
+    public void didPlayerWinTestShouldBeFalse3() {
+        Game game = new Game();
+        game.getPlayer().reciveCard(new Card(HEARTS, 11));
+        game.getPlayer().reciveCard(new Card(HEARTS, 6));
+
+        game.getDealer().reciveCard(new Card(HEARTS, 2));
+        game.getDealer().reciveCard(new Card(HEARTS, 12));
+        game.getDealer().reciveCard(new Card(HEARTS, 5));
+        assertFalse(game.getBetManager().payBetToPlayer());
+
+    }
+
+    @Test
+    public void didPlayerWinTestShouldBeFalse4() {
+        Game game = new Game();
+        game.getDealer().reciveCard(new Card(CLUBS, 6));
+        game.getDealer().reciveCard(new Card(SPADES, 5));
+        game.getDealer().reciveCard(new Card(DIAMONDS, 11));
+
+        game.getPlayer().reciveCard(new Card(SPADES, 12));
+        game.getPlayer().reciveCard(new Card(CLUBS, 4));
+
+        assertFalse(game.getBetManager().payBetToPlayer());
+        assertFalse(game.didPlayerWin());
+
+    }
+
 }

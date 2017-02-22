@@ -13,6 +13,7 @@ public class BetManager {
     private int bet;
     private double blackJackPayoutFactor;
     private int normalWinPayoutFactor;
+    private int maxBet;
 
     /**
      * The betManager constructor makes a new betmanager using the provided game
@@ -27,6 +28,7 @@ public class BetManager {
 
         this.blackJackPayoutFactor = 1.5;
         this.normalWinPayoutFactor = 1;
+        this.maxBet = 100;
 
     }
 
@@ -46,37 +48,18 @@ public class BetManager {
         this.bet = bet;
     }
 
-    private int amountToIncrease() {
-
-        if (this.bet < 100) {
-            return 10;
-        } else if (this.bet < 500) {
-            return 50;
-        } else {
-            return 100;
-        }
-    }
-
-    private int amountToDecrease() {
-        if (this.bet == 10) {
-        } else if (this.bet <= 100) {
-            return 10;
-        } else if (this.bet <= 500) {
-            return 50;
-        } else {
-            return 100;
-        }
-        return 0;
-    }
-
     /**
      * This method is used to increase the bet.
      *
      */
     public void increseBet() {
-        int increaseBet = this.amountToIncrease();
-        if ((this.player.getMoney() - (this.bet + increaseBet)) >= 0) {
+        int increaseBet = 10;
+        if ((this.player.getMoney() - (this.bet + increaseBet)) >= 0 && (this.bet + increaseBet <= this.maxBet)) {
             this.bet = this.bet + increaseBet;
+        } else if (this.player.getMoney() < this.maxBet) {
+            this.bet = this.player.getMoney();
+        } else {
+            this.bet = this.maxBet;
         }
     }
 
@@ -84,7 +67,7 @@ public class BetManager {
      * This method is used to decrease the bet.
      */
     public void decreseBet() {
-        int decreseBet = this.amountToDecrease();
+        int decreseBet = 10;
         if ((this.bet - decreseBet) >= 0) {
             this.bet = this.bet - decreseBet;
         }
@@ -115,17 +98,23 @@ public class BetManager {
      * This method pays the bet to the player if the player one. The method uses
      * blackJackPayoutFactor and normalWinPayoutFactor to determine the winning
      * amount
+     * 
+     * @return true if method pays to player
      */
-    public void payBetToPlayer() {
+    public boolean payBetToPlayer() {
         int payout = 0;
         if (this.game.checkForBlackjack(this.player) && !this.game.checkForBlackjack(game.getDealer())) {
             payout = (int) Math.round(this.blackJackPayoutFactor * this.bet);
             this.player.reciveMoney(this.bet + payout);
+            return true;
         } else if (this.game.checkForBlackjack(this.player) && this.game.checkForBlackjack(game.getDealer())) {
             this.player.reciveMoney(this.bet);
+            return true;
         } else if (this.game.didPlayerWin()) {
             payout = this.bet * this.normalWinPayoutFactor;
             this.player.reciveMoney(this.bet + payout);
+            return true;
         }
+        return false;
     }
 }
