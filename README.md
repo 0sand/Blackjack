@@ -7,5 +7,6 @@ Peli on Blackjack korttipeli. Peli on tehty niin että se vastaa oikean casionon
 [aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md)  
 [tuntikirjanpito](dokumentaatio/tuntikirjanpito.md)  
 [käyttöohje](dokumentaatio/kayttoohje.md)  
+[käyttöohje](dokumentaatio/rakennekuvaus.md)  
 [checkStyle-raportti](https://htmlpreview.github.io?https://github.com/0sand/Blackjack/blob/master/dokumentaatio/checkstyle/checkstyle.html)  
 [pit-raportti](https://htmlpreview.github.io?https://github.com/0sand/Blackjack/blob/master/dokumentaatio/pit/index.html)  
