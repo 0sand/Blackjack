@@ -21,3 +21,4 @@ Päivä | Tunnit | Kuvaus
 19.02.2016 | 2h | Kaikkien luokkien läpikäynti ja pieniä kosmettisiä muutoksia. Löydetty ja korjattu voittomaksu bugi.
 20.02.2016 | 2h | Käyttöohjen ja rankennekuvauksen tekoa. Jar paketin luonti ja testaus.
 22.02.2016 | 4h | Korjattu voitto maksu bugi ja korjattu pieni buggi joka tapahtuu kun pelaajalla on kaksi ässä. Gui hienosäätö.
+23.02.2016 | 1h | Testien lisäys, total gamed played bugi korjattu, muutama korjaus dokumentaatioon.

@@ -475,6 +475,7 @@ public class GameTest {
     @Test
     public void shouldIShuffleDeckMethodTest() {
         Game game = new Game();
+
         game.dealTo(game.getPlayer(), 52);
         assertTrue(game.shouldIshuffleDeck());
     }
@@ -601,6 +602,31 @@ public class GameTest {
         assertFalse(game.getBetManager().payBetToPlayer());
         assertFalse(game.didPlayerWin());
 
+    }
+
+    @Test
+    public void blackjackRoundDoneAddsToPlayerWinCounterWhenThePlayerWon() {
+        Game game = new Game();
+        game.getPlayer().reciveCard(new Card(HEARTS, 10));
+        game.getPlayer().reciveCard(new Card(HEARTS, 8));
+        game.getPlayer().reciveCard(new Card(HEARTS, 3));
+        game.getDealer().reciveCard(new Card(HEARTS, 1));
+        game.getDealer().reciveCard(new Card(HEARTS, 5));
+        game.getDealer().reciveCard(new Card(HEARTS, 4));
+        game.blackjackRoundDone();
+        assertEquals(1, game.getPlayer().getGamesWon());
+    }
+
+    @Test
+    public void blackjackRoundDoneDoNotAddToPlayerWinCounterWhenThePlayerLost() {
+        Game game = new Game();
+        game.getPlayer().reciveCard(new Card(HEARTS, 10));
+        game.getPlayer().reciveCard(new Card(HEARTS, 8));
+        game.getPlayer().reciveCard(new Card(HEARTS, 3));
+        game.getDealer().reciveCard(new Card(HEARTS, 1));
+        game.getDealer().reciveCard(new Card(HEARTS, 10));
+        game.blackjackRoundDone();
+        assertEquals(0, game.getPlayer().getGamesWon());
     }
 
 }

@@ -42,7 +42,6 @@ public class BetManagerTest {
     public void betManagerZerosTheBetCorrectly() {
         Game game = new Game();
         BetManager betManager = game.getBetManager();
-
         int playerMoney = game.getPlayer().getMoney();
         betManager.increseBet();
         betManager.zeroBet();
@@ -117,8 +116,8 @@ public class BetManagerTest {
         game.getBetManager().payBetToPlayer();
         int playerMoneyAfterBetManagerPay = game.getPlayer().getMoney();
 
-        assertEquals(300
-                , playerMoneyAfterBetManagerPay);
+        assertEquals(300,
+                playerMoneyAfterBetManagerPay);
     }
 
     @Test
@@ -182,23 +181,52 @@ public class BetManagerTest {
         game.getBetManager().deductBetFromPlayer();
         assertEquals(0, game.getPlayer().getMoney());
     }
-    
-        @Test
+
+    @Test
     public void paysCorrectly1() {
         Game game = new Game();
-        
+
         game.getPlayer().setMoney(0);
         game.getBetManager().setBet(100);
-        int bet =  game.getBetManager().getBet();
+        int bet = game.getBetManager().getBet();
 
         game.getDealer().reciveCard(new Card(HEARTS, 10));
         game.getDealer().reciveCard(new Card(HEARTS, 5));
         game.getDealer().reciveCard(new Card(HEARTS, 11));
-        
+
         game.getPlayer().reciveCard(new Card(HEARTS, 6));
         game.getPlayer().reciveCard(new Card(HEARTS, 8));
         game.getBetManager().payBetToPlayer();
         int playerMoneyAfterBetManagerPay = game.getPlayer().getMoney();
         assertEquals(200, playerMoneyAfterBetManagerPay);
     }
+
+    @Test
+    public void betManagerCannotInCreaseTheBetMoreThanPlayerCanAfford() {
+        Game game = new Game();
+        game.getBetManager().setBet(game.getPlayer().getMoney());
+        game.getBetManager().increseBet();
+        assertEquals(game.getBetManager().getBet(), game.getPlayer().getMoney());
+    }
+    
+    @Test
+    public void betManagerCanNotIncreaseTheBetOverTheMaxBetLimit() {
+        int maxbet = 100;
+        Game game = new Game();
+        game.getBetManager().setMaxbet(maxbet);
+        game.getBetManager().setBet(maxbet);
+        game.getBetManager().increseBet();
+        assertEquals(maxbet, game.getBetManager().getBet());
+    }
+    
+    @Test
+    public void betManagerCanNotDecreaseTheBetToZero() {
+        Game game = new Game();
+        game.getBetManager().setBet(9);
+        game.getBetManager().decreseBet();
+        assertEquals(9, game.getBetManager().getBet());
+        
+        
+    }
+    
 }

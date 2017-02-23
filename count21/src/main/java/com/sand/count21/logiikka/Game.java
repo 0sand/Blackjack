@@ -199,7 +199,7 @@ public class Game {
      * @param player player hand evaluated
      * @return sum of cards blackjack rules
      */
-    private int sumOfCardInHands(Player player) {
+    private int bestSumOfCardsInHand(Player player) {
         int aceLow = player.totalValueOfCardsAceLow();
         int aceHigh = player.totalValueOfCardsAceHigh();
         if (aceLow <= 21 && aceHigh > 21) {
@@ -217,20 +217,20 @@ public class Game {
         if (this.checkIfBust(this.dealer) && !this.checkIfBust(this.player)) {
             return true;
         }
-        if (this.sumOfCardInHands(this.player) > this.sumOfCardInHands(dealer) && !this.checkIfBust(player)) {
+        if (this.bestSumOfCardsInHand(this.player) > this.bestSumOfCardsInHand(dealer) && !this.checkIfBust(player)) {
             return true;
         }
         return false;
     }
 
     /**
-     * This method is used when the round is done. It uses the private method
-     * didPlayerWin() and adds to the players game count.
+     * This method is used when the round is done. It uses the method
+     * didPlayerWin() and adds to the players game count. It also tells betmanager
+     * to pay bet if the player won.
      */
     public void blackjackRoundDone() {
         if (this.didPlayerWin()) {
             this.player.addToPlayerWon();
-            this.player.addToPlayerGamesPlayed();
             this.betManager.payBetToPlayer();
         }
         this.player.addToPlayerGamesPlayed();
@@ -245,4 +245,5 @@ public class Game {
         this.player.zeroGameCounters();
         this.player.setMoney(100);
     }
+    
 }

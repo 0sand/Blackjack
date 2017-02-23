@@ -47,6 +47,14 @@ public class BetManager {
     public void setBet(int bet) {
         this.bet = bet;
     }
+    
+    /**
+     * This method sets the maxbet possible in the betManager.
+     * @param maxbet betManager maxbet
+     */
+    public void setMaxbet(int maxbet) {
+        
+    }
 
     /**
      * This method is used to increase the bet.
@@ -60,6 +68,7 @@ public class BetManager {
             this.bet = this.player.getMoney();
         } else {
             this.bet = this.maxBet;
+            
         }
     }
 

@@ -20,6 +20,8 @@ public class GUI extends JPanel {
 
     JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
 
+    
+    
     JPanel dealerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 10));
     JPanel playerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 10));
     JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -148,6 +150,7 @@ public class GUI extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         g.drawString("Victory!", 260, 400);
+        g.setColor(Color.WHITE);
     }
 
     public JButton getIncreaseBetButton() {
@@ -166,6 +169,7 @@ public class GUI extends JPanel {
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.setContentPane(this);
         myFrame.setPreferredSize(new Dimension(1500, 1000));
+       
         myFrame.pack();
         myFrame.setVisible(true);
     }

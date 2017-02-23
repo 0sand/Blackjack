@@ -1,4 +1,7 @@
 package com.sand.count21.logiikka;
+
+import java.util.Objects;
+
 /**
  * This class contains normal playing cards for a deck. The cards has a suit
  * and value.
@@ -12,7 +15,7 @@ public class Card implements Comparable<Card> {
     /**
      * Construct the card. A card has suit and value.
      * @param suit The suit of the card. HEARTS, CLUBS, DIAMONDS, SPADES
-     * @param value The value of the card 1 <= value <= 13 
+     * @param value The value of the card 1-13 
      */
     public Card(Suits suit, int value) {
         this.suit = suit;
@@ -37,12 +40,7 @@ public class Card implements Comparable<Card> {
         return "images/" + cardValue + suitFirstLetter + ".png";
     }
 
-    /**
-     * If two cards has the same suit and value they are considered to
-     * be the same card.
-     * @param other
-     * @return 
-     */
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -58,11 +56,14 @@ public class Card implements Comparable<Card> {
         return (this.suit == card.getSuit() && this.value == card.getValue());
     }
 
-    /**
-     * The cards are sorted only according to their value.
-     * @param card
-     * @return 
-     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.suit);
+        hash = 89 * hash + this.value;
+        return hash;
+    }
+
     @Override
     public int compareTo(Card card) {
         if (this.value == card.getValue()) {
