@@ -20,7 +20,7 @@ public class StayButtonAL implements java.awt.event.ActionListener {
 
     private Game game;
     private ImageGetter imageGetter;
-    private JPanel dealerPanel;
+    private JLayeredPane dealerPanel;
     private GUI gui;
     private JFrame frame;
 
@@ -34,6 +34,7 @@ public class StayButtonAL implements java.awt.event.ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        this.gui.getCounter().zeroCounter();
         this.showDealersHiddenCard();
 
         this.showDealerHitCard();
@@ -45,25 +46,40 @@ public class StayButtonAL implements java.awt.event.ActionListener {
         if (this.game.getPlayer().getMoney() == 0) {
             this.gameOverWindow();
         }
+        
 
     }
 
     private void showDealersHiddenCard() {
         dealerPanel.remove(0);
-        Card card1 = game.getDealer().getCards().get(0);
+        
+        Card card1 = game.getDealer().getCards().get(1);
         Image image1 = imageGetter.getCardImage(card1);
-        JLabel dealerCard1 = new JLabel(new ImageIcon(image1));
-        dealerPanel.add(dealerCard1, 0);
+        ImageIcon icon = new ImageIcon(image1);
+        JLabel dealerCard1 = new JLabel(icon);
+        dealerCard1.setBounds(130, 15,
+                icon.getIconWidth(),
+                icon.getIconHeight());
+
+        dealerPanel.add(dealerCard1, new Integer(2));
+
         dealerPanel.repaint();
     }
 
     private void showDealerHitCard() {
+        int i = 2;
+        int moveCard = 120;
         while (game.checkIfDealerMustHit(game.getDealer())) {
+            
+            i++;
             game.dealOneTo(game.getDealer());
             Card card = game.getDealer().getLastCard();
-            Image image = imageGetter.getCardImage(card);
-            JLabel dealerCardHit = new JLabel(new ImageIcon(image));
-            dealerPanel.add(dealerCardHit);
+            ImageIcon icon = imageGetter.getCardIcon(card);
+            JLabel dealerCardHit = new JLabel(icon);
+            dealerCardHit.setBounds(130 + (moveCard * (i -2)), 15,
+                    icon.getIconWidth(),
+                    icon.getIconHeight());
+            dealerPanel.add(dealerCardHit, new Integer(i));
             dealerPanel.repaint();
         }
     }

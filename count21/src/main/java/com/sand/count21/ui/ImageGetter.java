@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  * This class is a helper class for getting the card Images to the GUI.
@@ -43,5 +44,17 @@ public class ImageGetter {
         }
         image = image.getScaledInstance(250, 363, Image.SCALE_DEFAULT);
         return image;
+    }
+    
+    public ImageIcon getCardIcon(Card card) {
+        Image image = this.getCardImage(card);
+        ImageIcon icon = new ImageIcon(image);
+        return icon;
+    }
+    
+    public ImageIcon getIcon(String filename) {
+        Image image = this.getImage(filename);
+        ImageIcon icon = new ImageIcon(image);
+        return icon;
     }
 }

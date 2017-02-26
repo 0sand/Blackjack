@@ -27,53 +27,78 @@ public class DealButtonAL implements java.awt.event.ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        game.getBetManager().deductBetFromPlayer();
+        game.startNewRound();
         gui.getPlayerMoneyField().setText("Money " + game.getPlayer().getMoney());
+        this.clearTheTable();
+        this.activateTheCorrectButtons();
+        this.updateTheInfoField();
 
-        gui.getDecreaseBetButton().setEnabled(false);
-        gui.getBetButton().setEnabled(false);
-        gui.getAgainButton().setEnabled(false);
-        gui.getStayButton().setEnabled(true);
-        gui.getHitButton().setEnabled(true);
-        game.everyOneFolds();
-
-        gui.getPlayerPanel().removeAll();
-        gui.getPlayerPanel().repaint();
-
-        gui.getDealerPanel().removeAll();
-        gui.getDealerPanel().repaint();
-
-        game.firstCardsInRound();
         ArrayList<Card> cards = game.getPlayer().getCards();
-        Card card1 = cards.get(0);
-        Image image1 = imageGetter.getCardImage(card1);
-        Card card2 = cards.get(1);
-        Image image2 = imageGetter.getCardImage(card2);
+        
+        ImageIcon icon = imageGetter.getCardIcon(cards.get(0));
+        ImageIcon icon2 = imageGetter.getCardIcon(cards.get(1));
+        
 
-        JLabel playerCard0 = new JLabel(new ImageIcon(image1));
-        JLabel playerCard1 = new JLabel(new ImageIcon(image2));
-        gui.getPlayerPanel().add(playerCard0);
-        gui.getPlayerPanel().add(playerCard1);
+
+        JLabel playerCard0 = new JLabel(icon);
+        playerCard0.setBounds(15, 15,
+                icon.getIconWidth(),
+                icon.getIconHeight());
+        JLabel playerCard1 = new JLabel(icon2);
+        playerCard1.setBounds(130, 15,
+                icon.getIconWidth(),
+                icon.getIconHeight());
+        gui.getPlayerPanel().add(playerCard0, new Integer(0));
+        gui.getPlayerPanel().add(playerCard1, new Integer(1));
+        
 
         cards = game.getDealer().getCards();
+        icon = imageGetter.getCardIcon(cards.get(0));
+        icon2 = imageGetter.getIcon("images/backcard.png");
+  
 
-        image1 = imageGetter.getImage("images/backcard.png");
-        card2 = cards.get(1);
-        image2 = imageGetter.getCardImage(card2);
+        
+        JLabel dealerCard1 = new JLabel(icon);
+        dealerCard1.setBounds(15, 15,
+                icon.getIconWidth(),
+                icon.getIconHeight());
 
-        JLabel dealerCard1 = new JLabel(new ImageIcon(image1));
-        JLabel dealerCard2 = new JLabel(new ImageIcon(image2));
-        gui.getDealerPanel().add(dealerCard1);
-        gui.getDealerPanel().add(dealerCard2);
+        JLabel dealerCard2 = new JLabel(icon2);
 
-        gui.getPlayerPanel().revalidate();
-        gui.getDealerPanel().revalidate();
-        gui.getBottomPanel().revalidate();
+        dealerCard2.setBounds(130, 15,
+                icon.getIconWidth(),
+                icon.getIconHeight());
+        gui.getDealerPanel().add(dealerCard1, new Integer(0));
+        gui.getDealerPanel().add(dealerCard2, new Integer(1));
 
         Player player = game.getPlayer();
         if (game.checkIfSumIs21(player)) {
             gui.getHitButton().setEnabled(false);
         }
-        gui.getInfoField().setText("");  
+        gui.getInfoField().setText("");
     }
+
+    private void updateTheInfoField() {
+        gui.getGamesPlayed().setText("Games played " + game.getPlayer().getGamesPlayed());
+        gui.getInfoField().repaint();
+    }
+    
+    private void activateTheCorrectButtons() {
+        gui.getDecreaseBetButton().setEnabled(false);
+        gui.getBetButton().setEnabled(false);
+        gui.getAgainButton().setEnabled(false);
+        gui.getStayButton().setEnabled(true);
+        gui.getHitButton().setEnabled(true);
+    }
+
+    private void clearTheTable() {
+        gui.getPlayerPanel().removeAll();
+        gui.getPlayerPanel().repaint();
+        gui.getDealerPanel().removeAll();
+        gui.getDealerPanel().repaint();
+    }
+    
+    
+    
+    
 }

@@ -3,6 +3,7 @@ package com.sand.count21.ui;
 import com.sand.count21.logiikka.Game;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 /**
  * Graphic Interface for the blackjack game. At the moment quit ugly code and
@@ -11,6 +12,8 @@ import java.awt.*;
  * @author osand
  */
 public class GUI extends JPanel {
+    Counter counter;
+    
 
     JFrame myFrame = new JFrame("Blackjack");
     Game game;
@@ -20,10 +23,11 @@ public class GUI extends JPanel {
 
     JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
 
-    
-    
-    JPanel dealerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 10));
-    JPanel playerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 10));
+    JLayeredPane dealerPanel = new JLayeredPane();
+
+    //JPanel dealerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 10));
+    //JPanel playerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 10));
+    JLayeredPane playerPanel = new JLayeredPane();
     JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
     JButton hitButton = new JButton();
@@ -49,9 +53,17 @@ public class GUI extends JPanel {
     JLabel playerCardHit;
 
     float fontsize = 30;
+    
+    ActionListener hitButtonAL;
 
     public GUI(Game game) {
-
+        this.counter = new Counter();
+        
+        
+        playerPanel.setPreferredSize(new Dimension(1500, 400));
+        playerPanel.setOpaque(true);
+        dealerPanel.setPreferredSize(new Dimension(1500, 400));
+        dealerPanel.setOpaque(true);
         this.game = game;
         Font font = UIManager.getFont("Button.font").deriveFont(fontsize);
 
@@ -112,8 +124,8 @@ public class GUI extends JPanel {
         infoField.setBackground(new Color(12, 112, 12));
 
         infoField.setEnabled(false);
-
-        hitButton.addActionListener(new HitButtonAL(game, this, imageGetter));
+        hitButtonAL = new HitButtonAL(game, this, imageGetter);
+        hitButton.addActionListener(hitButtonAL);
         againButton.addActionListener(new DealButtonAL(game, this, imageGetter));
         stayButton.addActionListener(new StayButtonAL(game, imageGetter, this, myFrame));
         increaseBetButton.addActionListener(new BetButtonAL(game, this));
@@ -143,14 +155,12 @@ public class GUI extends JPanel {
         add(bottomPanel, BorderLayout.SOUTH);
     }
 
-    public JTextPane getGamesPlayed() {
-        return gamesPlayed;
+    public Counter getCounter() {
+        return counter;
     }
 
-    @Override
-    public void paintComponent(Graphics g) {
-        g.drawString("Victory!", 260, 400);
-        g.setColor(Color.WHITE);
+    public JTextPane getGamesPlayed() {
+        return gamesPlayed;
     }
 
     public JButton getIncreaseBetButton() {
@@ -169,16 +179,16 @@ public class GUI extends JPanel {
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.setContentPane(this);
         myFrame.setPreferredSize(new Dimension(1500, 1000));
-       
+
         myFrame.pack();
         myFrame.setVisible(true);
     }
 
-    public JPanel getDealerPanel() {
+    public JLayeredPane getDealerPanel() {
         return dealerPanel;
     }
 
-    public JPanel getPlayerPanel() {
+    public JLayeredPane getPlayerPanel() {
         return playerPanel;
     }
 
@@ -245,4 +255,7 @@ public class GUI extends JPanel {
     public JLabel getPlayerCardHit() {
         return playerCardHit;
     }
+
+
+    
 }

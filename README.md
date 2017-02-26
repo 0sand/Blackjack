@@ -10,4 +10,4 @@ Peli on Blackjack korttipeli. Peli on tehty niin että se vastaa oikean casionon 
 [tuntikirjanpito](dokumentaatio/tuntikirjanpito.md)  
 [checkStyle-raportti](https://htmlpreview.github.io?https://github.com/0sand/Blackjack/blob/master/dokumentaatio/checkstyle/checkstyle.html)  
 [pit-raportti](https://htmlpreview.github.io?https://github.com/0sand/Blackjack/blob/master/dokumentaatio/pit/index.html)  
-[javaDoc(https://htmlpreview.github.io?https://github.com/0sand/Blackjack/blob/master/dokumentaatio/javaDoc/index.html) 
+[javaDoc](https://htmlpreview.github.io?https://github.com/0sand/Blackjack/blob/master/dokumentaatio/javaDoc/index.html) 

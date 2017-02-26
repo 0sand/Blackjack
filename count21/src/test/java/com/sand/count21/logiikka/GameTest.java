@@ -553,6 +553,18 @@ public class GameTest {
     }
 
     @Test
+    public void didPlayerWinTestShouldBeTrue6() {
+        Game game = new Game();
+        game.getPlayer().reciveCard(new Card(HEARTS, 1));
+        game.getPlayer().reciveCard(new Card(HEARTS, 10));
+
+        game.getDealer().reciveCard(new Card(HEARTS, 3));
+        game.getDealer().reciveCard(new Card(HEARTS, 9));
+        game.getDealer().reciveCard(new Card(HEARTS, 9));
+        assertTrue(game.didPlayerWin());
+    }
+
+    @Test
     public void didPlayerWinTestShouldBeFalse() {
         Game game = new Game();
         game.getPlayer().reciveCard(new Card(HEARTS, 10));

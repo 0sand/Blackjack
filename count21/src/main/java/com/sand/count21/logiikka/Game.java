@@ -220,20 +220,23 @@ public class Game {
         if (this.bestSumOfCardsInHand(this.player) > this.bestSumOfCardsInHand(dealer) && !this.checkIfBust(player)) {
             return true;
         }
+        if (this.checkForBlackjack(this.player) && !this.checkForBlackjack(this.dealer)) {
+            return true;
+        }
         return false;
     }
 
     /**
      * This method is used when the round is done. It uses the method
-     * didPlayerWin() and adds to the players game count. It also tells betmanager
-     * to pay bet if the player won.
+     * didPlayerWin() and adds to the players game count. It also tells
+     * betmanager to pay bet if the player won.
      */
     public void blackjackRoundDone() {
         if (this.didPlayerWin()) {
             this.player.addToPlayerWon();
             this.betManager.payBetToPlayer();
         }
-        this.player.addToPlayerGamesPlayed();
+        
     }
 
     /**
@@ -245,5 +248,12 @@ public class Game {
         this.player.zeroGameCounters();
         this.player.setMoney(100);
     }
-    
+
+    public void startNewRound() {
+        this.player.addToPlayerGamesPlayed();
+        this.getBetManager().deductBetFromPlayer();
+        this.everyOneFolds();
+        this.firstCardsInRound();
+    }
+
 }
