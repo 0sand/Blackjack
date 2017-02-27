@@ -8,13 +8,14 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.Timer;
 
 /**
  *
  * @author osand
  */
 public class DealButtonAL implements java.awt.event.ActionListener {
-
+    Timer timer;
     Game game;
     GUI gui;
     ImageGetter imageGetter;
@@ -27,6 +28,7 @@ public class DealButtonAL implements java.awt.event.ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        timer = new Timer(100, new AnimatorAL(game, gui));
         game.startNewRound();
         gui.getPlayerMoneyField().setText("Money " + game.getPlayer().getMoney());
         this.clearTheTable();
