@@ -7,7 +7,9 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.Timer;
 
 /**
@@ -15,12 +17,17 @@ import javax.swing.Timer;
  * @author osand
  */
 public class DealButtonAL implements java.awt.event.ActionListener {
+
+    private final int firstCardXvalue;
+    private final int nextCardXOffset;
     Timer timer;
     Game game;
     GUI gui;
     ImageGetter imageGetter;
 
     public DealButtonAL(Game game, GUI gui, ImageGetter imageGetter) {
+        this.nextCardXOffset = 115;
+        this.firstCardXvalue = 20;
         this.game = game;
         this.gui = gui;
         this.imageGetter = imageGetter;
@@ -30,49 +37,16 @@ public class DealButtonAL implements java.awt.event.ActionListener {
     public void actionPerformed(ActionEvent e) {
         timer = new Timer(100, new AnimatorAL(game, gui));
         game.startNewRound();
-        gui.getPlayerMoneyField().setText("Money " + game.getPlayer().getMoney());
+        
         this.clearTheTable();
         this.activateTheCorrectButtons();
         this.updateTheInfoField();
+        ArrayList<ImageIcon> icons = this.getIconsForPlayerInitialCards(this.game.getPlayer(), "player");
+        this.showInitialCards(icons, this.gui.getPlayerPanel());
+        icons = this.getIconsForPlayerInitialCards(this.game.getDealer(), "dealer");
+        this.showInitialCards(icons, this.gui.getDealerPanel());
 
-        ArrayList<Card> cards = game.getPlayer().getCards();
-        
-        ImageIcon icon = imageGetter.getCardIcon(cards.get(0));
-        ImageIcon icon2 = imageGetter.getCardIcon(cards.get(1));
-        
-
-
-        JLabel playerCard0 = new JLabel(icon);
-        playerCard0.setBounds(15, 15,
-                icon.getIconWidth(),
-                icon.getIconHeight());
-        JLabel playerCard1 = new JLabel(icon2);
-        playerCard1.setBounds(130, 15,
-                icon.getIconWidth(),
-                icon.getIconHeight());
-        gui.getPlayerPanel().add(playerCard0, new Integer(0));
-        gui.getPlayerPanel().add(playerCard1, new Integer(1));
-        
-
-        cards = game.getDealer().getCards();
-        icon = imageGetter.getCardIcon(cards.get(0));
-        icon2 = imageGetter.getIcon("images/backcard.png");
   
-
-        
-        JLabel dealerCard1 = new JLabel(icon);
-        dealerCard1.setBounds(15, 15,
-                icon.getIconWidth(),
-                icon.getIconHeight());
-
-        JLabel dealerCard2 = new JLabel(icon2);
-
-        dealerCard2.setBounds(130, 15,
-                icon.getIconWidth(),
-                icon.getIconHeight());
-        gui.getDealerPanel().add(dealerCard1, new Integer(0));
-        gui.getDealerPanel().add(dealerCard2, new Integer(1));
-
         Player player = game.getPlayer();
         if (game.checkIfSumIs21(player)) {
             gui.getHitButton().setEnabled(false);
@@ -80,11 +54,39 @@ public class DealButtonAL implements java.awt.event.ActionListener {
         gui.getInfoField().setText("");
     }
 
+    private ArrayList<ImageIcon> getIconsForPlayerInitialCards(Player player, String id) {
+        ArrayList<Card> cards = player.getCards();
+        ImageIcon icon = imageGetter.getCardIcon(cards.get(0));
+        ImageIcon icon2 = null;
+        if ("player".equals(id)) {
+            icon2 = imageGetter.getCardIcon(cards.get(1));
+        } else if ("dealer".equals(id)) {
+            icon2 = imageGetter.getIcon("images/backcard.png");
+        }     
+        ArrayList<ImageIcon> icons = new ArrayList();
+        icons.add(icon);
+        icons.add(icon2);
+        return icons;
+    }
+
+    private void showInitialCards(ArrayList<ImageIcon> icons, JComponent panel) {
+        int i = 0;
+        for (ImageIcon icon : icons) {
+            JLabel card = new JLabel(icon);
+            card.setBounds((firstCardXvalue + nextCardXOffset * i), 15,
+                    icon.getIconWidth(),
+                    icon.getIconHeight());
+            panel.add(card, new Integer(i));  
+            i++;
+        }
+    }
+
     private void updateTheInfoField() {
+        gui.getPlayerMoneyField().setText("Money " + game.getPlayer().getMoney());
         gui.getGamesPlayed().setText("Games played " + game.getPlayer().getGamesPlayed());
         gui.getInfoField().repaint();
     }
-    
+
     private void activateTheCorrectButtons() {
         gui.getDecreaseBetButton().setEnabled(false);
         gui.getBetButton().setEnabled(false);
@@ -99,8 +101,5 @@ public class DealButtonAL implements java.awt.event.ActionListener {
         gui.getDealerPanel().removeAll();
         gui.getDealerPanel().repaint();
     }
-    
-    
-    
-    
+
 }

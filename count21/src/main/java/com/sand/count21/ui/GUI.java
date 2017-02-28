@@ -12,23 +12,20 @@ import java.awt.event.ActionListener;
  * @author osand
  */
 public class GUI extends JPanel {
+    Dimension frameDimension;
+    Dimension buttonDimension;
+    Dimension smallButtonDimension;
+    Color color;
     Counter counter;
-    
-
     JFrame myFrame = new JFrame("Blackjack");
     Game game;
     ImageGetter imageGetter = new ImageGetter();
 
     JPanel kortit = new JPanel(new BorderLayout());
-
-    JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
-
-    JLayeredPane dealerPanel = new JLayeredPane();
-
-    //JPanel dealerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 10));
-    //JPanel playerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 10));
-    JLayeredPane playerPanel = new JLayeredPane();
-    JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    JComponent infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
+    JComponent dealerPanel = new JLayeredPane();
+    JComponent playerPanel = new JLayeredPane();
+    JComponent bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
     JButton hitButton = new JButton();
     JButton stayButton = new JButton();
@@ -42,9 +39,6 @@ public class GUI extends JPanel {
     JTextPane playerMoneyField = new JTextPane();
     JTextPane infoField = new JTextPane();
 
-    JLabel dealerLabel = new JLabel();
-    JLabel playerLabel = new JLabel();
-
     JLabel dealerCard2;
     JLabel dealerCard1;
     JLabel dealerCardHit;
@@ -52,76 +46,44 @@ public class GUI extends JPanel {
     JLabel playerCard1;
     JLabel playerCardHit;
 
-    float fontsize = 30;
-    
+    float fontsize = 25;
+
     ActionListener hitButtonAL;
 
     public GUI(Game game) {
+        this.frameDimension = new Dimension(1500, 400);
+        this.buttonDimension = new Dimension(120, 80);
+        this.smallButtonDimension = new Dimension(60, 80);
+        
+        this.color = new Color(12, 112, 12);
         this.counter = new Counter();
-        
-        
-        playerPanel.setPreferredSize(new Dimension(1500, 400));
-        playerPanel.setOpaque(true);
-        dealerPanel.setPreferredSize(new Dimension(1500, 400));
-        dealerPanel.setOpaque(true);
+
+        playerPanel.setPreferredSize(frameDimension);
+        dealerPanel.setPreferredSize(frameDimension);
+
         this.game = game;
         Font font = UIManager.getFont("Button.font").deriveFont(fontsize);
 
-        dealerPanel.setBackground(new Color(12, 112, 12));
-        playerPanel.setBackground(new Color(12, 112, 12));
-        bottomPanel.setBackground(new Color(12, 112, 12));
-        infoPanel.setBackground(new Color(12, 112, 12));
 
         bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
 
-        hitButton.setText("Hit");
-        hitButton.setPreferredSize(new Dimension(120, 80));
+
+        
+        hitButton.setPreferredSize(buttonDimension);
+        againButton.setPreferredSize(buttonDimension);
+        stayButton.setPreferredSize(buttonDimension);
+        decreaseBetButton.setPreferredSize(this.smallButtonDimension);
+        increaseBetButton.setPreferredSize(this.smallButtonDimension);
+        
         hitButton.setEnabled(false);
-        hitButton.setFont(font);
-        hitButton.setFocusable(true);
-
         againButton.setEnabled(true);
-        againButton.setPreferredSize(new Dimension(120, 80));
-        againButton.setText("Deal");
-        againButton.setFont(font);
-
-        stayButton.setText("Stay");
-        stayButton.setEnabled(false);
-        stayButton.setPreferredSize(new Dimension(120, 80));
-        stayButton.setFont(font);
-
-        decreaseBetButton.setFont(font);
-        decreaseBetButton.setText("-");
         decreaseBetButton.setEnabled(true);
-        decreaseBetButton.setPreferredSize(new Dimension(60, 80));
-
-        increaseBetButton.setFont(font);
-        increaseBetButton.setText("+");
+        stayButton.setEnabled(false);
         increaseBetButton.setEnabled(true);
-        increaseBetButton.setPreferredSize(new Dimension(60, 80));
-
-        numberOfWins.setText("Total Wins " + game.getPlayer().getGamesWon());
-        numberOfWins.setFont(font);
-        numberOfWins.setBackground(new Color(12, 112, 12));
         numberOfWins.setEnabled(false);
-
-        gamesPlayed.setText("Games played " + game.getPlayer().getGamesPlayed());
-        gamesPlayed.setFont(font);
-        gamesPlayed.setBackground(new Color(12, 112, 12));
         gamesPlayed.setEnabled(false);
-
-        currentBetField.setText("bet " + game.getBetManager().getBet());
-        currentBetField.setBackground(new Color(12, 112, 12));
         currentBetField.setEnabled(false);
-        currentBetField.setFont(font);
-
-        playerMoneyField.setText("Money " + game.getPlayer().getMoney());
-        playerMoneyField.setBackground(new Color(12, 112, 12));
         playerMoneyField.setEnabled(false);
-        playerMoneyField.setFont(font);
-
-        infoField.setFont(font);
-        infoField.setBackground(new Color(12, 112, 12));
 
         infoField.setEnabled(false);
         hitButtonAL = new HitButtonAL(game, this, imageGetter);
@@ -143,9 +105,6 @@ public class GUI extends JPanel {
         infoPanel.add(playerMoneyField);
         infoPanel.add(infoField);
 
-        dealerLabel.setText("  Dealer:  ");
-        playerLabel.setText("  Player:  ");
-
         kortit.add(dealerPanel, BorderLayout.NORTH);
         kortit.add(playerPanel, BorderLayout.CENTER);
 
@@ -153,6 +112,44 @@ public class GUI extends JPanel {
         add(infoPanel, BorderLayout.NORTH);
         add(kortit, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
+        this.setGuiElementText();
+
+        bottomPanel.setBackground(color);
+        this.changeFont(infoPanel, font);
+        this.changeFont(bottomPanel, font);
+        this.changeBackground(infoPanel, new Color(20,100,35));
+        this.changeBackground(kortit, color);
+        
+    }
+
+    private void changeFont(Component component, Font font) {
+        component.setFont(font);
+        if (component instanceof Container) {
+            for (Component child : ((Container) component).getComponents()) {
+                changeFont(child, font);
+            }
+        }
+    }
+
+    private void changeBackground(Component component, Color color) {
+        component.setBackground(color);
+        if (component instanceof Container) {
+            for (Component child : ((Container) component).getComponents()) {
+                changeBackground(child, color);
+            }
+        }
+    }
+
+    private void setGuiElementText() {
+        hitButton.setText("Hit");
+        stayButton.setText("Stay");
+        againButton.setText("Deal");
+        decreaseBetButton.setText("-");
+        increaseBetButton.setText("+");
+        numberOfWins.setText("Total Wins " + game.getPlayer().getGamesWon());
+        gamesPlayed.setText("Games played " + game.getPlayer().getGamesPlayed());
+        currentBetField.setText("bet " + game.getBetManager().getBet());
+        playerMoneyField.setText("Money " + game.getPlayer().getMoney());
     }
 
     public Counter getCounter() {
@@ -184,15 +181,16 @@ public class GUI extends JPanel {
         myFrame.setVisible(true);
     }
 
-    public JLayeredPane getDealerPanel() {
+   
+    public JComponent getDealerPanel() {
         return dealerPanel;
     }
 
-    public JLayeredPane getPlayerPanel() {
+    public JComponent getPlayerPanel() {
         return playerPanel;
     }
 
-    public JPanel getBottomPanel() {
+    public JComponent getBottomPanel() {
         return bottomPanel;
     }
 
@@ -224,14 +222,6 @@ public class GUI extends JPanel {
         return playerMoneyField;
     }
 
-    public JLabel getDealerlabel() {
-        return dealerLabel;
-    }
-
-    public JLabel getPlayerlabel() {
-        return playerLabel;
-    }
-
     public JLabel getDealerCard2() {
         return dealerCard2;
     }
@@ -256,6 +246,4 @@ public class GUI extends JPanel {
         return playerCardHit;
     }
 
-
-    
 }

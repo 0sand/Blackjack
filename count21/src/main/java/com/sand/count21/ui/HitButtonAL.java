@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Array;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
@@ -22,7 +23,7 @@ public class HitButtonAL implements ActionListener {
     private Game game;
     private GUI gui;
     private ImageGetter imageGetter;
-    private JLayeredPane playerPanel;
+    private JComponent playerPanel;
 
     public HitButtonAL(Game game, GUI gui, ImageGetter imageGetter) {
         this.game = game;

@@ -6,11 +6,11 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 /**
  *
@@ -18,11 +18,11 @@ import javax.swing.JPanel;
  */
 public class StayButtonAL implements java.awt.event.ActionListener {
 
-    private Game game;
-    private ImageGetter imageGetter;
-    private JLayeredPane dealerPanel;
-    private GUI gui;
-    private JFrame frame;
+    private final Game game;
+    private final ImageGetter imageGetter;
+    private final JComponent dealerPanel;
+    private final GUI gui;
+    private final JFrame frame;
 
     public StayButtonAL(Game game, ImageGetter imageGetter, GUI gui, JFrame frame) {
         this.gui = gui;
@@ -62,7 +62,6 @@ public class StayButtonAL implements java.awt.event.ActionListener {
                 icon.getIconHeight());
 
         dealerPanel.add(dealerCard1, new Integer(2));
-
         dealerPanel.repaint();
     }
 
@@ -119,7 +118,7 @@ public class StayButtonAL implements java.awt.event.ActionListener {
 
         String[] options = {"Yes", "No"};
 
-        int x = pane.showOptionDialog(frame, "You lost all your money. Do you wan´t to play again?",
+        int x = JOptionPane.showOptionDialog(frame, "You lost all your money. Do you wan´t to play again?",
                 "Game Over",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
         if (x == 0) {
