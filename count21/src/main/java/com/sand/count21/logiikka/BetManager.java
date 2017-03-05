@@ -77,7 +77,7 @@ public class BetManager {
      */
     public void decreseBet() {
         int decreseBet = 10;
-        if ((this.bet - decreseBet) >= 0) {
+        if ((this.bet - decreseBet) >= 10) {
             this.bet = this.bet - decreseBet;
         }
     }

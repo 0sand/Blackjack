@@ -46,12 +46,23 @@ public class ImageGetter {
         return image;
     }
     
+    /**
+     * This method returns a ImageIcon with the image to the card provided.
+     * @param card card that will get its imageIcon
+     * @return ImageIcon to the card given
+     */
     public ImageIcon getCardIcon(Card card) {
         Image image = this.getCardImage(card);
         ImageIcon icon = new ImageIcon(image);
         return icon;
     }
     
+    /**
+     * This method returns a ImageIcon to the image assosiated with 
+     * the filename given.
+     * @param filename filename to the file that will get its imageIcon
+     * @return ImageIcon for the filename given
+     */
     public ImageIcon getIcon(String filename) {
         Image image = this.getImage(filename);
         ImageIcon icon = new ImageIcon(image);

@@ -20,7 +20,6 @@ public class DealButtonAL implements java.awt.event.ActionListener {
 
     private final int firstCardXvalue;
     private final int nextCardXOffset;
-    Timer timer;
     Game game;
     GUI gui;
     ImageGetter imageGetter;
@@ -35,7 +34,7 @@ public class DealButtonAL implements java.awt.event.ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        timer = new Timer(100, new AnimatorAL(game, gui));
+        
         game.startNewRound();
         
         this.clearTheTable();

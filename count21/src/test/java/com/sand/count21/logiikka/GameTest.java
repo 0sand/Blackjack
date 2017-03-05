@@ -641,4 +641,31 @@ public class GameTest {
         assertEquals(0, game.getPlayer().getGamesWon());
     }
 
+    @Test
+    public void startNewGameTest() {
+        Game game = new Game();
+        game.getBetManager().setBet(30);
+        game.getPlayer().addToPlayerGamesPlayed();
+        game.getPlayer().setMoney(2000);
+        game.startNewGame();
+        assertEquals(10, game.getBetManager().getBet());
+        assertEquals(0, game.getPlayer().getGamesWon());
+        assertEquals(0, game.getPlayer().getGamesPlayed());
+        assertEquals(100, game.getPlayer().getMoney());
+    }
+
+    @Test
+    public void startNewRoundTest() {
+        Game game = new Game();
+        game.getBetManager().setBet(10);
+        game.getPlayer().setMoney(100);
+        game.getPlayer().reciveCard(new Card(HEARTS, 10));
+
+        game.startNewRound();
+        assertEquals(90, game.getPlayer().getMoney());
+        assertEquals(1, game.getPlayer().getGamesPlayed());
+        assertEquals(2, game.getPlayer().cardsInHand());
+
+    }
+
 }

@@ -249,6 +249,9 @@ public class Game {
         this.player.setMoney(100);
     }
 
+    /**
+     * This method initializes the game for a new round.
+     */
     public void startNewRound() {
         this.player.addToPlayerGamesPlayed();
         this.getBetManager().deductBetFromPlayer();
